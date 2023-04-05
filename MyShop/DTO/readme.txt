@@ -1,0 +1,1 @@
+﻿- Thư mục DTO này ánh xạ 1-1 với table trong database nhé.

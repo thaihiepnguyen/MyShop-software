@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyShop.DAO
+namespace MyShop.DTO
 {
-    internal class DatabaseUtilitites
+    internal class CategoryDTO
     {
     }
 }

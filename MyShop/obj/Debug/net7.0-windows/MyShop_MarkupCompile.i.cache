@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 C:\Users\Nguyen Thai Hiep\Desktop\Project\MyShop-software\MyShop\App.xaml
-11939815530
+35928853
 
-6230821424
+10-1558739353
 1981911467256
-UI\MainWindow.xaml;
+UI\LoginPage\LoginWindow.xaml;UI\MainWindow.xaml;UI\SignupPage\SignupWindow.xaml;
 
 False
 
