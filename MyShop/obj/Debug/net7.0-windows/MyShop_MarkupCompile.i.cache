@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Nguyen Thai Hiep\Desktop\MyShop\MyShop\obj\Debug\net7.0-windows\
+C:\Users\Nguyen Thai Hiep\Desktop\Project\MyShop-software\MyShop\obj\Debug\net7.0-windows\
 MyShop
 none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
-C:\Users\Nguyen Thai Hiep\Desktop\MyShop\MyShop\App.xaml
-11407045341
+C:\Users\Nguyen Thai Hiep\Desktop\Project\MyShop-software\MyShop\App.xaml
+11939815530
 
-5989569480
+6230821424
 1981911467256
-MainWindow.xaml;
+UI\MainWindow.xaml;
 
 False
 
