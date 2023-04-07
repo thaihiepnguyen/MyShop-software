@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MyShop.UI.MainPage"
         xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Loaded="Window_Loaded" Height="600" Width="1000" WindowStartupLocation="CenterScreen">
+        Title="TechShop" Loaded="Window_Loaded" Height="600" Width="1000" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <local:RelativeToAbsoluteConverter x:Key="converter"/>
@@ -14,7 +14,7 @@
     <Grid Name="MainContainer">
         <Grid.ColumnDefinitions>
             <!--chia width = 250 cho Nav, còn lại là Content-->
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="180"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -34,6 +34,13 @@
             >
         </Image>
 
+        <!--logo-->
+        <Image
+            Name="Logo"
+            Source="{Binding Logo, Converter={StaticResource converter}}"
+            Grid.RowSpan="2">
+        </Image>
+
         <Grid Name="ButtonsContainer"
               Margin="0, 20, 0, 0"
               Grid.Row="2"
@@ -42,7 +49,7 @@
             <ListView Name="ListOfItems"
                       Background="Transparent"
                       BorderThickness="0"
-                      Margin="30, 0, 30 ,0"
+                      Margin="10, 0, 30 ,0"
                       SelectionMode="Single"
                       SelectionChanged="ListOfItems_SelectionChanged"
                       >
@@ -51,11 +58,14 @@
                         <StackPanel Orientation="Horizontal">
                             <fa:ImageAwesome Icon="{Binding FontIcon}" 
                                              Width="19" Height="19"
-                                             Margin="10"></fa:ImageAwesome>
+                                             Margin="10"
+                                             Foreground="#8B4000"></fa:ImageAwesome>
                             <TextBlock Text="{Binding ItemName}"
                                        VerticalAlignment="Center"
                                        Margin="10, 0, 0, 0"
-                                       FontWeight="Bold"></TextBlock>
+                                       FontWeight="Medium"
+                                       Foreground="#353935"
+                                       ></TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

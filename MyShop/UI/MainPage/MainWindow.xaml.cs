@@ -28,6 +28,7 @@ namespace MyShop.UI.MainPage
             public string MainBgPath { get; set; }
             public string CloseIconPath { get; set; }
             public string MinimizeIconPath { get; set; }
+            public string Logo { get; set; }
         }
 
         public MainWindow()
@@ -44,7 +45,8 @@ namespace MyShop.UI.MainPage
             {
                 MainBgPath = "Assets/Images/main-bg.png",
                 CloseIconPath = "Assets/Images/close-icon.png",
-                MinimizeIconPath = "Assets/Images/minimize-icon.png"
+                MinimizeIconPath = "Assets/Images/minimize-icon.png",
+                Logo = "Assets/Images/logo.png"
             };
 
             Items = new ObservableCollection<Item>()
@@ -72,7 +74,7 @@ namespace MyShop.UI.MainPage
                 new Item()
                 {
                     FontIcon = "InfoCircle",
-                    ItemName = "About Us"
+                    ItemName = "About us"
                 } 
 
             };
