@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Nguyen Thai Hiep\\Desktop\\Project\\MyShop-software\\MyShop\\MyShop.csproj": {}
+    "C:\\Users\\Nguyen Thai Hiep\\Desktop\\MyShop\\MyShop-software\\MyShop\\MyShop.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Nguyen Thai Hiep\\Desktop\\Project\\MyShop-software\\MyShop\\MyShop.csproj": {
+    "C:\\Users\\Nguyen Thai Hiep\\Desktop\\MyShop\\MyShop-software\\MyShop\\MyShop.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nguyen Thai Hiep\\Desktop\\Project\\MyShop-software\\MyShop\\MyShop.csproj",
+        "projectUniqueName": "C:\\Users\\Nguyen Thai Hiep\\Desktop\\MyShop\\MyShop-software\\MyShop\\MyShop.csproj",
         "projectName": "MyShop",
-        "projectPath": "C:\\Users\\Nguyen Thai Hiep\\Desktop\\Project\\MyShop-software\\MyShop\\MyShop.csproj",
+        "projectPath": "C:\\Users\\Nguyen Thai Hiep\\Desktop\\MyShop\\MyShop-software\\MyShop\\MyShop.csproj",
         "packagesPath": "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nguyen Thai Hiep\\Desktop\\Project\\MyShop-software\\MyShop\\obj\\",
+        "outputPath": "C:\\Users\\Nguyen Thai Hiep\\Desktop\\MyShop\\MyShop-software\\MyShop\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Nguyen Thai Hiep\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,6 +39,20 @@
       "frameworks": {
         "net7.0-windows7.0": {
           "targetAlias": "net7.0-windows",
+          "dependencies": {
+            "FontAwesome.WPF": {
+              "target": "Package",
+              "version": "[4.7.0.9, )"
+            },
+            "MaterialDesignThemes": {
+              "target": "Package",
+              "version": "[4.8.0, )"
+            },
+            "PropertyChanged.Fody": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

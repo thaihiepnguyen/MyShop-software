@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MyShop.BUS
+namespace MyShop.UI.MainPage.Pages
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Order.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Order : Page
     {
-        public MainWindow()
+        public Order()
         {
             InitializeComponent();
         }

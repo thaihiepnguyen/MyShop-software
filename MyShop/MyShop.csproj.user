@@ -2,15 +2,45 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <Compile Update="BUS\LoginWindow.xaml.cs">
+    <Compile Update="UI\LoginPage\LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="BUS\SignupWindow.xaml.cs">
+    <Compile Update="UI\MainPage\Pages\AboutUs.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\MainPage\Pages\Favorite.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\MainPage\Pages\Home.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\MainPage\Pages\Order.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\SignupPage\SignupWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\MainPage\Pages\DashBoard.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="UI\LoginPage\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\MainPage\Pages\AboutUs.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\MainPage\Pages\DashBoard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\MainPage\Pages\Favorite.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\MainPage\Pages\Home.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\MainPage\Pages\Order.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\SignupPage\SignupWindow.xaml">

@@ -1,8 +1,26 @@
 {
   "version": 2,
-  "dgSpecHash": "ORcHnXdflcGLp6O9Vr+Q1zdwzKeyCPI58nRlIWRBizJ/dZZFPrqDE8rsbLv2Pet9QEbp2K8osyzHTEg8FuqyBg==",
+  "dgSpecHash": "OUgaR0H7doB8VS0iF3w2O3R2hFUsbdd4lWJzIHsRSxEnfWOx5AWrJ9EQ5YmddWlob3ucoVfcv99vEBWCSaxBSw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Nguyen Thai Hiep\\Desktop\\Project\\MyShop-software\\MyShop\\MyShop.csproj",
-  "expectedPackageFiles": [],
-  "logs": []
+  "projectFilePath": "C:\\Users\\Nguyen Thai Hiep\\Desktop\\MyShop\\MyShop-software\\MyShop\\MyShop.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\fody\\6.6.4\\fody.6.6.4.nupkg.sha512",
+    "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\fontawesome.wpf\\4.7.0.9\\fontawesome.wpf.4.7.0.9.nupkg.sha512",
+    "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\materialdesigncolors\\2.1.2\\materialdesigncolors.2.1.2.nupkg.sha512",
+    "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\materialdesignthemes\\4.8.0\\materialdesignthemes.4.8.0.nupkg.sha512",
+    "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512",
+    "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\propertychanged.fody\\4.1.0\\propertychanged.fody.4.1.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'FontAwesome.WPF 4.7.0.9' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0-windows7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "FontAwesome.WPF",
+      "targetGraphs": [
+        "net7.0-windows7.0"
+      ]
+    }
+  ]
 }

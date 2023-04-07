@@ -1,0 +1,72 @@
+﻿<Window x:Class="MyShop.UI.MainPage.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyShop.UI.MainPage"
+        xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Loaded="Window_Loaded" Height="600" Width="1000" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <local:RelativeToAbsoluteConverter x:Key="converter"/>
+    </Window.Resources>
+    <Grid Name="MainContainer">
+        <Grid.ColumnDefinitions>
+            <!--chia width = 250 cho Nav, còn lại là Content-->
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <!--logo ở đây nhé-->
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--nav - background-->
+        <Image 
+            Name="MainBackground"
+            Source="{Binding MainBgPath, Converter={StaticResource converter}}"
+            Stretch="UniformToFill"
+            Grid.RowSpan="3"
+            >
+        </Image>
+
+        <Grid Name="ButtonsContainer"
+              Margin="0, 20, 0, 0"
+              Grid.Row="2"
+              Background="Transparent">
+            
+            <ListView Name="ListOfItems"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      Margin="30, 0, 30 ,0"
+                      SelectionMode="Single"
+                      SelectionChanged="ListOfItems_SelectionChanged"
+                      >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="{Binding FontIcon}" 
+                                             Width="19" Height="19"
+                                             Margin="10"></fa:ImageAwesome>
+                            <TextBlock Text="{Binding ItemName}"
+                                       VerticalAlignment="Center"
+                                       Margin="10, 0, 0, 0"
+                                       FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
+        <Frame Name="pageNavigation" 
+               NavigationUIVisibility="Hidden"
+               Grid.Column="1"
+               Grid.RowSpan="3"
+               Grid.Row="0">
+        </Frame>
+    </Grid>
+</Window>

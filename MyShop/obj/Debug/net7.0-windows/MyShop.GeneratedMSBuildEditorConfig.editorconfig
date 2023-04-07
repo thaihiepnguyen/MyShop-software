@@ -1,4 +1,5 @@
 is_global = true
+build_property.PropertyChangedAnalyzerConfiguration = 
 build_property.TargetFramework = net7.0-windows
 build_property.TargetPlatformMinVersion = 7.0
 build_property.UsingMicrosoftNETSdkWeb = 
@@ -8,4 +9,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = MyShop
-build_property.ProjectDir = C:\Users\Nguyen Thai Hiep\Desktop\Project\MyShop-software\MyShop\
+build_property.ProjectDir = C:\Users\Nguyen Thai Hiep\Desktop\MyShop\MyShop-software\MyShop\
