@@ -3,11 +3,13 @@ using MyShop.UI.MainPage.Pages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -15,6 +17,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
+using System.Threading.Tasks;
 
 namespace MyShop.UI.MainPage
 {
@@ -75,12 +79,13 @@ namespace MyShop.UI.MainPage
                 {
                     FontIcon = "InfoCircle",
                     ItemName = "About us"
-                } 
+                }
 
             };
 
             ListOfItems.ItemsSource = Items;
 
+            pageNavigation.NavigationService.Navigate(new DashBoard());
         }
 
         private void ListOfItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -106,6 +111,98 @@ namespace MyShop.UI.MainPage
             if (selectedIndex == 4)
             {
                 pageNavigation.NavigationService.Navigate(new AboutUs());
+            }
+
+            // reset border trước khi click
+            resetBorder();
+
+
+            var addedContainer = ListOfItems.ItemContainerGenerator.ContainerFromItem(e.AddedItems[0]) as ListViewItem;
+            if (addedContainer != null)
+            {
+                var border = FindVisualChild<Border>(addedContainer);
+                if (border != null)
+                {
+                    border.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    border.BorderBrush = new SolidColorBrush(Colors.DarkOrange);
+                    border.CornerRadius = new CornerRadius(20);
+                    border.BorderThickness = new Thickness(1);
+                    border.Width = 140;
+                }
+            }
+
+
+            if (e.RemovedItems.Count > 0)
+            {
+                var removedContainer = ListOfItems.ItemContainerGenerator.ContainerFromItem(e.RemovedItems[0]) as ListViewItem;
+                if (removedContainer != null)
+                {
+                    var border = FindVisualChild<Border>(removedContainer);
+                    if (border != null)
+                    {
+                        border.Background = new SolidColorBrush(Colors.Transparent);
+                        border.BorderThickness = new Thickness(0);
+                    }
+                }
+            }
+        }
+
+        // Tìm trong parent. Nếu có kiểu dữ liệu T thì trả ra T còn không thì thôi.
+        private T FindVisualChild<T>(DependencyObject parent) where T : DependencyObject
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+                if (child is T result)
+                {
+                    return result;
+                }
+                else
+                {
+                    T childResult = FindVisualChild<T>(child);
+                    if (childResult != null)
+                        return childResult;
+                }
+            }
+            return null;
+        }
+
+        async private void ListOfItems_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (ListOfItems.Items.Count > 0)
+            {
+                // Phải chờ cho nó load xong thì mới gán border được haha
+                await Task.Delay(100);
+                var container = ListOfItems.ItemContainerGenerator.ContainerFromIndex(0) as ListViewItem;
+                if (container != null)
+                {
+                    var border = FindVisualChild<Border>(container);
+                    if (border != null)
+                    {
+                        border.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                        border.BorderBrush = new SolidColorBrush(Colors.DarkOrange);
+                        border.CornerRadius = new CornerRadius(20);
+                        border.BorderThickness = new Thickness(1);
+                        border.Width = 140;
+                    }
+                }
+            }
+        }
+
+        private void resetBorder()
+        {
+            foreach(var item in ListOfItems.Items)
+            {
+                var container = ListOfItems.ItemContainerGenerator.ContainerFromItem(item) as ListViewItem;
+                if (container != null)
+                {
+                    var border = FindVisualChild<Border>(container);
+                    if (border != null)
+                    {
+                        border.Background = new SolidColorBrush(Colors.Transparent);
+                        border.BorderThickness = new Thickness(0);
+                    }
+                }
             }
         }
     }

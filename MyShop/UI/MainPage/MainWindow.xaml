@@ -49,26 +49,47 @@
             <ListView Name="ListOfItems"
                       Background="Transparent"
                       BorderThickness="0"
-                      Margin="10, 0, 30 ,0"
+                      Margin="10, 0, 10 ,0"
                       SelectionMode="Single"
                       SelectionChanged="ListOfItems_SelectionChanged"
+                      Loaded="ListOfItems_Loaded"
                       >
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <fa:ImageAwesome Icon="{Binding FontIcon}" 
+                        <Border Name="Item" BorderBrush="#8B4000" Background="Transparent" BorderThickness="0" CornerRadius="20" Width="140">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:ImageAwesome Icon="{Binding FontIcon}" 
                                              Width="19" Height="19"
                                              Margin="10"
-                                             Foreground="#8B4000"></fa:ImageAwesome>
-                            <TextBlock Text="{Binding ItemName}"
+                                             Foreground="#8B4000">
+                                    
+                                </fa:ImageAwesome>
+                                <TextBlock Text="{Binding ItemName}"
                                        VerticalAlignment="Center"
                                        Margin="10, 0, 0, 0"
                                        FontWeight="Medium"
                                        Foreground="#353935"
-                                       ></TextBlock>
-                        </StackPanel>
+                                       >
+                                    
+                                </TextBlock>
+                            </StackPanel>
+                        </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                    <Border BorderThickness="1">
+                                        <ContentPresenter/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
             </ListView>
         </Grid>
 
