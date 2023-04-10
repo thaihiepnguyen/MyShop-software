@@ -1,4 +1,5 @@
-﻿using MyShop.UI.MainPage;
+﻿using MyShop.DAO;
+using MyShop.UI.MainPage;
 using MyShop.UI.MainPage.Pages;
 using System;
 using System.Collections.Generic;
@@ -9,16 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Xml.Linq;
-using System.Threading.Tasks;
 
 namespace MyShop.UI.MainPage
 {
@@ -27,6 +19,11 @@ namespace MyShop.UI.MainPage
     /// </summary>
     public partial class MainWindow : Window
     {
+        const int DashBoard = 0;
+        const int Home = 1;
+        const int Favorite = 2;
+        const int Order = 3;
+        const int AboutUs = 4;
         class Resoures
         {
             public string MainBgPath { get; set; }
@@ -44,6 +41,16 @@ namespace MyShop.UI.MainPage
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            // init db
+
+            new DatabaseUtilitites(
+                "sqlexpress",
+                "MyShopDB",
+                "yourusername",
+                "yourpassword"
+                );
+
+
             // Load Nav Background
             this.DataContext = new Resoures()
             {
@@ -92,23 +99,23 @@ namespace MyShop.UI.MainPage
         {
             var selectedIndex = ListOfItems.SelectedIndex;
 
-            if (selectedIndex == 0)
+            if (selectedIndex == DashBoard)
             {
                 pageNavigation.NavigationService.Navigate(new DashBoard());
             }
-            if (selectedIndex == 1)
+            if (selectedIndex == Home)
             {
                 pageNavigation.NavigationService.Navigate(new Home());
             }
-            if (selectedIndex == 2)
+            if (selectedIndex == Favorite)
             {
                 pageNavigation.NavigationService.Navigate(new Favorite());
             }
-            if (selectedIndex == 3)
+            if (selectedIndex == Order)
             {
                 pageNavigation.NavigationService.Navigate(new Order());
             }
-            if (selectedIndex == 4)
+            if (selectedIndex == AboutUs)
             {
                 pageNavigation.NavigationService.Navigate(new AboutUs());
             }
@@ -172,7 +179,7 @@ namespace MyShop.UI.MainPage
             if (ListOfItems.Items.Count > 0)
             {
                 // Phải chờ cho nó load xong thì mới gán border được haha
-                await Task.Delay(100);
+                await Task.Delay(50);
                 var container = ListOfItems.ItemContainerGenerator.ContainerFromIndex(0) as ListViewItem;
                 if (container != null)
                 {

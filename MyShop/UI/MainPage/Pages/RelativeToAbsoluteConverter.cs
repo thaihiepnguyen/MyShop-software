@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace MyShop.UI.MainPage
+namespace MyShop.UI.MainPage.Pages
 {
     public class RelativeToAbsoluteConverter : IValueConverter
     {

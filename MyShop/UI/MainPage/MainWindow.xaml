@@ -31,6 +31,7 @@
             Source="{Binding MainBgPath, Converter={StaticResource converter}}"
             Stretch="UniformToFill"
             Grid.RowSpan="3"
+            Grid.ColumnSpan="2"
             >
         </Image>
 
@@ -56,7 +57,12 @@
                       >
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Border Name="Item" BorderBrush="#8B4000" Background="Transparent" BorderThickness="0" CornerRadius="20" Width="140">
+                        <Border Name="Item"
+                                BorderBrush="#8B4000"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                CornerRadius="20"
+                                Width="140">
                             <StackPanel Orientation="Horizontal">
                                 <fa:ImageAwesome Icon="{Binding FontIcon}" 
                                              Width="19" Height="19"

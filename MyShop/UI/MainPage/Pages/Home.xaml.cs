@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MyShop.BUS;
+using MyShop.DAO;
+using MyShop.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +23,54 @@ namespace MyShop.UI.MainPage.Pages
     /// </summary>
     public partial class Home : Page
     {
+        // Mục đích là đổ dữ liệu của Class này lên UI
+        class Data
+        {
+            public string? ProName { get; set; }
+            public string? ProImage { get; set; }
+            public string? CatIcon { get; set; }
+            public string? CatName { get; set; }
+
+            public Data(ProductDTO productDTO)
+            {
+                ProName = productDTO.ProName;
+                ProImage = productDTO.Image_path;
+
+                if (productDTO.Cat_ID == 1)
+                {
+                    CatIcon = "Android";
+                    CatName = "Android";
+                } else if (productDTO.Cat_ID == 2)
+                {
+                    CatIcon = "Apple";
+                    CatName = "Iphone";
+                } else
+                {
+
+                }
+            }
+        }
+
+
         public Home()
         {
             InitializeComponent();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<Data> list = new List<Data>(); 
+
+            ProductBUS productBUS = new ProductBUS();
+
+            var products = productBUS.GetProducts();
+
+            foreach (var product in products)
+            {
+                list.Add(new Data(product));
+            }
+
+            dataListView.ItemsSource = list;
         }
     }
 }
