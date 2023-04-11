@@ -23,6 +23,22 @@ namespace MyShop.UI.MainPage.Pages
     /// </summary>
     public partial class Home : Page
     {
+        private List<ProductDTO>? _products = null;
+        private string _currentKey = "";
+        private int _currentPage = 1;
+        private int _rowsPerPage = 9;
+        private int _totalItems = 0;
+        private int _totalPages = 0;
+
+        class Resources
+        {
+            public string FirstIcon { get; set; }
+            public string LastIcon { get; set; }
+            public string NextIcon { get; set; }
+            public string PrevIcon { get; set; }
+        }
+
+
         // Mục đích là đổ dữ liệu của Class này lên UI
         class Data
         {
@@ -61,18 +77,90 @@ namespace MyShop.UI.MainPage.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            List<Data> list = new List<Data>(); 
+            updateDataSource();
+            updatePagingInfo();
+            this.DataContext = new Resources()
+            {
+                FirstIcon = "Assets/Images/ic-first.png",
+                LastIcon = "Assets/Images/ic-last.png",
+                NextIcon = "Assets/Images/ic-next.png",
+                PrevIcon = "Assets/Images/ic-prev.png"
+            };
+        }
 
+        private void updateDataSource(int page = 1, string keyword = "")
+        {
+            List<Data> list = new List<Data>();
+            _currentPage = page;
             ProductBUS productBUS = new ProductBUS();
+            (_products, _totalItems) = productBUS.findProductBySearch(_currentPage, _rowsPerPage, keyword);
 
-            var products = productBUS.getProducts();
-
-            foreach (var product in products)
+            foreach (var product in _products)
             {
                 list.Add(new Data(product));
             }
 
             dataListView.ItemsSource = list;
+
+            infoTextBlock.Text = $"Đang hiển thị {_products.Count} trên tổng số {_totalItems} sản phẩm";
+        }
+
+        private void updatePagingInfo()
+        {
+            _totalPages = _totalItems / _rowsPerPage +
+                   (_totalItems % _rowsPerPage == 0 ? 0 : 1);
+
+            // Cập nhật ComboBox
+            var lines = new List<Tuple<int, int>>();
+            for (int i = 1; i <= _totalPages; i++)
+            {
+                lines.Add(new Tuple<int, int>(i, _totalPages));
+            }
+
+            pageInfoTextBlock.Text = $"{_currentPage}/{_totalPages}";
+        }
+
+        private void SearchTermTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                string keyword = SearchTermTextBox.Text;
+                _currentKey = keyword;
+
+                updateDataSource(1, keyword);
+                updatePagingInfo();
+            }
+        }
+
+        private void PrevButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentPage > 1) {
+                _currentPage--;
+                updateDataSource(_currentPage, _currentKey);
+                updatePagingInfo();
+            }
+        }
+
+        private void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentPage < _totalPages)
+            {
+                _currentPage++;
+                updateDataSource(_currentPage, _currentKey);
+                updatePagingInfo();
+            }
+        }
+
+        private void FirstButton_Click(object sender, RoutedEventArgs e)
+        {
+            updateDataSource(1, _currentKey);
+            updatePagingInfo();
+        }
+
+        private void LastButton_Click(object sender, RoutedEventArgs e)
+        {
+            updateDataSource(_totalPages, _currentKey);
+            updatePagingInfo();
         }
     }
 }

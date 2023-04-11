@@ -50,6 +50,8 @@ namespace MyShop.DAO
             return list;
         }
 
+
+        // TODO: code này là dựa trên mã nguồn của Thầy
         public Tuple<List<ProductDTO>, int> getProducts(int currentPage = 1, int rowsPerPage = 10,
                 string keyword = "")
         {
@@ -80,6 +82,7 @@ namespace MyShop.DAO
                 origin.Add(product);
             }
 
+            // TODO: nên handle việc ProName bị null ở đây .
             var list = origin.Where(
                     item => item.ProName.Contains(keyword)
                 );
@@ -90,6 +93,7 @@ namespace MyShop.DAO
             var result = new Tuple<List<ProductDTO>, int>(
                    items.ToList(), list.Count()
                );
+            reader.Close();
 
             return result;
         }
