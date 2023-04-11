@@ -5,13 +5,55 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MyShop.UI.MainPage.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="800" Loaded="Page_Loaded"
       Title="Order">
 
-    <Grid>
-        <TextBlock HorizontalAlignment="Center"
-                   VerticalAlignment="Center">
-            Order
-        </TextBlock>
+    <Grid Background="White">
+        <Canvas>
+            <TextBlock Text="_" Canvas.Left="398" Canvas.Top="58"/>
+            <TextBox x:Name="keywordTextBox" Width="70" Height="34" Canvas.Left="434" Canvas.Top="56" RenderTransformOrigin="0.798,1.088"/>
+            <Button x:Name="searchButton" Width="80" Height="35" Content="Tìm kiếm" Click="searchButton_Click" Canvas.Left="548" Canvas.Top="58" Background="Orange" Foreground="White"/>
+            <ListView x:Name="dataListView" ScrollViewer.VerticalScrollBarVisibility="Disabled" Width="688" Height="223" 
+                      Canvas.Left="66" Canvas.Top="113" SelectionChanged="dataListView_SelectionChanged" >
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Width="100" Height="150">
+                            <Image Source="{Binding imagePath}"></Image>
+
+                            <TextBlock Text="{Binding Name}" Foreground="Black" />
+                            <TextBlock Text="{Binding Price, StringFormat='{}{0:#,0} VND'}" Foreground="Red" FontWeight="Bold"/>
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+            <ComboBox SelectionChanged="currentPageComboBox_SelectionChanged" Name="currentPageComboBox" Canvas.Left="338" Canvas.Top="371" Width="102">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                        <Run Text="{Binding Item1, Mode=OneWay}"/> / <Run Text="{Binding Item2, Mode=OneWay}"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <TextBlock x:Name="infoTextBlock" Text="Đang hiển thị 7 / 32 điện thoải. " Canvas.Left="326" Canvas.Top="411" RenderTransformOrigin="0.427,2.569">
+            </TextBlock>
+            <Button x:Name="previousButton" Width="80" Height="35" Content="Previous" Click="previousButton_Click" Canvas.Left="66" Canvas.Top="360" Background="Orange" Foreground="White"/>
+            <Button x:Name="nextButton"  Width="80" Height="35" Content="Next" Click="nextButton_Click" Canvas.Left="674" Canvas.Top="360" Background="Orange" Foreground="White"/>
+            <TextBox x:Name="keywordTextBox_Copy"  Width="70" Height="34" Canvas.Left="301" Canvas.Top="56" RenderTransformOrigin="0.798,1.088" />
+            <TextBlock Text="Từ ngày" Canvas.Left="301" Canvas.Top="35"/>
+            <TextBlock Text="Đến ngày" Canvas.Left="434" Canvas.Top="35"/>
+
+
+
+        </Canvas>
     </Grid>
 </Page>

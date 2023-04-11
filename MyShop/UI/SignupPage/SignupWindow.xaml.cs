@@ -23,5 +23,10 @@ namespace MyShop.UI.SignupPage
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

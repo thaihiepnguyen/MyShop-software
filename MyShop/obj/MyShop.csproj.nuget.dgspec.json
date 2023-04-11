@@ -1,32 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Nguyen Thai Hiep\\Desktop\\MyShop\\MyShop-software\\MyShop\\MyShop.csproj": {}
+    "C:\\Users\\Acer\\MyShop-software\\MyShop\\MyShop.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Nguyen Thai Hiep\\Desktop\\MyShop\\MyShop-software\\MyShop\\MyShop.csproj": {
+    "C:\\Users\\Acer\\MyShop-software\\MyShop\\MyShop.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nguyen Thai Hiep\\Desktop\\MyShop\\MyShop-software\\MyShop\\MyShop.csproj",
+        "projectUniqueName": "C:\\Users\\Acer\\MyShop-software\\MyShop\\MyShop.csproj",
         "projectName": "MyShop",
-        "projectPath": "C:\\Users\\Nguyen Thai Hiep\\Desktop\\MyShop\\MyShop-software\\MyShop\\MyShop.csproj",
-        "packagesPath": "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nguyen Thai Hiep\\Desktop\\MyShop\\MyShop-software\\MyShop\\obj\\",
+        "projectPath": "C:\\Users\\Acer\\MyShop-software\\MyShop\\MyShop.csproj",
+        "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Acer\\MyShop-software\\MyShop\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Nguyen Thai Hiep\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0-windows"
+          "net5.0-windows7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0-windows7.0": {
-            "targetAlias": "net7.0-windows",
+          "net5.0-windows7.0": {
+            "targetAlias": "net5.0-windows",
             "projectReferences": {}
           }
         },
@@ -37,8 +37,8 @@
         }
       },
       "frameworks": {
-        "net7.0-windows7.0": {
-          "targetAlias": "net7.0-windows",
+        "net5.0-windows7.0": {
+          "targetAlias": "net5.0-windows",
           "dependencies": {
             "FontAwesome.WPF": {
               "target": "Package",
@@ -63,8 +63,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -76,7 +75,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }
