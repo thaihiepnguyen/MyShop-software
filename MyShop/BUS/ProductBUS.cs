@@ -17,9 +17,15 @@ namespace MyShop.BUS
             _productDAO = new ProductDAO();
         }
 
-        public List<ProductDTO> GetProducts()
+        public List<ProductDTO> getProducts()
         {
             return _productDAO.getAll();
+        }
+
+        public Tuple<List<ProductDTO>, int> findProductBySearch(int currentPage = 1, int rowsPerPage = 10,
+                string keyword = "")
+        {
+            return _productDAO.getProducts(currentPage, rowsPerPage, keyword);
         }
     }
 }

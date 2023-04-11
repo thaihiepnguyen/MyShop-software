@@ -11,6 +11,7 @@
       Loaded="Page_Loaded">
     <Page.Resources>
         <local:RelativeToAbsoluteConverter x:Key="converter"/>
+        <local:DecimalToCurrencyConverter x:Key="currencyConverter"/>
         <Style TargetType="Button">
             <Setter Property="Background" Value="WhiteSmoke" />
             <Setter Property="Foreground" Value="#353935" />
@@ -38,7 +39,7 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-        </Style> 
+        </Style>
     </Page.Resources>
 
     <Grid Name="MainContainer">
@@ -53,10 +54,58 @@
             <RowDefinition Height="58"/>
         </Grid.RowDefinitions>
         <!--Hiển thị thanh search-->
-        
+        <Border BorderThickness="0.5" BorderBrush="Orange" CornerRadius="18"
+                 Grid.Column="1" Background="White" 
+                HorizontalAlignment="Left"
+                Height="35"
+                Width="540">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <fa:ImageAwesome 
+                    Name="SearchIcon"
+                    Width="20"
+                    Height="20"
+                    RenderOptions.BitmapScalingMode="HighQuality"
+                    Icon="Search"
+                    Foreground="#8B4000"
+                    />
+                <Grid Grid.Column="1"
+                       Width="460"
+                      Margin="0"
+                      HorizontalAlignment="Left">
+                    <TextBox 
+                        BorderThickness="0"
+                        VerticalContentAlignment="Center"
+                        FontSize="13"
+                        Width="460"
+                        x:Name="SearchTermTextBox">
+                    </TextBox>
+                    <TextBlock IsHitTestVisible="False" Text="Search your phone here . . ." 
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               HorizontalAlignment="Left" Margin="5,0,0,0"
+                               Foreground="DarkGray">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=SearchTermTextBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+            </Grid>
+        </Border>
+
         <!--Hiển thị avatar-->
- 
-        <!--Hiển thị những sản phẩm--> 
+
+        <!--Hiển thị những sản phẩm-->
         <ListView 
                 Grid.Row="1"
                 Grid.Column="1"
@@ -72,12 +121,12 @@
                     <Grid Width="200"
                           Margin="0, 0, 0, 0"
                           Height="140">
-                        <Button Name="cakeItemButton"
+                        <Button Name="ItemButton"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Bottom"
-                            Width="150"
+                            Width="155"
                             Margin="10"
-                            Height="65"
+                            Height="83"
                             BorderThickness="0.5"
                             BorderBrush="Orange"
                             Padding="12, 8,8,8"
@@ -106,6 +155,7 @@
                                 <!-- binding -->
                                 <TextBlock Name="ProName"
                                            Text="{Binding ProName}"
+                                           TextWrapping="Wrap"
                                            Margin="0, 2, 0, 2"
                                            Foreground="#353935"
                                            FontWeight="Bold"
@@ -113,7 +163,7 @@
 
                                 <!-- binding -->
                                 <TextBlock Name="priceTextBlock"
-                                           Text="9.000.000 đ"
+                                           Text="{Binding Price, Converter={StaticResource currencyConverter}}"
                                            FontWeight="Bold"
                                            Foreground="#8B4000"/>
 
@@ -124,7 +174,7 @@
                                Height="125"
                                Cursor="Hand"
                                VerticalAlignment="Top"
-                               Margin="0, 10, 10, 0"
+                               Margin="0, 0, 10, 0"
                                HorizontalAlignment="Right"
                                RenderOptions.BitmapScalingMode="HighQuality"
                                Source="{Binding ProImage, Converter={StaticResource converter}}"
@@ -148,5 +198,17 @@
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
         </ListView>
+        
+        <!--Hiển thị thông tin bên dưới-->
+        
+        <TextBlock 
+            Grid.Row="2"
+            Grid.Column="1"
+            Text = "Hiển thị 12 trong tổng số 72 sản phẩm" 
+            Margin="12, 0, 200, 0"
+            VerticalAlignment="Center"
+            Foreground="#353935"
+            FontWeight="Medium"
+            />
     </Grid>
 </Page>

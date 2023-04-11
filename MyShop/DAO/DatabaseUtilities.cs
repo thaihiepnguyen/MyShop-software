@@ -8,6 +8,8 @@ using Microsoft.Data.SqlClient;
 
 namespace MyShop.DAO
 {
+
+    // TODO: bắt lỗi exception khi không kết nối DB được => Xử lý App như thế nào?
     class DatabaseUtilitites
     {
         private string _server;
@@ -31,6 +33,7 @@ namespace MyShop.DAO
             _databaseName = "RawDB";
             _user = "admin";
             _password = "admin";
+            _connection = null;
         }
 
         public DatabaseUtilitites(string server, string databaseName, string user, string password)

@@ -30,11 +30,13 @@ namespace MyShop.UI.MainPage.Pages
             public string? ProImage { get; set; }
             public string? CatIcon { get; set; }
             public string? CatName { get; set; }
+            public decimal? Price { get; set; }
 
             public Data(ProductDTO productDTO)
             {
                 ProName = productDTO.ProName;
                 ProImage = productDTO.Image_path;
+                Price = productDTO.Price;
 
                 if (productDTO.Cat_ID == 1)
                 {
@@ -63,7 +65,7 @@ namespace MyShop.UI.MainPage.Pages
 
             ProductBUS productBUS = new ProductBUS();
 
-            var products = productBUS.GetProducts();
+            var products = productBUS.getProducts();
 
             foreach (var product in products)
             {

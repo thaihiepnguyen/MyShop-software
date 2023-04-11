@@ -46,8 +46,8 @@ namespace MyShop.UI.MainPage
             new DatabaseUtilitites(
                 "sqlexpress",
                 "MyShopDB",
-                "yourusername",
-                "yourpassword"
+                "admin",
+                "admin"
                 );
 
 
