@@ -25,6 +25,16 @@
             <RowDefinition/>
             <RowDefinition Height="58"/>
         </Grid.RowDefinitions>
+        <!--Hiển thị nếu không có sản phẩm nào được tìm thấy-->
+        <TextBlock 
+                    Foreground="#353935"
+                    FontWeight="Medium" 
+                    HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   x:Name="MessageText" 
+                   Grid.Row="1" Grid.Column="1" 
+                   d:Text="Opps! Không tìm thấy bất kì sản phẩm nào"/>
+
         <!--Hiển thị thanh search-->
         <Border BorderThickness="0.5" BorderBrush="Orange" CornerRadius="18"
                  Grid.Column="1" Background="White" 
@@ -82,18 +92,27 @@
             Grid.Column="1"
             HorizontalAlignment="Right"
             Height="35"
-            Width="135"
+            Width="140"
             Margin="0,0,50,0"
             BorderThickness="0.5" BorderBrush="Orange" CornerRadius="18"
              Background="WhiteSmoke" 
             >
-            <ComboBox BorderThickness="0" Background="WhiteSmoke" BorderBrush="Transparent" Width="105"
-                      VerticalContentAlignment="Center">
-                <ComboBoxItem>Sort: Giá</ComboBoxItem>
-                <ComboBoxItem>Dưới 2 triệu</ComboBoxItem>
-                <ComboBoxItem>Từ 2 - 3 triệu</ComboBoxItem>
-                <ComboBoxItem>Từ 4 - 5 triệu</ComboBoxItem>
-                <ComboBoxItem>Từ 6 - 7 triệu</ComboBoxItem>
+            <ComboBox 
+                Name="PriceCombobox"
+                BorderThickness="0" BorderBrush="Transparent" Width="110"
+                      VerticalContentAlignment="Center"
+                SelectionChanged="PriceCombobox_SelectionChanged">
+                <ComboBox.ItemContainerStyle>
+                    <Style TargetType="ComboBoxItem">
+                        
+                    </Style>
+                </ComboBox.ItemContainerStyle>
+                <ComboBoxItem IsHitTestVisible="False" IsEnabled="False" IsSelected="True" >Sort: Giá SP</ComboBoxItem>
+                <ComboBoxItem>Dưới 5 triệu</ComboBoxItem>
+                <ComboBoxItem>Từ 5 - 10 triệu</ComboBoxItem>
+                <ComboBoxItem>Từ 10 - 15 triệu</ComboBoxItem>
+                <ComboBoxItem>Trên 15 triệu</ComboBoxItem>
+                <ComboBoxItem >Tất cả giá</ComboBoxItem>
             </ComboBox>
         </Border>
         
@@ -214,7 +233,7 @@
                 Height="30"
                 Grid.Row="2"
                 Grid.Column="1"
-                Margin="0,0,70,0"
+                Margin="0,0,50,0"
                 Width="170">
 
             <Grid>

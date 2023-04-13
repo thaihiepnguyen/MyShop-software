@@ -29,6 +29,8 @@ namespace MyShop.UI.MainPage.Pages
         private int _rowsPerPage = 9;
         private int _totalItems = 0;
         private int _totalPages = 0;
+        private Decimal? _currentStartPrice = null;
+        private Decimal? _currentEndPrice = null;
 
         class Resources
         {
@@ -51,14 +53,14 @@ namespace MyShop.UI.MainPage.Pages
             public Data(ProductDTO productDTO)
             {
                 ProName = productDTO.ProName;
-                ProImage = productDTO.Image_path;
+                ProImage = productDTO.ImagePath;
                 Price = productDTO.Price;
 
-                if (productDTO.Cat_ID == 1)
+                if (productDTO.CatID == 1)
                 {
                     CatIcon = "Android";
                     CatName = "Android";
-                } else if (productDTO.Cat_ID == 2)
+                } else if (productDTO.CatID == 2)
                 {
                     CatIcon = "Apple";
                     CatName = "Iphone";
@@ -88,19 +90,26 @@ namespace MyShop.UI.MainPage.Pages
             };
         }
 
-        private void updateDataSource(int page = 1, string keyword = "")
+        private void updateDataSource(int page = 1, string keyword = "", Decimal? currentStartPrice = null, Decimal? currentEndPrice = null)
         {
+            MessageText.Text = string.Empty;
             List<Data> list = new List<Data>();
             _currentPage = page;
             ProductBUS productBUS = new ProductBUS();
-            (_products, _totalItems) = productBUS.findProductBySearch(_currentPage, _rowsPerPage, keyword);
+            (_products, _totalItems) = productBUS.findProductBySearch(_currentPage, _rowsPerPage, keyword, currentStartPrice, currentEndPrice);
 
             foreach (var product in _products)
             {
                 list.Add(new Data(product));
             }
 
+            if (list.Count == 0)
+            {
+                MessageText.Text = "Opps! Không tìm thấy bất kì sản phẩm nào.";
+            }
+
             dataListView.ItemsSource = list;
+
 
             infoTextBlock.Text = $"Đang hiển thị {_products.Count} trên tổng số {_totalItems} sản phẩm";
         }
@@ -127,7 +136,7 @@ namespace MyShop.UI.MainPage.Pages
                 string keyword = SearchTermTextBox.Text;
                 _currentKey = keyword;
 
-                updateDataSource(1, keyword);
+                updateDataSource(1, keyword, _currentStartPrice, _currentEndPrice);
                 updatePagingInfo();
             }
         }
@@ -136,7 +145,7 @@ namespace MyShop.UI.MainPage.Pages
         {
             if (_currentPage > 1) {
                 _currentPage--;
-                updateDataSource(_currentPage, _currentKey);
+                updateDataSource(_currentPage, _currentKey, _currentStartPrice, _currentEndPrice);
                 updatePagingInfo();
             }
         }
@@ -146,21 +155,68 @@ namespace MyShop.UI.MainPage.Pages
             if (_currentPage < _totalPages)
             {
                 _currentPage++;
-                updateDataSource(_currentPage, _currentKey);
+                updateDataSource(_currentPage, _currentKey, _currentStartPrice, _currentEndPrice);
                 updatePagingInfo();
             }
         }
 
         private void FirstButton_Click(object sender, RoutedEventArgs e)
         {
-            updateDataSource(1, _currentKey);
+            updateDataSource(1, _currentKey, _currentStartPrice, _currentEndPrice);
             updatePagingInfo();
         }
 
         private void LastButton_Click(object sender, RoutedEventArgs e)
         {
-            updateDataSource(_totalPages, _currentKey);
+            updateDataSource(_totalPages, _currentKey, _currentStartPrice, _currentEndPrice);
             updatePagingInfo();
+        }
+
+        private void PriceCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (PriceCombobox.SelectedIndex >= 0)
+            {
+                //Giá dưới 5 triệu
+                if (PriceCombobox.SelectedIndex == 1)
+                {
+                    _currentStartPrice = 0;
+                    _currentEndPrice = 5000000;
+                    updateDataSource(1, _currentKey, _currentStartPrice, _currentEndPrice);
+                    updatePagingInfo();
+                }
+                // Giá từ 5 triệu đến 10 triệu
+                if (PriceCombobox.SelectedIndex == 2)
+                {
+                    _currentStartPrice = 5000000;
+                    _currentEndPrice = 10000000;
+                    updateDataSource(1, _currentKey, _currentStartPrice, _currentEndPrice);
+                    updatePagingInfo();
+                }
+                // Giá dưới 10 triệu đến 15 triệu
+                if (PriceCombobox.SelectedIndex == 3)
+                {
+                    _currentStartPrice = 10000000;
+                    _currentEndPrice = 15000000;
+                    updateDataSource(1, _currentKey, _currentStartPrice, _currentEndPrice);
+                    updatePagingInfo();
+                }
+                // Giá trên 20 triệu
+                if (PriceCombobox.SelectedIndex == 4)
+                {
+                    _currentStartPrice = 20000000;
+                    _currentEndPrice = Decimal.MaxValue;
+                    updateDataSource(1, _currentKey, _currentStartPrice, _currentEndPrice);
+                    updatePagingInfo();
+                }
+
+                if (PriceCombobox.SelectedIndex == 5)
+                {
+                    _currentStartPrice = null;
+                    _currentEndPrice = null;
+                    updateDataSource(1, _currentKey, null, null);
+                    updatePagingInfo();
+                }
+            }
         }
     }
 }
