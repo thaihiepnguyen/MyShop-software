@@ -40,7 +40,8 @@
                  Grid.Column="1" Background="White" 
                 HorizontalAlignment="Left"
                 Height="35"
-                Width="540">
+                Width="540"
+                Margin="20, 0,0,0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50"/>
@@ -93,14 +94,14 @@
             HorizontalAlignment="Right"
             Height="35"
             Width="140"
-            Margin="0,0,50,0"
+            Margin="0,0,30,0"
             BorderThickness="0.5" BorderBrush="Orange" CornerRadius="18"
              Background="WhiteSmoke" 
             >
             <ComboBox 
                 Name="PriceCombobox"
                 BorderThickness="0" BorderBrush="Transparent" Width="110"
-                      VerticalContentAlignment="Center"
+                VerticalContentAlignment="Center"
                 SelectionChanged="PriceCombobox_SelectionChanged">
                 <ComboBox.ItemContainerStyle>
                     <Style TargetType="ComboBoxItem">
@@ -123,13 +124,14 @@
         <ListView 
                 Grid.Row="1"
                 Grid.Column="1"
-                x:Name="dataListView"
+                Name="dataListView"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
                 HorizontalAlignment="Left"
                 HorizontalContentAlignment="Center"
                 BorderThickness="0"
-                Background="Transparent">
+                Background="Transparent"
+                >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Width="200"
@@ -144,6 +146,7 @@
                             BorderThickness="0.5"
                             BorderBrush="Orange"
                             Padding="12, 8,8,8"
+                            IsEnabled="False"
                             Style="{StaticResource MyButtonStyle}"
                             >
                             <StackPanel VerticalAlignment="Center"
@@ -212,6 +215,13 @@
                     <WrapPanel />
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <EventSetter Event="MouseDoubleClick"
+                                 Handler="ListViewItem_MouseDoubleClick"/>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
         
         <!-- Phần Hiển thị thông tin bên dưới-->
@@ -233,7 +243,7 @@
                 Height="30"
                 Grid.Row="2"
                 Grid.Column="1"
-                Margin="0,0,50,0"
+                Margin="0,0,30,0"
                 Width="170">
 
             <Grid>

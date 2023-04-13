@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyShop.DTO
 {
-    class ProductDTO
+    public class ProductDTO
     {
         public int ProId { get; set; }
         public string? ProName { get; set; }
@@ -20,6 +20,6 @@ namespace MyShop.DTO
         public string? Trademark { get; set;}
         public int BatteryCapacity { get; set; }
         public int? CatID { get; set; }
-
+        public int Quantity { get; set; }
     }
 }

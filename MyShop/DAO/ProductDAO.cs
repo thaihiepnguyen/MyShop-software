@@ -21,7 +21,7 @@ namespace MyShop.DAO
             ObservableCollection<ProductDTO> list = new ObservableCollection<ProductDTO>();
             string sql = "select ProID, ProName, Ram, Rom, ScreenSize, TinyDes," +
                 " FullDes, Price, ImagePath, Trademark," +
-                "BatteryCapacity, CatID  from product";
+                "BatteryCapacity, CatID, Quantity from product";
             var command = new SqlCommand(sql, db.connection);
 
             var reader = command.ExecuteReader();
@@ -41,6 +41,7 @@ namespace MyShop.DAO
                 product.Trademark = reader["Trademark"] == DBNull.Value ? null : (string?)reader["Trademark"];
                 product.BatteryCapacity = (int)reader["BatteryCapacity"];
                 product.CatID = reader["CatID"] == DBNull.Value ? null : (int?)reader["CatID"];
+                product.Quantity = (int)reader["Quantity"];
 
                 list.Add(product);
             }

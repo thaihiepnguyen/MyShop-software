@@ -74,8 +74,8 @@ namespace MyShop.UI.MainPage
                 },
                 new Item()
                 {
-                    FontIcon = "Heart",
-                    ItemName = "Favorite"
+                    FontIcon = "Plus",
+                    ItemName = "Add Product"
                 },
                 new Item()
                 {
@@ -105,7 +105,7 @@ namespace MyShop.UI.MainPage
             }
             if (selectedIndex == Home)
             {
-                pageNavigation.NavigationService.Navigate(new Home());
+                pageNavigation.NavigationService.Navigate(new Home(pageNavigation));
             }
             if (selectedIndex == Favorite)
             {

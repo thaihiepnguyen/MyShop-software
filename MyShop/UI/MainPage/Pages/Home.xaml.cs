@@ -31,6 +31,7 @@ namespace MyShop.UI.MainPage.Pages
         private int _totalPages = 0;
         private Decimal? _currentStartPrice = null;
         private Decimal? _currentEndPrice = null;
+        private Frame _pageNavigation;
 
         class Resources
         {
@@ -72,8 +73,9 @@ namespace MyShop.UI.MainPage.Pages
         }
 
 
-        public Home()
+        public Home(Frame pageNavigation)
         {
+            _pageNavigation = pageNavigation;
             InitializeComponent();
         }
 
@@ -216,6 +218,16 @@ namespace MyShop.UI.MainPage.Pages
                     updateDataSource(1, _currentKey, null, null);
                     updatePagingInfo();
                 }
+            }
+        }
+
+        private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            int i = dataListView.SelectedIndex;
+
+            var product = _products[i];
+            if (product != null ) {
+                _pageNavigation.NavigationService.Navigate(new ProductDetail(product, _pageNavigation));
             }
         }
     }
