@@ -19,9 +19,9 @@ namespace MyShop.DAO
         public List<ProductDTO> getAll()
         {
             List<ProductDTO> list = new List<ProductDTO>();
-            string sql = "select ProID, ProName, Ram, Rom, Screen_size, Tiny_des," +
-                " Full_des, Price, Image_path, Trademark," +
-                "Battery_capacity, CatID  from product";
+            string sql = "select ProID, ProName, Ram, Rom, ScreenSize, TinyDes," +
+                " FullDes, Price, ImagePath, Trademark," +
+                "BatteryCapacity, CatID  from product";
             var command = new SqlCommand(sql, db.connection);
 
             var reader = command.ExecuteReader();
@@ -33,13 +33,13 @@ namespace MyShop.DAO
                 product.ProName = reader["ProName"] == DBNull.Value ? "Lỗi tên sản phẩm" : (string?)reader["ProName"];
                 product.Ram = (double)reader["Ram"];
                 product.Rom = (int)reader["Rom"];
-                product.Screen_size = (double)reader["Screen_size"];
-                product.Tiny_des = reader["Tiny_des"] == DBNull.Value ? null : (string?)reader["Tiny_des"];
-                product.Full_des = reader["Full_des"] == DBNull.Value ? null : (string?)reader["Full_des"];
+                product.Screen_size = (double)reader["ScreenSize"];
+                product.Tiny_des = reader["TinyDes"] == DBNull.Value ? null : (string?)reader["TinyDes"];
+                product.Full_des = reader["FullDes"] == DBNull.Value ? null : (string?)reader["FullDes"];
                 product.Price = (decimal)reader["Price"];
-                product.Image_path = reader["Image_path"] == DBNull.Value ? null : (string?)reader["Image_path"];
+                product.Image_path = reader["ImagePath"] == DBNull.Value ? null : (string?)reader["ImagePath"];
                 product.Trademark = reader["Trademark"] == DBNull.Value ? null : (string?)reader["Trademark"];
-                product.Battery_capacity = (int)reader["Battery_capacity"];
+                product.Battery_capacity = (int)reader["BatteryCapacity"];
                 product.Cat_ID = reader["CatID"] == DBNull.Value ? null : (int?)reader["CatID"];
 
                 list.Add(product);
@@ -51,14 +51,14 @@ namespace MyShop.DAO
         }
 
 
-        // TODO: code này là dựa trên mã nguồn của Thầy
+        // TODO: code này là dựa trên mã nguồn của Thầy .
         public Tuple<List<ProductDTO>, int> getProducts(int currentPage = 1, int rowsPerPage = 10,
                 string keyword = "")
         {
             var origin = new ObservableCollection<ProductDTO>();
-            string sql = "select ProID, ProName, Ram, Rom, Screen_size, Tiny_des," +
-                " Full_des, Price, Image_path, Trademark," +
-                "Battery_capacity, CatID  from product";
+            string sql = "select ProID, ProName, Ram, Rom, ScreenSize, TinyDes," +
+                " FullDes, Price, ImagePath, Trademark," +
+                "BatteryCapacity, CatID  from product";
 
             var command = new SqlCommand(sql, db.connection);
             var reader = command.ExecuteReader();
@@ -70,13 +70,13 @@ namespace MyShop.DAO
                 product.ProName = reader["ProName"] == DBNull.Value ? "Lỗi tên sản phẩm" : (string?)reader["ProName"];
                 product.Ram = (double)reader["Ram"];
                 product.Rom = (int)reader["Rom"];
-                product.Screen_size = (double)reader["Screen_size"];
-                product.Tiny_des = reader["Tiny_des"] == DBNull.Value ? null : (string?)reader["Tiny_des"];
-                product.Full_des = reader["Full_des"] == DBNull.Value ? null : (string?)reader["Full_des"];
+                product.Screen_size = (double)reader["ScreenSize"];
+                product.Tiny_des = reader["TinyDes"] == DBNull.Value ? null : (string?)reader["TinyDes"];
+                product.Full_des = reader["FullDes"] == DBNull.Value ? null : (string?)reader["FullDes"];
                 product.Price = (decimal)reader["Price"];
-                product.Image_path = reader["Image_path"] == DBNull.Value ? null : (string?)reader["Image_path"];
+                product.Image_path = reader["ImagePath"] == DBNull.Value ? null : (string?)reader["ImagePath"];
                 product.Trademark = reader["Trademark"] == DBNull.Value ? null : (string?)reader["Trademark"];
-                product.Battery_capacity = (int)reader["Battery_capacity"];
+                product.Battery_capacity = (int)reader["BatteryCapacity"];
                 product.Cat_ID = reader["CatID"] == DBNull.Value ? null : (int?)reader["CatID"];
 
                 origin.Add(product);
@@ -84,7 +84,7 @@ namespace MyShop.DAO
 
             // TODO: nên handle việc ProName bị null ở đây .
             var list = origin.Where(
-                    item => item.ProName.Contains(keyword)
+                    item => item.ProName.ToLower().Contains(keyword.ToLower())
                 );
 
             var items = list.Skip((currentPage - 1) * rowsPerPage)

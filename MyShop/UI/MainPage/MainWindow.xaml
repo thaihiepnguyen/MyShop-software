@@ -46,7 +46,12 @@
               Margin="0, 20, 0, 0"
               Grid.Row="2"
               Background="Transparent">
-            
+            <Grid.RowDefinitions>
+                <!--chia width = 250 cho Nav, còn lại là Content-->
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+
             <ListView Name="ListOfItems"
                       Background="Transparent"
                       BorderThickness="0"
@@ -68,7 +73,6 @@
                                              Width="19" Height="19"
                                              Margin="10"
                                              Foreground="#8B4000">
-                                    
                                 </fa:ImageAwesome>
                                 <TextBlock Text="{Binding ItemName}"
                                        VerticalAlignment="Center"
@@ -97,6 +101,9 @@
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>
+
+            <TextBlock Grid.Row="1" VerticalAlignment="Center" Margin="30, 0,0,0">Version 1.0.0</TextBlock>
+            
         </Grid>
 
         <Frame Name="pageNavigation" 

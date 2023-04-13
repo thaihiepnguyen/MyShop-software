@@ -7,6 +7,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
+
+// BUS : bussiness (login BA)
 namespace MyShop.BUS
 {
     class ProductBUS
