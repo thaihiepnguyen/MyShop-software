@@ -21,5 +21,6 @@ namespace MyShop.DTO
         public int BatteryCapacity { get; set; }
         public int? CatID { get; set; }
         public int Quantity { get; set; }
+        public int ? Block { get; set; }
     }
 }

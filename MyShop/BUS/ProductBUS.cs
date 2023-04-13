@@ -31,12 +31,13 @@ namespace MyShop.BUS
                 .Where((item) =>
                     {
                         bool checkName = item.ProName.ToLower().Contains(keyword.ToLower());
+                        bool checkBlock = item.Block == 0;
 
-                        if (startPrice == null || endPrice == null) return checkName;
+                        if (startPrice == null || endPrice == null) return checkName && checkBlock;
 
                         bool checkPrice = item.Price >= startPrice && item.Price <= endPrice;
 
-                        return checkName && checkPrice;
+                        return checkName && checkPrice && checkBlock;
                     });
 
 
@@ -49,6 +50,11 @@ namespace MyShop.BUS
 
             
             return result;
+        }
+
+        public void delProduct(int id)
+        {
+            _productDAO.deleteProductById(id);
         }
     }
 }

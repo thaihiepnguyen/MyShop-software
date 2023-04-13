@@ -358,7 +358,7 @@
             </StackPanel>
         </Button>
 
-        <!--Hiển thị nút bấm thêm vào giỏ hàng-->
+        <!--Hiển thị nút bấm cập nhật-->
         <Button
             Grid.Row="2"
             Grid.Column="1"
@@ -385,6 +385,37 @@
                     FontWeight="Medium"
                     Foreground="#8B4000"
                     >Cập nhật</TextBlock>
+            </StackPanel>
+        </Button>
+
+        <!--Hiển thị nút bấm xóa -->
+        <Button
+            Name="DelProduct"
+            Grid.Row="2"
+            Grid.Column="1"
+            Width="115"
+            Height="30"
+            Style="{StaticResource MyButtonStyle}"
+            BorderThickness="0.5"
+            BorderBrush="Red"
+            HorizontalAlignment="Right"
+            Margin="0,0,20,0"
+            Click="DelProduct_Click"
+            >
+            <StackPanel
+                Orientation="Horizontal">
+                <fa:ImageAwesome 
+                    Width="11"
+                    Height="11"
+                    Margin="0, 0, 8, 0"
+                    RenderOptions.BitmapScalingMode="HighQuality"
+                    Icon="Remove"
+                    Foreground="DarkRed"
+                        />
+                <TextBlock
+                    FontWeight="Medium"
+                    Foreground="DarkRed"
+                    >Xóa sản phẩm</TextBlock>
             </StackPanel>
         </Button>
     </Grid>

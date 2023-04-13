@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Common;
+using System.DirectoryServices;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace MyShop.DAO
             ObservableCollection<ProductDTO> list = new ObservableCollection<ProductDTO>();
             string sql = "select ProID, ProName, Ram, Rom, ScreenSize, TinyDes," +
                 " FullDes, Price, ImagePath, Trademark," +
-                "BatteryCapacity, CatID, Quantity from product";
+                "BatteryCapacity, CatID, Quantity, Block from product";
             var command = new SqlCommand(sql, db.connection);
 
             var reader = command.ExecuteReader();
@@ -42,6 +43,7 @@ namespace MyShop.DAO
                 product.BatteryCapacity = (int)reader["BatteryCapacity"];
                 product.CatID = reader["CatID"] == DBNull.Value ? null : (int?)reader["CatID"];
                 product.Quantity = (int)reader["Quantity"];
+                product.Block = (int)reader["Block"];
 
                 list.Add(product);
             }
@@ -88,5 +90,20 @@ namespace MyShop.DAO
             return list;
         }
 
+
+        //xóa nhưng thật sự là không có xóa :))) 
+        public void deleteProductById(int ProId)
+        {
+            string sql = $"""
+                update product 
+                set Block = {1}
+
+                where ProID = {ProId}
+                """;
+
+            var command = new SqlCommand(sql, db.connection);
+
+            command.ExecuteNonQuery();
+        }
     }
 }
