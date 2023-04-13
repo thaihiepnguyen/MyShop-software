@@ -227,7 +227,7 @@ namespace MyShop.UI.MainPage.Pages
 
             var product = _products[i];
             if (product != null ) {
-                _pageNavigation.NavigationService.Navigate(new ProductDetail(product, _pageNavigation));
+                _pageNavigation.NavigationService.Navigate(new ProductDetail(this, product, _pageNavigation));
             }
         }
     }

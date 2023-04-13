@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace MyShop.UI.MainPage.Pages
 {
     /// <summary>
-    /// Interaction logic for Favorite.xaml
+    /// Interaction logic for Statistical.xaml
     /// </summary>
-    public partial class Favorite : Page
+    public partial class Statistical : Page
     {
-        public Favorite()
+        public Statistical()
         {
             InitializeComponent();
         }

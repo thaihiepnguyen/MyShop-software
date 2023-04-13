@@ -8,7 +8,7 @@
     <Compile Update="UI\MainPage\Pages\AboutUs.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UI\MainPage\Pages\Favorite.xaml.cs">
+    <Compile Update="UI\MainPage\Pages\AddProduct.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\MainPage\Pages\Home.xaml.cs">
@@ -18,6 +18,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\MainPage\Pages\ProductDetail.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\MainPage\Pages\Statistical.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\SignupPage\SignupWindow.xaml.cs">
@@ -34,10 +37,10 @@
     <Page Update="UI\MainPage\Pages\AboutUs.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UI\MainPage\Pages\DashBoard.xaml">
+    <Page Update="UI\MainPage\Pages\AddProduct.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UI\MainPage\Pages\Favorite.xaml">
+    <Page Update="UI\MainPage\Pages\DashBoard.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\MainPage\Pages\Home.xaml">
@@ -47,6 +50,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\MainPage\Pages\ProductDetail.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\MainPage\Pages\Statistical.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\SignupPage\SignupWindow.xaml">

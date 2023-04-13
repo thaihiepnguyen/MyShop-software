@@ -21,9 +21,10 @@ namespace MyShop.UI.MainPage
     {
         const int DashBoard = 0;
         const int Home = 1;
-        const int Favorite = 2;
+        const int AddProduct = 2;
         const int Order = 3;
-        const int AboutUs = 4;
+        const int AboutUs = 5;
+        const int Statistical = 4;
         class Resoures
         {
             public string MainBgPath { get; set; }
@@ -84,10 +85,14 @@ namespace MyShop.UI.MainPage
                 },
                 new Item()
                 {
+                    FontIcon = "Briefcase",
+                    ItemName = "Statistical"
+                },
+                new Item()
+                {
                     FontIcon = "InfoCircle",
                     ItemName = "About us"
                 }
-
             };
 
             ListOfItems.ItemsSource = Items;
@@ -107,13 +112,17 @@ namespace MyShop.UI.MainPage
             {
                 pageNavigation.NavigationService.Navigate(new Home(pageNavigation));
             }
-            if (selectedIndex == Favorite)
+            if (selectedIndex == AddProduct)
             {
-                pageNavigation.NavigationService.Navigate(new Favorite());
+                pageNavigation.NavigationService.Navigate(new AddProduct());
             }
             if (selectedIndex == Order)
             {
                 pageNavigation.NavigationService.Navigate(new Order());
+            }
+            if (selectedIndex == Statistical)
+            {
+                pageNavigation.NavigationService.Navigate(new Statistical());
             }
             if (selectedIndex == AboutUs)
             {

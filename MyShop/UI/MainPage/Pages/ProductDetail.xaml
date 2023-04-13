@@ -116,7 +116,7 @@
                             Height="14"
                             Margin="0, 0, 8, 0"
                             RenderOptions.BitmapScalingMode="HighQuality"
-                            Icon="Android"
+                            Icon="{Binding CatIcon}"
                             Foreground="#8B4000"
                         />
 
@@ -128,8 +128,8 @@
                             FontWeight="Medium"
                             />
                             </StackPanel>
-                            <TextBlock Text="Android"
-                                   FontSize="16"
+                            <TextBlock Text="{Binding CatName}"
+                                   FontSize="14"
                                    Foreground="#353935"
                                    Margin="22, 0,0,0"/>
                         </StackPanel>
@@ -184,7 +184,7 @@
                             />
                             </StackPanel>
                             <TextBlock 
-                                   FontSize="16"
+                                   FontSize="14"
                                    Foreground="#353935"
                                    Margin="22, 0,0,0">
                             <Run Text="{Binding Quantity}"/>
@@ -215,7 +215,7 @@
                             />
                             </StackPanel>
                             <TextBlock
-                                   FontSize="16"
+                                   FontSize="14"
                                    Foreground="#353935"
                                    Margin="22, 0,0,0">
                             <Run Text="{Binding Ram}"/>
@@ -244,7 +244,7 @@
                             />
                             </StackPanel>
                             <TextBlock
-                                    FontSize="16"
+                                    FontSize="14"
                                    Foreground="#353935"
                                    Margin="22, 0,0,0">
                             <Run Text="{Binding Rom}"/>
@@ -274,7 +274,7 @@
                             />
                             </StackPanel>
                             <TextBlock 
-                                   FontSize="16"
+                                   FontSize="14"
                                    Foreground="#353935"
                                    Margin="22, 0,0,0">
                             <Run Text="{Binding BatteryCapacity}"></Run>
@@ -304,7 +304,7 @@
                             />
                             </StackPanel>
                             <TextBlock 
-                                   FontSize="16"
+                                   FontSize="14"
                                    Foreground="#353935"
                                    Margin="22, 0,0,0">
                             <Run Text="{Binding ScreenSize}"></Run>
@@ -332,7 +332,7 @@
         <!--Hiển thị nút bấm thêm vào giỏ hàng-->
         <Button
             Grid.Row="2"
-            Width="170"
+            Width="155"
             Height="30"
             Style="{StaticResource MyButtonStyle}"
             BorderThickness="0.5"
@@ -393,7 +393,7 @@
             Name="DelProduct"
             Grid.Row="2"
             Grid.Column="1"
-            Width="115"
+            Width="120"
             Height="30"
             Style="{StaticResource MyButtonStyle}"
             BorderThickness="0.5"

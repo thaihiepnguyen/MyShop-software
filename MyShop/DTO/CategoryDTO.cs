@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace MyShop.DTO
 {
-
     class CategoryDTO
     {
-        public int ID { get; set; }
+        public int CatID { get; set; }
+        public string CatName { get; set; }
     }
 }

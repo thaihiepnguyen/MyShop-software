@@ -17,6 +17,10 @@ namespace MyShop.UI.MainPage.Pages
             public string Name { get; set; }
             public string Price { get; set; }
             public string AddressOrder { get; set; }
+
+            // không nên để tên biến như này nhé!. Tất cả biến bên dưới là properties
+            // biến private thực sự bị dấu đi rồi.
+            // TODO: THAM KHẢO - https://docs.google.com/presentation/d/1x8LbCQq5hPI786MQilbk5cgx88Z0vji5/edit#slide=id.p13
             public string imagePath { get; set; }
             public string screenSize { get; set; }
             public string trademark { get; set; }
