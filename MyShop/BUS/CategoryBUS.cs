@@ -21,5 +21,10 @@ namespace MyShop.BUS
         {
             return _categoryDAO.getCategoryById(id);
         }
+
+        public List<CategoryDTO> getAll() 
+        {
+            return _categoryDAO.getAll();
+        }
     }
 }

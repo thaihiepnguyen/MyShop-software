@@ -2,6 +2,7 @@
 using MyShop.DTO;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -55,6 +56,24 @@ namespace MyShop.BUS
         public void delProduct(int id)
         {
             _productDAO.deleteProductById(id);
+        }
+
+        public int saveProduct(ProductDTO product)
+        {
+            int id = _productDAO.insertProduct(product);
+
+            return id;
+        }
+
+        public void uploadImage(FileInfo selectedImage,int id)
+        {
+            _productDAO.updateImage(id);
+
+            var folder = AppDomain.CurrentDomain.BaseDirectory;
+            var currentProduct = string.Format("{0:00}", id);
+
+            File.Copy(selectedImage.FullName, $"{folder}/Assets/Images/sp/{currentProduct}.png");
+
         }
     }
 }

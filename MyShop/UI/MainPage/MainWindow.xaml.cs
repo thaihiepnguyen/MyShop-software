@@ -1,4 +1,5 @@
-﻿using MyShop.DAO;
+﻿using MyShop.BUS;
+using MyShop.DAO;
 using MyShop.UI.MainPage;
 using MyShop.UI.MainPage.Pages;
 using System;
@@ -25,6 +26,7 @@ namespace MyShop.UI.MainPage
         const int Order = 3;
         const int AboutUs = 5;
         const int Statistical = 4;
+
         class Resoures
         {
             public string MainBgPath { get; set; }
@@ -39,6 +41,7 @@ namespace MyShop.UI.MainPage
         }
 
         ObservableCollection<Item> Items = null;
+        
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -114,6 +117,7 @@ namespace MyShop.UI.MainPage
             }
             if (selectedIndex == AddProduct)
             {
+
                 pageNavigation.NavigationService.Navigate(new AddProduct());
             }
             if (selectedIndex == Order)

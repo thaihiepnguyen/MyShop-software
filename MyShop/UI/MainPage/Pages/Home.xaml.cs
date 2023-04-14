@@ -202,10 +202,10 @@ namespace MyShop.UI.MainPage.Pages
                     updateDataSource(1, _currentKey, _currentStartPrice, _currentEndPrice);
                     updatePagingInfo();
                 }
-                // Giá trên 20 triệu
+                // Giá trên 15 triệu
                 if (PriceCombobox.SelectedIndex == 4)
                 {
-                    _currentStartPrice = 20000000;
+                    _currentStartPrice = 15000000;
                     _currentEndPrice = Decimal.MaxValue;
                     updateDataSource(1, _currentKey, _currentStartPrice, _currentEndPrice);
                     updatePagingInfo();

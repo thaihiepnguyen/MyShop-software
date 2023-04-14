@@ -1,6 +1,13 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.Win32;
+using MyShop.BUS;
+using MyShop.DTO;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,24 +27,78 @@ namespace MyShop.UI.MainPage.Pages
     /// </summary>
     public partial class AddProduct : Page
     {
+        private bool _isImageChanged = false;
+        private FileInfo? _selectedImage = null;
+        private ProductBUS _productBUS;
+        private CategoryBUS _categoryBUS;
+        class Resources 
+        {
+            public string ProImage { get; set; }
+        }
+
         public AddProduct()
         {
             InitializeComponent();
+
+            _productBUS = new ProductBUS();
+            _categoryBUS = new CategoryBUS();
+
+            var categories = _categoryBUS.getAll();
+
+
+            CategoryCombobox.ItemsSource = categories;
+            CategoryCombobox.SelectedIndex = 0;
+
+            DataContext = new Resources()
+            {
+                ProImage = "Assets/Images/add_image.png"
+            };
         }
 
-        private void NameTermTextBox_KeyDown(object sender, KeyEventArgs e)
+        private void AddImageButton_Click(object sender, RoutedEventArgs e)
         {
+            var screen = new OpenFileDialog();
+            screen.Filter = "Files|*.png; *.jpg; *.jpeg;";
+            if (screen.ShowDialog() == true)
+            {
+                _isImageChanged = true;
+                _selectedImage = new FileInfo(screen.FileName);
 
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(screen.FileName, UriKind.Absolute);
+                bitmap.EndInit();
+
+                AddedImage.Source = bitmap;
+            }
         }
 
-        private void PriceTermTextBox_KeyDown(object sender, KeyEventArgs e)
+        private void SaveProduct_Click(object sender, RoutedEventArgs e)
         {
+            if (_selectedImage == null)
+            {
+                MessageBox.Show("Vui lòng nhập ảnh đại diện");
+                return;
+            }
+            var productDTO = new ProductDTO();
 
-        }
+            productDTO.ProName = NameTermTextBox.Text;
+            productDTO.Ram = Double.Parse(RamTermTextBox.Text);
+            productDTO.Rom = int.Parse(RomTermTextBox.Text);
+            productDTO.ScreenSize = Double.Parse(ScreenSizeTermTextBox.Text);
+            productDTO.TinyDes = DesTermTextBox.Text;
+            productDTO.Price = Decimal.Parse(PriceTermTextBox.Text);
+            productDTO.Trademark = TradeMarkTermTextBox.Text;
+            productDTO.BatteryCapacity = int.Parse(PinTermTextBox.Text);
+            productDTO.CatID = CategoryCombobox.SelectedIndex + 1;
+            productDTO.Quantity = int.Parse(QuantityTermTextBox.Text);
+            productDTO.Block = 0;
 
-        private void DesTermTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
+            int id = _productBUS.saveProduct(productDTO);
 
+            _productBUS.uploadImage(_selectedImage, id);
+
+            MessageBox.Show("Sản phẩm đã thêm thành công", "Thông báo", MessageBoxButton.OK);
         }
     }
 }

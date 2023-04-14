@@ -3,9 +3,11 @@ using MyShop.DTO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Data.Common;
 using System.DirectoryServices;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -98,6 +100,62 @@ namespace MyShop.DAO
                 update product 
                 set Block = {1}
 
+                where ProID = {ProId}
+                """;
+
+            var command = new SqlCommand(sql, db.connection);
+
+            command.ExecuteNonQuery();
+        }
+
+        // insert và trả ra id
+        public int insertProduct(ProductDTO productDTO)
+        {
+            // insert SQL
+            string sql = "insert into product(ProName, Ram, Rom, ScreenSize, TinyDes, Price, Trademark, BatteryCapacity, CatID, Quantity, Block)" +
+            "values(@ProName, @Ram, @Rom, @ScreenSize, @TinyDes, @Price, @Trademark, @BatteryCapacity, @CatID, @Quantity, @Block)";
+            var command = new SqlCommand(sql, db.connection);
+
+            command.Parameters.Add("@ProName", SqlDbType.NVarChar).Value = productDTO.ProName;
+            command.Parameters.Add("@Ram", SqlDbType.Float).Value = productDTO.Ram;
+            command.Parameters.Add("@Rom", SqlDbType.Int).Value = productDTO.Rom;
+            command.Parameters.Add("@ScreenSize", SqlDbType.Float).Value = productDTO.ScreenSize;
+            command.Parameters.Add("@TinyDes", SqlDbType.NVarChar).Value = productDTO.TinyDes;
+            command.Parameters.Add("@Price", SqlDbType.Money).Value = productDTO.Price;
+            command.Parameters.Add("@Trademark", SqlDbType.Text).Value = productDTO.Trademark;
+            command.Parameters.Add("@BatteryCapacity", SqlDbType.Int).Value = productDTO.BatteryCapacity;
+            command.Parameters.Add("@CatID", SqlDbType.Int).Value = productDTO.CatID;
+            command.Parameters.Add("@Quantity", SqlDbType.Int).Value = productDTO.Quantity;
+            command.Parameters.Add("@Block", SqlDbType.Int).Value = productDTO.Block;
+
+            command.ExecuteNonQuery();
+
+            // select SQL
+            int id = -1;
+            string sql1 = "SELECT TOP 1 ProID FROM product ORDER BY ProID DESC ";
+
+            var command1 = new SqlCommand(sql1, db.connection);
+
+            var reader = command1.ExecuteReader();
+            while (reader.Read())
+            {
+                id = (int)reader["ProID"];
+            }
+
+            reader.Close();
+
+            return id;
+        }
+
+        public void updateImage(int ProId)
+        {
+            // update SQL
+
+            var currentProduct = string.Format("{0:00}", ProId);
+
+            string sql = $"""
+                update product 
+                set ImagePath = 'Assets/Images/sp/{currentProduct}.png'
                 where ProID = {ProId}
                 """;
 
