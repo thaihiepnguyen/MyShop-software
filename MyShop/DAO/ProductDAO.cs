@@ -147,16 +147,37 @@ namespace MyShop.DAO
             return id;
         }
 
-        public void updateImage(int ProId)
+        public void updateProduct(ProductDTO productDTO)
+        {
+            string sql = "update product " +
+                "set ProName =  @ProName, Ram = @Ram, Rom = @Rom, ScreenSize = @ScreenSize, TinyDes = @TinyDes," +
+                "Price = @Price, Trademark = @Trademark, BatteryCapacity = @BatteryCapacity," +
+                "CatID = @CatID, Quantity = @Quantity, Block = @Block " +
+                "where ProID = @ProID";
+            var command = new SqlCommand(sql, db.connection);
+
+            command.Parameters.Add("@ProID", SqlDbType.Int).Value = productDTO.ProId;
+            command.Parameters.Add("@ProName", SqlDbType.NVarChar).Value = productDTO.ProName;
+            command.Parameters.Add("@Ram", SqlDbType.Float).Value = productDTO.Ram;
+            command.Parameters.Add("@Rom", SqlDbType.Int).Value = productDTO.Rom;
+            command.Parameters.Add("@ScreenSize", SqlDbType.Float).Value = productDTO.ScreenSize;
+            command.Parameters.Add("@TinyDes", SqlDbType.NVarChar).Value = productDTO.TinyDes;
+            command.Parameters.Add("@Price", SqlDbType.Money).Value = productDTO.Price;
+            command.Parameters.Add("@Trademark", SqlDbType.Text).Value = productDTO.Trademark;
+            command.Parameters.Add("@BatteryCapacity", SqlDbType.Int).Value = productDTO.BatteryCapacity;
+            command.Parameters.Add("@CatID", SqlDbType.Int).Value = productDTO.CatID;
+            command.Parameters.Add("@Quantity", SqlDbType.Int).Value = productDTO.Quantity;
+            command.Parameters.Add("@Block", SqlDbType.Int).Value = productDTO.Block;
+
+            command.ExecuteNonQuery();
+        }
+        public void updateImage(int id, string key)
         {
             // update SQL
-
-            var currentProduct = string.Format("{0:00}", ProId);
-
             string sql = $"""
                 update product 
-                set ImagePath = 'Assets/Images/sp/{currentProduct}.png'
-                where ProID = {ProId}
+                set ImagePath = 'Assets/Images/sp/{key}.png'
+                where ProID = {id}
                 """;
 
             var command = new SqlCommand(sql, db.connection);

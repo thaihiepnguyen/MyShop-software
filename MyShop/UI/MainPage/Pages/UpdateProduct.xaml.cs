@@ -1,13 +1,11 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using MyShop.BUS;
+using MyShop.DAO;
 using MyShop.DTO;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Linq;
-using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,36 +21,32 @@ using System.Windows.Shapes;
 namespace MyShop.UI.MainPage.Pages
 {
     /// <summary>
-    /// Interaction logic for AddProduct.xaml
+    /// Interaction logic for UpdateProduct.xaml
     /// </summary>
-    public partial class AddProduct : Page
+    public partial class UpdateProduct : Page
     {
         private bool _isImageChanged = false;
         private FileInfo? _selectedImage = null;
-        private ProductBUS _productBUS;
         private CategoryBUS _categoryBUS;
-        class Resources 
-        {
-            public string ProImage { get; set; }
-        }
-
-        public AddProduct()
+        private ProductBUS _productBUS;
+        private Frame _pageNavegation;
+        private ProductDTO _productDTO;
+        public UpdateProduct(ProductDTO product, Frame pageNavigation)
         {
             InitializeComponent();
 
-            _productBUS = new ProductBUS();
+            _pageNavegation = pageNavigation;
             _categoryBUS = new CategoryBUS();
+            _productBUS = new ProductBUS();
 
             var categories = _categoryBUS.getAll();
 
 
             CategoryCombobox.ItemsSource = categories;
-            CategoryCombobox.SelectedIndex = 0;
 
-            DataContext = new Resources()
-            {
-                ProImage = "Assets/Images/add_image.png"
-            };
+            CategoryCombobox.SelectedIndex = (int)(product.CatID - 1);
+            _productDTO = product;
+            DataContext = product;
         }
 
         private void AddImageButton_Click(object sender, RoutedEventArgs e)
@@ -75,14 +69,10 @@ namespace MyShop.UI.MainPage.Pages
 
         private void SaveProduct_Click(object sender, RoutedEventArgs e)
         {
-            if (_selectedImage == null)
-            {
-                MessageBox.Show("Vui lòng nhập ảnh đại diện");
-                return;
-            }
-
             var productDTO = new ProductDTO();
 
+            int id = _productDTO.ProId;
+            productDTO.ProId = id;
             productDTO.ProName = NameTermTextBox.Text;
             productDTO.Ram = Double.Parse(RamTermTextBox.Text);
             productDTO.Rom = int.Parse(RomTermTextBox.Text);
@@ -95,13 +85,19 @@ namespace MyShop.UI.MainPage.Pages
             productDTO.Quantity = int.Parse(QuantityTermTextBox.Text);
             productDTO.Block = 0;
 
-            int id = _productBUS.saveProduct(productDTO);
+            _productBUS.patchProduct(productDTO);
 
             string key = Guid.NewGuid().ToString();
 
-            _productBUS.uploadImage(_selectedImage, id, key);
+            if (_isImageChanged)
+                _productBUS.uploadImage(_selectedImage, id, key);
 
-            MessageBox.Show("Sản phẩm đã thêm thành công", "Thông báo", MessageBoxButton.OK);
+            MessageBox.Show("Sản phẩm đã chỉnh sửa thành công", "Thông báo", MessageBoxButton.OK);
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            _pageNavegation.NavigationService.GoBack();
         }
     }
 }

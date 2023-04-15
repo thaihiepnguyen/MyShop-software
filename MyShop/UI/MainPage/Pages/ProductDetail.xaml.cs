@@ -95,7 +95,10 @@ namespace MyShop.UI.MainPage.Pages
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            _pageNavigation.NavigationService.Navigate(_home);
+            // Lưu lại trạng thái trước đó 
+            var (key, page, startPrice, endPrice) = _home.getCurrentState();
+
+            _pageNavigation.NavigationService.Navigate(new Home(_pageNavigation, page, key, startPrice, endPrice));
         }
 
         private void DelProduct_Click(object sender, RoutedEventArgs e)
@@ -104,12 +107,22 @@ namespace MyShop.UI.MainPage.Pages
 
             if (choice == MessageBoxResult.OK)
             {
+                // lưu lại trạng thái trước đó
+                var (key, page, startPrice, endPrice) = _home.getCurrentState();
                 _productBUS.delProduct(_product.ProId);
-                _pageNavigation.NavigationService.Navigate(_home);
+                _pageNavigation.NavigationService.Navigate(new Home(_pageNavigation, page, key, startPrice, endPrice));
             } else
             {
 
             }
+        }
+
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            var clonedProduct = (ProductDTO)_product.Clone();
+
+
+            _pageNavigation.NavigationService.Navigate(new UpdateProduct(clonedProduct, _pageNavigation));
         }
     }
 }

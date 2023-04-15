@@ -1,5 +1,6 @@
 ﻿using MyShop.DAO;
 using MyShop.DTO;
+using MyShop.UI.MainPage.Pages;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +22,7 @@ namespace MyShop.BUS
             _productDAO = new ProductDAO();
         }
 
-        public Tuple<List<ProductDTO>, int> findProductBySearch(int currentPage = 1, int rowsPerPage = 10,
+        public Tuple<List<ProductDTO>, int> findProductBySearch(int currentPage = 1, int rowsPerPage = 9,
                 string keyword = "", Decimal? startPrice = null, Decimal? endPrice = null)
         {
             var origin = _productDAO.getAll();
@@ -65,15 +66,20 @@ namespace MyShop.BUS
             return id;
         }
 
-        public void uploadImage(FileInfo selectedImage,int id)
+        public void patchProduct(ProductDTO product)
         {
-            _productDAO.updateImage(id);
+            _productDAO.updateProduct(product);
+        }
+
+        public void uploadImage(FileInfo selectedImage,int id, string key)
+        {
+            _productDAO.updateImage(id, key);
 
             var folder = AppDomain.CurrentDomain.BaseDirectory;
-            var currentProduct = string.Format("{0:00}", id);
 
-            File.Copy(selectedImage.FullName, $"{folder}/Assets/Images/sp/{currentProduct}.png");
+            var filePath = $"{folder}/Assets/Images/sp/{key}.png";
 
+            File.Copy(selectedImage.FullName, filePath);
         }
     }
 }

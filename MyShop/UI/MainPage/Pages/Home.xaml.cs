@@ -1,4 +1,5 @@
-﻿using MyShop.BUS;
+﻿using Azure;
+using MyShop.BUS;
 using MyShop.DAO;
 using MyShop.DTO;
 using System;
@@ -32,6 +33,17 @@ namespace MyShop.UI.MainPage.Pages
         private Decimal? _currentStartPrice = null;
         private Decimal? _currentEndPrice = null;
         private Frame _pageNavigation;
+
+        public Tuple<string, int,Decimal?, Decimal?> getCurrentState()
+        {
+            return new Tuple<string,int, Decimal?, Decimal?>
+                (
+                    _currentKey,
+                    _currentPage,
+                    _currentStartPrice,
+                    _currentEndPrice
+                );
+        }
 
         class Resources
         {
@@ -73,15 +85,20 @@ namespace MyShop.UI.MainPage.Pages
         }
 
 
-        public Home(Frame pageNavigation)
+        public Home(Frame pageNavigation, int page = 1, string keyword = "", Decimal? currentStartPrice = null, Decimal? currentEndPrice = null)
         {
             _pageNavigation = pageNavigation;
             InitializeComponent();
+
+            _currentPage = page;
+            _currentKey = keyword;
+            _currentStartPrice = currentStartPrice;
+            _currentEndPrice = currentEndPrice;
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            updateDataSource();
+            updateDataSource(_currentPage, _currentKey, _currentStartPrice, _currentEndPrice);
             updatePagingInfo();
             this.DataContext = new Resources()
             {
@@ -99,7 +116,6 @@ namespace MyShop.UI.MainPage.Pages
             _currentPage = page;
             ProductBUS productBUS = new ProductBUS();
             (_products, _totalItems) = productBUS.findProductBySearch(_currentPage, _rowsPerPage, keyword, currentStartPrice, currentEndPrice);
-
             foreach (var product in _products)
             {
                 list.Add(new Data(product));

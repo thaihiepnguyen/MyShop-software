@@ -1,0 +1,621 @@
+﻿<Page x:Class="MyShop.UI.MainPage.Pages.UpdateProduct"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
+      xmlns:local="clr-namespace:MyShop.UI.MainPage.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="UpdateProduct">
+    <Page.Resources>
+        <local:RelativeToAbsoluteConverter x:Key="absoluteConverter"/>
+        <local:DecimalToCurrencyConverter x:Key="currencyConverter"/>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <!--Hiển thị nút bấm trở về-->
+        <Button
+            Name="BackButton"
+            Width="85"
+            Height="30"
+            Style="{StaticResource MyButtonStyle}"
+            BorderThickness="0.5"
+            BorderBrush="Orange"
+            HorizontalAlignment="Left"
+            Margin="20,10,0,0"
+            Click="BackButton_Click"
+            >
+            <StackPanel
+                Orientation="Horizontal">
+                <fa:ImageAwesome 
+                    Name="CatIcon"
+                    Width="11"
+                    Height="11"
+                    Margin="0, 0, 8, 0"
+                    RenderOptions.BitmapScalingMode="HighQuality"
+                    Icon="Backward"
+                    Foreground="#8B4000"
+                        />
+                <TextBlock
+                    FontWeight="Bold"
+                    Foreground="#8B4000"
+                    >Trở về</TextBlock>
+            </StackPanel>
+        </Button>
+        <Border Grid.Row="1"
+              Grid.Column="1"
+              Background="#60ffffff"
+              Margin="20,0,20,0"
+                Padding="0, 10, 0, 10"
+                CornerRadius="10"
+              >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Hiển thị nhập tên sản phẩm-->
+                <StackPanel Margin="0, 10, 0, 10" Orientation="Vertical">
+                    <TextBlock Margin="20,0,0,0" 
+                               Text="TÊN SẢN PHẨM"
+                               FontSize="14"
+                               FontWeight="Medium"
+                               Foreground="#353935"/>
+                    <Border 
+                    BorderThickness="0.5" BorderBrush="Orange" CornerRadius="5"
+                    Grid.Column="0" Background="White"
+                    Height="35"
+                    Width="270"
+                    Margin="10">
+                        <Grid
+                            Width="250"
+                            Margin="0"
+                            HorizontalAlignment="Center">
+                            <TextBox 
+                                BorderThickness="0"
+                                VerticalContentAlignment="Center"
+                                FontSize="13"
+                                Width="270"
+                                Text="{Binding ProName}"
+                                x:Name="NameTermTextBox">
+                            </TextBox>
+                            <TextBlock IsHitTestVisible="False" Text="Nhập tên sản phẩm" 
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               HorizontalAlignment="Left" Margin="5,0,0,0"
+                               Foreground="DarkGray">
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=NameTermTextBox}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+                <!--Hiển thị nhập thể loại bánh-->
+                <StackPanel Grid.Column="1" Margin="0, 10, 0, 10" Orientation="Vertical">
+                    <TextBlock Margin="20,0,0,0" 
+                               Text="THỂ LOẠI SẢN PHẨM"
+                               FontSize="14"
+                               FontWeight="Medium"
+                               Foreground="#353935"/>
+                    <Border
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        Height="35"
+                        Width="190"
+                        Margin="10"
+                        BorderThickness="0.5" BorderBrush="Orange" CornerRadius="5"
+                        Background="WhiteSmoke">
+                        <ComboBox 
+                            Name="CategoryCombobox"
+                            BorderThickness="0" BorderBrush="Transparent" Width="180"
+                            VerticalContentAlignment="Center">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="ComboBoxItem">
+
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <Run Text="{Binding CatName, Mode=OneWay}"/>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Border>
+                </StackPanel>
+
+                <!--Hiển thị nhập giá tiền-->
+                <StackPanel Grid.Column="2" Margin="0, 10, 0, 10" Orientation="Vertical">
+                    <TextBlock Margin="20,0,0,0" 
+                               Text="GIÁ TIỀN"
+                               FontSize="14"
+                               FontWeight="Medium"
+                               Foreground="#353935"/>
+                    <Border 
+                    BorderThickness="0.5" BorderBrush="Orange" CornerRadius="5"
+                    Grid.Column="0" Background="White"
+                    Height="35"
+                    Width="190"
+                    Margin="10">
+                        <Grid
+                            Width="170"
+                            Margin="0"
+                            HorizontalAlignment="Center">
+                            <TextBox 
+                                BorderThickness="0"
+                                VerticalContentAlignment="Center"
+                                FontSize="13"
+                                Width="190"
+                                Text="{Binding Price}"
+                                x:Name="PriceTermTextBox">
+                            </TextBox>
+                            <TextBlock IsHitTestVisible="False" Text="Nhập giá tiền" 
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               HorizontalAlignment="Left" Margin="5,0,0,0"
+                               Foreground="DarkGray">
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=PriceTermTextBox}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2"
+              Grid.Column="1"
+              Background="#60ffffff"
+              Margin="20,20,20,0"
+                CornerRadius="10"
+              >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.8*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <!--Hiển thị nhập mô tả sản phẩm-->
+                <StackPanel Margin="0, 10, 0, 0" Orientation="Vertical">
+                    <TextBlock Margin="20,0,0,0" 
+                               Text="MÔ TẢ"
+                               FontSize="14"
+                               FontWeight="Medium"
+                               Foreground="#353935"/>
+                    <Border 
+                        BorderThickness="0.5" BorderBrush="Orange" CornerRadius="5"
+                        Grid.Column="0" Background="White"
+                        Height="180"
+                        Width="290"
+                        Margin="12">
+                        <Grid
+                            Width="270"
+                            Height="170"
+                            Margin="0"
+                            HorizontalAlignment="Center">
+                            <TextBox 
+                                BorderThickness="0"
+                                VerticalContentAlignment="Top"
+                                HorizontalContentAlignment="Left"
+                                FontSize="13"
+                                Height="170"
+                                TextAlignment="Left"
+                                TextWrapping="Wrap"
+                                Width="270"
+                                Text="{Binding TinyDes}"
+                                x:Name="DesTermTextBox">
+                            </TextBox>
+                            <TextBlock IsHitTestVisible="False" Text="Nhập mô tả sản phẩm" 
+                               VerticalAlignment="Top"
+                               FontSize="13"
+                               Margin="4,0,0,0"
+                               HorizontalAlignment="Left"
+                               Foreground="DarkGray">
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=DesTermTextBox}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Grid.Row="0"
+                            Grid.Column="1"
+                            Grid.RowSpan="2">
+                    <!--Hiển thị nhập dung lượng Ram-->
+                    <StackPanel Grid.Column="1"
+                            Grid.Row="0" 
+                            Margin="0, 10, 0, 0" Orientation="Vertical">
+                        <TextBlock Margin="20,0,0,0" 
+                               Text="RAM"
+                               FontSize="14"
+                               FontWeight="Medium"
+                               Foreground="#353935"/>
+                        <Border 
+                    BorderThickness="0.5" BorderBrush="Orange" CornerRadius="5"
+                    Grid.Column="0" Background="White"
+                    Height="35"
+                    Width="190"
+                    Margin="10">
+                            <Grid
+                            Width="170"
+                            Margin="0"
+                            HorizontalAlignment="Center">
+                                <TextBox 
+                                BorderThickness="0"
+                                VerticalContentAlignment="Center"
+                                FontSize="13"
+                                Width="190"
+                                Text="{Binding Ram}"
+                                x:Name="RamTermTextBox">
+                                </TextBox>
+                                <TextBlock IsHitTestVisible="False" Text="Nhập DLượng Ram (GB)" 
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               HorizontalAlignment="Left" Margin="5,0,0,0"
+                               Foreground="DarkGray">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, ElementName=RamTermTextBox}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+
+                    <!--Hiển thị nhập kích thước màn hình-->
+                    <StackPanel Grid.Column="1"
+                            Grid.Row="0" 
+                            Margin="0, 0, 0, 0" Orientation="Vertical">
+                        <TextBlock Margin="20,0,0,0" 
+                               Text="KÍCH THƯỚC MÀN HÌNH"
+                               FontSize="14"
+                               FontWeight="Medium"
+                               Foreground="#353935"/>
+                        <Border 
+                    BorderThickness="0.5" BorderBrush="Orange" CornerRadius="5"
+                    Grid.Column="0" Background="White"
+                    Height="35"
+                    Width="190"
+                    Margin="10">
+                            <Grid
+                            Width="170"
+                            Margin="0"
+                            HorizontalAlignment="Center">
+                                <TextBox 
+                                BorderThickness="0"
+                                VerticalContentAlignment="Center"
+                                FontSize="13"
+                                Width="190"
+                                    Text="{Binding ScreenSize}"
+                                x:Name="ScreenSizeTermTextBox">
+                                </TextBox>
+                                <TextBlock IsHitTestVisible="False" Text="Nhập size màn hình (inch)" 
+                               VerticalAlignment="Center"
+                               FontSize="13" Margin="5,0,16,0"
+                               Foreground="DarkGray">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, ElementName=ScreenSizeTermTextBox}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                    <!--Hiển thị nhập kích thước màn hình-->
+                    <StackPanel Grid.Column="1"
+                            Grid.Row="0" 
+                            Margin="0, 0, 0, 0" Orientation="Vertical">
+                        <TextBlock Margin="20,0,0,0" 
+                               Text="THƯƠNG HIỆU"
+                               FontSize="14"
+                               FontWeight="Medium"
+                               Foreground="#353935"/>
+                        <Border 
+                    BorderThickness="0.5" BorderBrush="Orange" CornerRadius="5"
+                    Grid.Column="0" Background="White"
+                    Height="35"
+                    Width="190"
+                    Margin="10">
+                            <Grid
+                            Width="170"
+                            Margin="0"
+                            HorizontalAlignment="Center">
+                                <TextBox 
+                                BorderThickness="0"
+                                VerticalContentAlignment="Center"
+                                FontSize="13"
+                                Width="190"
+                                    Text="{Binding Trademark}"
+                                x:Name="TradeMarkTermTextBox">
+                                </TextBox>
+                                <TextBlock IsHitTestVisible="False" Text="Nhập thương hiệu" 
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               HorizontalAlignment="Left" Margin="5,0,0,0"
+                               Foreground="DarkGray">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, ElementName=TradeMarkTermTextBox}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Row="0"
+                            Grid.Column="2"
+                            Grid.RowSpan="2">
+                    <!--Hiển thị nhập dung lượng Rom-->
+                    <StackPanel Grid.Column="2"
+                            Grid.Row="0" 
+                            Margin="0, 10, 0, 0" Orientation="Vertical">
+                        <TextBlock Margin="20,0,0,0" 
+                               Text="ROM"
+                               FontSize="14"
+                               FontWeight="Medium"
+                               Foreground="#353935"/>
+                        <Border 
+                    BorderThickness="0.5" BorderBrush="Orange" CornerRadius="5"
+                    Grid.Column="0" Background="White"
+                    Height="35"
+                    Width="190"
+                    Margin="10">
+                            <Grid
+                            Width="170"
+                            Margin="0"
+                            HorizontalAlignment="Center">
+                                <TextBox 
+                                BorderThickness="0"
+                                VerticalContentAlignment="Center"
+                                FontSize="13"
+                                Width="190"
+                                    Text="{Binding Rom}"
+                                x:Name="RomTermTextBox">
+                                </TextBox>
+                                <TextBlock IsHitTestVisible="False" Text="Nhập DLượng Rom (GB)" 
+                               VerticalAlignment="Center"
+                               FontSize="13" Margin="5,0,27,0"
+                               Foreground="DarkGray">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, ElementName=RomTermTextBox}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                    <!--Hiển thị nhập dung lượng PIN-->
+                    <StackPanel Grid.Column="2"
+                            Grid.Row="0" 
+                            Margin="0, 0, 0, 0" Orientation="Vertical">
+                        <TextBlock Margin="20,0,0,0" 
+                               Text="DUNG LƯỢNG PIN"
+                               FontSize="14"
+                               FontWeight="Medium"
+                               Foreground="#353935"/>
+                        <Border 
+                    BorderThickness="0.5" BorderBrush="Orange" CornerRadius="5"
+                    Grid.Column="0" Background="White"
+                    Height="35"
+                    Width="190"
+                    Margin="10">
+                            <Grid
+                            Width="170"
+                            Margin="0"
+                            HorizontalAlignment="Center">
+                                <TextBox 
+                                BorderThickness="0"
+                                VerticalContentAlignment="Center"
+                                FontSize="13"
+                                Width="190"
+                                    Text="{Binding BatteryCapacity}"
+                                x:Name="PinTermTextBox">
+                                </TextBox>
+                                <TextBlock IsHitTestVisible="False" Text="Nhập DLượng Pin (mAh)" 
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               HorizontalAlignment="Left" Margin="5,0,0,0"
+                               Foreground="DarkGray">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, ElementName=PinTermTextBox}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                    <!--Hiển thị nhập số lượng sản phẩm-->
+                    <StackPanel Grid.Column="2"
+                            Grid.Row="0" 
+                            Margin="0, 0, 0, 0" Orientation="Vertical">
+                        <TextBlock Margin="20,0,0,0" 
+                               Text="SỐ LƯỢNG SẢN PHẨM"
+                               FontSize="14"
+                               FontWeight="Medium"
+                               Foreground="#353935"/>
+                        <Border 
+                    BorderThickness="0.5" BorderBrush="Orange" CornerRadius="5"
+                    Grid.Column="0" Background="White"
+                    Height="35"
+                    Width="190"
+                    Margin="10">
+                            <Grid
+                            Width="170"
+                            Margin="0"
+                            HorizontalAlignment="Center">
+                                <TextBox 
+                                BorderThickness="0"
+                                VerticalContentAlignment="Center"
+                                FontSize="13"
+                                Width="190"
+                                    Text="{Binding Quantity}"
+                                x:Name="QuantityTermTextBox">
+                                </TextBox>
+                                <TextBlock IsHitTestVisible="False" Text="Nhập số lượng sản phẩm" 
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               HorizontalAlignment="Left" Margin="5,0,0,0"
+                               Foreground="DarkGray">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, ElementName=QuantityTermTextBox}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+
+
+                <!--Hiển thị nhập ảnh sản phẩm-->
+                <StackPanel Grid.Row="1">
+                    <TextBlock Margin="20,20,0,10" 
+                               Text="ẢNH ĐẠI DIỆN"
+                               FontSize="14"
+                               FontWeight="Medium"
+                               Foreground="#353935"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                Margin="30, 0, 30,10">
+                        <Button 
+                            Name="AddImageButton"
+                            VerticalAlignment="Top"
+                            Margin="10,0,0,0"
+                            Height="35"
+                            Width="50"
+                            Click="AddImageButton_Click"
+                            Style="{StaticResource MyButtonStyle}">
+                            <fa:ImageAwesome 
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Width="20"
+                                Height="20"
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Icon="Image"
+                                Foreground="DarkRed"
+                            />
+                        </Button>
+                        <Image 
+                            Name="AddedImage"
+                            VerticalAlignment="Top"
+                            Margin="80, -20, 0,0"
+                            Width="75"
+                            Height="75"
+                            Source="{Binding ImagePath, Converter={StaticResource absoluteConverter}}"
+                            HorizontalAlignment="Center">
+
+                        </Image>
+                    </StackPanel>
+                </StackPanel>
+
+            </Grid>
+        </Border>
+
+        <!--Hiển thị nút bấm lưu -->
+        <Button
+            Name="SaveProduct"
+            Grid.Row="3"
+            Width="120"
+            Height="30"
+            Style="{StaticResource MyButtonStyle}"
+            BorderThickness="0.5"
+            BorderBrush="Red"
+            HorizontalAlignment="Right"
+            Margin="0,0,20,0"
+            Click="SaveProduct_Click"
+            >
+            <StackPanel
+                Orientation="Horizontal">
+                <fa:ImageAwesome 
+                    Width="11"
+                    Height="11"
+                    Margin="0, 0, 8, 0"
+                    RenderOptions.BitmapScalingMode="HighQuality"
+                    Icon="Save"
+                    Foreground="DarkRed"
+                        />
+                <TextBlock
+                    FontWeight="Medium"
+                    Foreground="DarkRed"
+                    >Lưu sản phẩm</TextBlock>
+            </StackPanel>
+        </Button>
+    </Grid>
+</Page>
