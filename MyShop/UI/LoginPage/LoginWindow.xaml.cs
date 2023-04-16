@@ -28,9 +28,9 @@ namespace MyShop.UI.LoginPage
             string inputPassword = txtPassword.Password;
 
             UserBUS productBUS = new UserBUS();
-            UserDTO aaa = productBUS.getOne(inputUsername, inputPassword);
+            UserDTO handleApiUser = productBUS.getOne(inputUsername, inputPassword);
 
-            if (aaa != null)
+            if (handleApiUser != null)
             {
                 Button button = sender as Button;
                 Window parentWindow = Window.GetWindow(button);
