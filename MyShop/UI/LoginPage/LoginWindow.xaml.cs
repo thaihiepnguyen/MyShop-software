@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MyShop.UI.SignupPage;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using MyShop.BUS;
+using MyShop.DTO;
+using MyShop.UI.MainPage.Pages;
 
 namespace MyShop.UI.LoginPage
 {
@@ -22,6 +16,47 @@ namespace MyShop.UI.LoginPage
         public LoginWindow()
         {
             InitializeComponent();
+        }
+        class Resoures
+        {
+            public string Logo { get; set; }
+            public string MainBgPath { get; set; }
+        }
+        private void Button_Login(object sender, RoutedEventArgs e)
+        {
+            string inputUsername = txtUsername.Text;
+            string inputPassword = txtPassword.Password;
+
+            UserBUS productBUS = new UserBUS();
+            UserDTO aaa = productBUS.getOne(inputUsername, inputPassword);
+
+            if (aaa != null)
+            {
+                Button button = sender as Button;
+                Window parentWindow = Window.GetWindow(button);
+                parentWindow.Close();
+            }
+            else
+            {
+                txtFailLogin.Text = "Invalid username or password";
+                Trace.WriteLine("invalid Username or password");
+            }
+        }
+
+        private void Button_Signup(object sender, RoutedEventArgs e)
+        {
+            SignupWindow loginWindow = new SignupWindow();
+            loginWindow.ShowDialog();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.DataContext = new Resoures()
+            {
+                Logo = "Assets/Images/logo.png",
+                MainBgPath = "Assets/Images/main-bg.png"
+            };
+
         }
     }
 }
