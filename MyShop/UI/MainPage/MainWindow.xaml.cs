@@ -45,6 +45,7 @@ namespace MyShop.UI.MainPage
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+           
             // init db
 
             new DatabaseUtilitites(
@@ -53,7 +54,8 @@ namespace MyShop.UI.MainPage
                 "admin",
                 "admin"
                 );
-
+             LoginPage.LoginWindow loginWindow = new LoginPage.LoginWindow();
+            loginWindow.ShowDialog();
 
             // Load Nav Background
             this.DataContext = new Resoures()
