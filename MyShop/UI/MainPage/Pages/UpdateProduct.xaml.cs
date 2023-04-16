@@ -3,17 +3,9 @@ using MyShop.BUS;
 using MyShop.DAO;
 using MyShop.DTO;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -69,23 +61,21 @@ namespace MyShop.UI.MainPage.Pages
 
         private void SaveProduct_Click(object sender, RoutedEventArgs e)
         {
-            var productDTO = new ProductDTO();
-
             int id = _productDTO.ProId;
-            productDTO.ProId = id;
-            productDTO.ProName = NameTermTextBox.Text;
-            productDTO.Ram = Double.Parse(RamTermTextBox.Text);
-            productDTO.Rom = int.Parse(RomTermTextBox.Text);
-            productDTO.ScreenSize = Double.Parse(ScreenSizeTermTextBox.Text);
-            productDTO.TinyDes = DesTermTextBox.Text;
-            productDTO.Price = Decimal.Parse(PriceTermTextBox.Text);
-            productDTO.Trademark = TradeMarkTermTextBox.Text;
-            productDTO.BatteryCapacity = int.Parse(PinTermTextBox.Text);
-            productDTO.CatID = CategoryCombobox.SelectedIndex + 1;
-            productDTO.Quantity = int.Parse(QuantityTermTextBox.Text);
-            productDTO.Block = 0;
+            _productDTO.ProId = id;
+            _productDTO.ProName = NameTermTextBox.Text;
+            _productDTO.Ram = Double.Parse(RamTermTextBox.Text);
+            _productDTO.Rom = int.Parse(RomTermTextBox.Text);
+            _productDTO.ScreenSize = Double.Parse(ScreenSizeTermTextBox.Text);
+            _productDTO.TinyDes = DesTermTextBox.Text;
+            _productDTO.Price = Decimal.Parse(PriceTermTextBox.Text);
+            _productDTO.Trademark = TradeMarkTermTextBox.Text;
+            _productDTO.BatteryCapacity = int.Parse(PinTermTextBox.Text);
+            _productDTO.CatID = CategoryCombobox.SelectedIndex + 1;
+            _productDTO.Quantity = int.Parse(QuantityTermTextBox.Text);
+            _productDTO.Block = 0;
 
-            _productBUS.patchProduct(productDTO);
+            _productBUS.patchProduct(_productDTO);
 
             string key = Guid.NewGuid().ToString();
 

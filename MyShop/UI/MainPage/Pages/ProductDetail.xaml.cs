@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,45 +23,18 @@ namespace MyShop.UI.MainPage.Pages
         private Home _home;
 
         // Mục đích là đổ dữ liệu của Class này lên UI
-        class Data
+        class Data : INotifyPropertyChanged
         {
-            public string? ProName { get; set; }
-            public double Ram { get; set; }
-            public int Rom { get; set; }
-            public double ScreenSize { get; set; }
-            public string? TinyDes { get; set; }
-            public string? FullDes { get; set; }
-            public decimal Price { get; set; }
-            public string? ImagePath { get; set; }
-            public string? Trademark { get; set; }
-            public int BatteryCapacity { get; set; }
-            public int Quantity { get; set; }
-            public int? Block { get; set; }
-            public int? CatID { get; set; }
+            public ProductDTO Product { get; set; }
+            public CategoryDTO Category { get; set; }
 
-            public string? CatName { get; set; }
-
-            public string? CatIcon { get; set; }
+            public string CatIcon { get; set; }
 
 
             public Data(ProductDTO productDTO, CategoryDTO categoryDTO)
             {
-                ProName = productDTO.ProName;
-                ImagePath = productDTO.ImagePath;
-                Price = productDTO.Price;
-                Rom = productDTO.Rom;
-                Ram = productDTO.Ram;
-                ScreenSize = productDTO.ScreenSize;
-                TinyDes = productDTO.TinyDes;
-                FullDes = productDTO.FullDes;
-                Price = productDTO.Price;
-                TinyDes = productDTO.TinyDes;
-                FullDes = productDTO.FullDes;
-                Quantity= productDTO.Quantity;
-                BatteryCapacity = productDTO.BatteryCapacity;
-                Block = productDTO.Block;
-                CatID = productDTO.CatID;
-                CatName = categoryDTO.CatName;
+                this.Product = productDTO;
+                this.Category = categoryDTO;
 
                 if (productDTO.CatID == 1)
                 {
@@ -75,6 +49,8 @@ namespace MyShop.UI.MainPage.Pages
 
                 }
             }
+
+            public event PropertyChangedEventHandler? PropertyChanged;
         }
 
         public ProductDetail(Home home, ProductDTO product, Frame pageNavigation)
@@ -88,7 +64,7 @@ namespace MyShop.UI.MainPage.Pages
 
             CategoryDTO category = _categoryBUS.getCategoryById((int)_product.CatID);
 
-            Data data = new Data(_product, category);
+            Data data = new(_product, category);
             
             DataContext = data;
         }
@@ -122,7 +98,11 @@ namespace MyShop.UI.MainPage.Pages
             var clonedProduct = (ProductDTO)_product.Clone();
 
 
-            _pageNavigation.NavigationService.Navigate(new UpdateProduct(clonedProduct, _pageNavigation));
+            _pageNavigation.NavigationService.Navigate(new UpdateProduct(_product, _pageNavigation));
+        }
+
+        private void AddOrder_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

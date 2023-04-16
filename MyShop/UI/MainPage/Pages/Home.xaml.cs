@@ -128,6 +128,11 @@ namespace MyShop.UI.MainPage.Pages
 
             dataListView.ItemsSource = list;
 
+            if (keyword.Length != 0)
+            {
+                SearchTermTextBox.Text = keyword;
+            }
+
 
             infoTextBlock.Text = $"Đang hiển thị {_products.Count} trên tổng số {_totalItems} sản phẩm";
         }

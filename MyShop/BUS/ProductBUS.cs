@@ -81,5 +81,10 @@ namespace MyShop.BUS
 
             File.Copy(selectedImage.FullName, filePath);
         }
+
+        public ProductDTO findProductById(int id)
+        {
+            return _productDAO.getProductById(id);
+        }
     }
 }

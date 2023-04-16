@@ -59,7 +59,7 @@
         <!--Hiển thị ảnh sản phẩm-->
         <Image Grid.Row="1" 
                RenderOptions.BitmapScalingMode="HighQuality"
-               Source="{Binding ImagePath, Converter={StaticResource absoluteConverter}}"
+               Source="{Binding Product.ImagePath, Converter={StaticResource absoluteConverter}}"
                Margin="10,0,0,30">
             <Image.Effect>
                 <DropShadowEffect BlurRadius="35"
@@ -90,7 +90,7 @@
 
 
                 <TextBlock
-                Text="{Binding ProName}"
+                Text="{Binding Product.ProName}"
                 Margin="0,0,0,10"
                 Foreground="#353935"
                 d:Text="Samsung Galaxy S20 Ultra"
@@ -128,7 +128,7 @@
                             FontWeight="Medium"
                             />
                             </StackPanel>
-                            <TextBlock Text="{Binding CatName}"
+                            <TextBlock Text="{Binding Category.CatName}"
                                    FontSize="14"
                                    Foreground="#353935"
                                    Margin="22, 0,0,0"/>
@@ -155,7 +155,7 @@
                             FontWeight="Medium"
                             />
                             </StackPanel>
-                            <TextBlock Text="{Binding Price, Converter={StaticResource currencyConverter}}"
+                            <TextBlock Text="{Binding Product.Price, Converter={StaticResource currencyConverter}}"
                         
                                    Foreground="DarkRed"
                                    FontWeight="Bold"
@@ -189,7 +189,7 @@
                                    FontSize="14"
                                    Foreground="#353935"
                                    Margin="22, 0,0,0">
-                            <Run Text="{Binding Quantity}"/>
+                            <Run Text="{Binding Product.Quantity}"/>
                             <Run Text="Sản Phẩm"/>
                             </TextBlock>
                         </StackPanel>
@@ -220,7 +220,7 @@
                                    FontSize="14"
                                    Foreground="#353935"
                                    Margin="22, 0,0,0">
-                            <Run Text="{Binding Ram}"/>
+                            <Run Text="{Binding Product.Ram}"/>
                             <Run Text="GB"/>
                             </TextBlock>
                         </StackPanel>
@@ -249,7 +249,7 @@
                                     FontSize="14"
                                    Foreground="#353935"
                                    Margin="22, 0,0,0">
-                            <Run Text="{Binding Rom}"/>
+                            <Run Text="{Binding Product.Rom}"/>
                             <Run Text="GB"/>
                             </TextBlock>
                         </StackPanel>
@@ -279,7 +279,7 @@
                                    FontSize="14"
                                    Foreground="#353935"
                                    Margin="22, 0,0,0">
-                            <Run Text="{Binding BatteryCapacity}"></Run>
+                            <Run Text="{Binding Product.BatteryCapacity}"></Run>
                             <Run Text="mAh"></Run>
                             </TextBlock>
                         </StackPanel>
@@ -309,7 +309,7 @@
                                    FontSize="14"
                                    Foreground="#353935"
                                    Margin="22, 0,0,0">
-                            <Run Text="{Binding ScreenSize}"></Run>
+                            <Run Text="{Binding Product.ScreenSize}"></Run>
                             <Run Text="inch"></Run>
                             </TextBlock>
                         </StackPanel>
@@ -325,7 +325,7 @@
                                Foreground="#353935"
                                FontSize="16"
                                FontWeight="Bold"></TextBlock>
-                    <TextBlock Grid.Row="1" Text="{Binding TinyDes}"
+                    <TextBlock Grid.Row="1" Text="{Binding Product.TinyDes}"
                                TextWrapping="Wrap"/>
                 </Grid>
             </Grid>
@@ -333,6 +333,7 @@
 
         <!--Hiển thị nút bấm thêm vào giỏ hàng-->
         <Button
+            Name="AddOrder"
             Grid.Row="2"
             Width="155"
             Height="30"
@@ -341,7 +342,7 @@
             BorderBrush="Orange"
             HorizontalAlignment="Right"
             Margin="0,0,-50,0"
-            Click="BackButton_Click"
+            Click="AddOrder_Click"
             >
             <StackPanel
                 Orientation="Horizontal">

@@ -184,5 +184,43 @@ namespace MyShop.DAO
 
             command.ExecuteNonQuery();
         }
+
+        public ProductDTO getProductById(int id) 
+        {
+            List<ProductDTO> list = new List<ProductDTO>();
+            ProductDTO result = new ProductDTO();
+
+            string sql = "select ProID, ProName, Ram, Rom, ScreenSize, TinyDes," +
+                " FullDes, Price, ImagePath, Trademark," +
+                "BatteryCapacity, CatID, Quantity, Block from product where ProID = @id";
+
+            var command = new SqlCommand(sql, db.connection);
+            command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+
+            var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                ProductDTO product = new ProductDTO();
+                product.ProId = (int)reader["ProID"];
+                product.ProName = reader["ProName"] == DBNull.Value ? "Lỗi tên sản phẩm" : (string?)reader["ProName"];
+                product.Ram = (double)reader["Ram"];
+                product.Rom = (int)reader["Rom"];
+                product.ScreenSize = (double)reader["ScreenSize"];
+                product.TinyDes = reader["TinyDes"] == DBNull.Value ? null : (string?)reader["TinyDes"];
+                product.FullDes = reader["FullDes"] == DBNull.Value ? null : (string?)reader["FullDes"];
+                product.Price = (decimal)reader["Price"];
+                product.ImagePath = reader["ImagePath"] == DBNull.Value ? null : (string?)reader["ImagePath"];
+                product.Trademark = reader["Trademark"] == DBNull.Value ? null : (string?)reader["Trademark"];
+                product.BatteryCapacity = (int)reader["BatteryCapacity"];
+                product.CatID = reader["CatID"] == DBNull.Value ? null : (int?)reader["CatID"];
+
+                list.Add(product);
+            }
+
+            reader.Close();
+            result = list[0];
+
+            return result;
+        }
     }
 }

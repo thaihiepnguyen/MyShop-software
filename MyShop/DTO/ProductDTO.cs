@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MyShop.DTO
 {
-    public class ProductDTO : ICloneable
+    public class ProductDTO : ICloneable, INotifyPropertyChanged
     {
         public int ProId { get; set; }
         public string? ProName { get; set; }
@@ -21,7 +22,9 @@ namespace MyShop.DTO
         public int BatteryCapacity { get; set; }
         public int? CatID { get; set; }
         public int Quantity { get; set; }
-        public int ? Block { get; set; }
+        public int? Block { get; set; }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public object Clone()
         {
