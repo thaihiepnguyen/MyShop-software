@@ -22,10 +22,10 @@ namespace MyShop.UI.MainPage
     {
         const int DashBoard = 0;
         const int Home = 1;
-        const int AddProduct = 2;
+        const int Category = 2;
         const int Order = 3;
-        const int AboutUs = 5;
         const int Statistical = 4;
+        const int AboutUs = 5;
 
         class Resoures
         {
@@ -80,8 +80,8 @@ namespace MyShop.UI.MainPage
                 },
                 new Item()
                 {
-                    FontIcon = "Plus",
-                    ItemName = "Add Product"
+                    FontIcon = "Gears",
+                    ItemName = "Categories"
                 },
                 new Item()
                 {
@@ -117,10 +117,10 @@ namespace MyShop.UI.MainPage
             {
                 pageNavigation.NavigationService.Navigate(new Home(pageNavigation));
             }
-            if (selectedIndex == AddProduct)
+            if (selectedIndex == Category)
             {
 
-                pageNavigation.NavigationService.Navigate(new AddProduct());
+                pageNavigation.NavigationService.Navigate(new ModifyCategory());
             }
             if (selectedIndex == Order)
             {

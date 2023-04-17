@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Azure;
+using Microsoft.Data.SqlClient;
 using Microsoft.Win32;
 using MyShop.BUS;
 using MyShop.DTO;
@@ -31,12 +32,13 @@ namespace MyShop.UI.MainPage.Pages
         private FileInfo? _selectedImage = null;
         private ProductBUS _productBUS;
         private CategoryBUS _categoryBUS;
+        private Frame _pageNavigation;
         class Resources 
         {
             public string ProImage { get; set; }
         }
 
-        public AddProduct()
+        public AddProduct(Frame pageNavigation)
         {
             InitializeComponent();
 
@@ -53,6 +55,8 @@ namespace MyShop.UI.MainPage.Pages
             {
                 ProImage = "Assets/Images/add_image.png"
             };
+
+            _pageNavigation = pageNavigation;
         }
 
         private void AddImageButton_Click(object sender, RoutedEventArgs e)
@@ -102,6 +106,16 @@ namespace MyShop.UI.MainPage.Pages
             _productBUS.uploadImage(_selectedImage, id, key);
 
             MessageBox.Show("Sản phẩm đã thêm thành công", "Thông báo", MessageBoxButton.OK);
+        }
+
+        private void AddCategory_Click(object sender, RoutedEventArgs e)
+        {
+            _pageNavigation.NavigationService.Navigate(new ModifyCategory());
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            _pageNavigation.NavigationService.GoBack();
         }
     }
 }

@@ -20,6 +20,7 @@ namespace MyShop.UI.MainPage.Pages
         private Frame _pageNavigation;
         private ProductBUS _productBUS;
         private CategoryBUS _categoryBUS;
+        private CategoryDTO _category;
         private Home _home;
 
         // Mục đích là đổ dữ liệu của Class này lên UI
@@ -35,19 +36,6 @@ namespace MyShop.UI.MainPage.Pages
             {
                 this.Product = productDTO;
                 this.Category = categoryDTO;
-
-                if (productDTO.CatID == 1)
-                {
-                    CatIcon = "Android";
-                }
-                else if (productDTO.CatID == 2)
-                {
-                    CatIcon = "Apple";
-                }
-                else
-                {
-
-                }
             }
 
             public event PropertyChangedEventHandler? PropertyChanged;
@@ -62,8 +50,8 @@ namespace MyShop.UI.MainPage.Pages
             _productBUS = new ProductBUS();
             _categoryBUS = new CategoryBUS();
 
-            CategoryDTO category = _categoryBUS.getCategoryById((int)_product.CatID);
-
+            CategoryDTO category = _categoryBUS.getCategoryById(_product.CatID);
+            _category = category;
             Data data = new(_product, category);
             
             DataContext = data;
@@ -72,9 +60,9 @@ namespace MyShop.UI.MainPage.Pages
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             // Lưu lại trạng thái trước đó 
-            var (key, page, startPrice, endPrice) = _home.getCurrentState();
+            var (key, page, currency, startPrice, endPrice) = _home.getCurrentState();
 
-            _pageNavigation.NavigationService.Navigate(new Home(_pageNavigation, page, key, startPrice, endPrice));
+            _pageNavigation.NavigationService.Navigate(new Home(_pageNavigation, page, currency, key, startPrice, endPrice));
         }
 
         private void DelProduct_Click(object sender, RoutedEventArgs e)
@@ -84,9 +72,9 @@ namespace MyShop.UI.MainPage.Pages
             if (choice == MessageBoxResult.OK)
             {
                 // lưu lại trạng thái trước đó
-                var (key, page, startPrice, endPrice) = _home.getCurrentState();
+                var (key, page, currency, startPrice, endPrice) = _home.getCurrentState();
                 _productBUS.delProduct(_product.ProId);
-                _pageNavigation.NavigationService.Navigate(new Home(_pageNavigation, page, key, startPrice, endPrice));
+                _pageNavigation.NavigationService.Navigate(new Home(_pageNavigation, page, currency, key, startPrice, endPrice));
             } else
             {
 
@@ -98,7 +86,7 @@ namespace MyShop.UI.MainPage.Pages
             var clonedProduct = (ProductDTO)_product.Clone();
 
 
-            _pageNavigation.NavigationService.Navigate(new UpdateProduct(_product, _pageNavigation));
+            _pageNavigation.NavigationService.Navigate(new UpdateProduct(_product, _category, _pageNavigation));
         }
 
         private void AddOrder_Click(object sender, RoutedEventArgs e)

@@ -40,7 +40,7 @@
                  Grid.Column="1" Background="White" 
                 HorizontalAlignment="Left"
                 Height="35"
-                Width="540"
+                Width="500"
                 Margin="20, 0,0,0">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -56,14 +56,14 @@
                     Foreground="#8B4000"
                     />
                 <Grid Grid.Column="1"
-                       Width="460"
+                       Width="420"
                       Margin="0"
                       HorizontalAlignment="Left">
                     <TextBox 
                         BorderThickness="0"
                         VerticalContentAlignment="Center"
                         FontSize="13"
-                        Width="460"
+                        Width="420"
                         x:Name="SearchTermTextBox"
                         KeyDown="SearchTermTextBox_KeyDown">
                     </TextBox>
@@ -89,33 +89,57 @@
         
         <!--Hiển thị Filter (Sort by giá :))-->
 
-        <Border
-            Grid.Column="1"
-            HorizontalAlignment="Right"
-            Height="35"
-            Width="140"
-            Margin="0,0,30,0"
-            BorderThickness="0.5" BorderBrush="Orange" CornerRadius="18"
-             Background="WhiteSmoke" 
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Margin="0,0, 30, 0">
+            <Border
+                Height="35"
+                Width="140"
+                Margin="10,0,0,0"
+                BorderThickness="0.5" BorderBrush="Orange" CornerRadius="18"
+                 Background="WhiteSmoke" 
             >
-            <ComboBox 
+                <ComboBox 
                 Name="PriceCombobox"
                 BorderThickness="0" BorderBrush="Transparent" Width="110"
                 VerticalContentAlignment="Center"
                 SelectionChanged="PriceCombobox_SelectionChanged">
-                <ComboBox.ItemContainerStyle>
-                    <Style TargetType="ComboBoxItem">
-                        
-                    </Style>
-                </ComboBox.ItemContainerStyle>
-                <ComboBoxItem IsHitTestVisible="False" IsEnabled="False" IsSelected="True" >Sort: Giá SP</ComboBoxItem>
-                <ComboBoxItem>Dưới 5 triệu</ComboBoxItem>
-                <ComboBoxItem>Từ 5 - 10 triệu</ComboBoxItem>
-                <ComboBoxItem>Từ 10 - 15 triệu</ComboBoxItem>
-                <ComboBoxItem>Trên 15 triệu</ComboBoxItem>
-                <ComboBoxItem >Tất cả giá</ComboBoxItem>
-            </ComboBox>
-        </Border>
+                    <ComboBox.ItemContainerStyle>
+                        <Style TargetType="ComboBoxItem">
+
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
+                    <ComboBoxItem IsHitTestVisible="False" IsEnabled="False" IsSelected="True" >Sort: Giá SP</ComboBoxItem>
+                    <ComboBoxItem>Dưới 5 triệu</ComboBoxItem>
+                    <ComboBoxItem>Từ 5 - 10 triệu</ComboBoxItem>
+                    <ComboBoxItem>Từ 10 - 15 triệu</ComboBoxItem>
+                    <ComboBoxItem>Trên 15 triệu</ComboBoxItem>
+                    <ComboBoxItem >Tất cả giá</ComboBoxItem>
+                </ComboBox>
+            </Border>
+            <Button
+                Name="AddProduct"
+                Grid.Row="2"
+                Margin="10,0,0,0"
+                Width="35"
+                Height="35"
+                Style="{StaticResource MyButtonStyle}"
+                BorderThickness="0.5"
+                BorderBrush="Orange"
+                HorizontalAlignment="Right"
+                Click="AddProduct_Click"
+            >
+                <fa:ImageAwesome 
+                    Width="16"
+                    Height="16"
+                    RenderOptions.BitmapScalingMode="HighQuality"
+                    Icon="Plus"
+                    Foreground="#8B4000"
+                        />
+            </Button>
+        </StackPanel>
+        
         
 
         <!--Hiển thị avatar-->
@@ -129,6 +153,7 @@
                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
                 HorizontalAlignment="Left"
                 HorizontalContentAlignment="Center"
+                Margin="50,0,0,0"
                 BorderThickness="0"
                 Background="Transparent"
                 >
@@ -231,7 +256,7 @@
             Grid.Row="2"
             Grid.Column="1"
             Text = "Hiển thị 12 trong tổng số 72 sản phẩm" 
-            Margin="12, 0, 200, 0"
+            Margin="20, 0, 200, 0"
             VerticalAlignment="Center"
             Foreground="#353935"
             FontWeight="Medium"

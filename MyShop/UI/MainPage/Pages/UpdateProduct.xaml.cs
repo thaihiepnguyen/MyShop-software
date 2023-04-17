@@ -23,7 +23,8 @@ namespace MyShop.UI.MainPage.Pages
         private ProductBUS _productBUS;
         private Frame _pageNavegation;
         private ProductDTO _productDTO;
-        public UpdateProduct(ProductDTO product, Frame pageNavigation)
+        private CategoryDTO _categoryDTO;
+        public UpdateProduct(ProductDTO product, CategoryDTO categoryDTO, Frame pageNavigation)
         {
             InitializeComponent();
 
@@ -38,6 +39,7 @@ namespace MyShop.UI.MainPage.Pages
 
             CategoryCombobox.SelectedIndex = (int)(product.CatID - 1);
             _productDTO = product;
+            _categoryDTO = categoryDTO;
             DataContext = product;
         }
 
@@ -72,6 +74,12 @@ namespace MyShop.UI.MainPage.Pages
             _productDTO.Trademark = TradeMarkTermTextBox.Text;
             _productDTO.BatteryCapacity = int.Parse(PinTermTextBox.Text);
             _productDTO.CatID = CategoryCombobox.SelectedIndex + 1;
+
+            var categoryTemp = _categoryBUS.getCategoryById(_productDTO.CatID);
+            _categoryDTO.CatID = categoryTemp.CatID;
+            _categoryDTO.CatName = categoryTemp.CatName;
+            _categoryDTO.CatIcon = categoryTemp.CatIcon;
+
             _productDTO.Quantity = int.Parse(QuantityTermTextBox.Text);
             _productDTO.Block = 0;
 
@@ -83,6 +91,7 @@ namespace MyShop.UI.MainPage.Pages
                 _productBUS.uploadImage(_selectedImage, id, key);
 
             MessageBox.Show("Sản phẩm đã chỉnh sửa thành công", "Thông báo", MessageBoxButton.OK);
+            _pageNavegation.NavigationService.GoBack();
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

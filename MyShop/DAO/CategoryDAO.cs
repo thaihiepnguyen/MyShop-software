@@ -19,7 +19,7 @@ namespace MyShop.DAO
         {
             List<CategoryDTO> list = new List<CategoryDTO>();
 
-            string sql = "select CatID, CatName from category";
+            string sql = "select CatID, CatName, CatIcon from category";
 
             var command = new SqlCommand(sql, db.connection);
 
@@ -30,7 +30,7 @@ namespace MyShop.DAO
                 CategoryDTO category = new CategoryDTO();
                 category.CatID = (int)reader["CatID"];
                 category.CatName = reader["CatName"] == DBNull.Value ? "Lỗi tên thể loại" : (string?)reader["CatName"];
-                
+                category.CatIcon = (string)reader["CatIcon"];
 
                 list.Add(category);
             }
@@ -44,7 +44,7 @@ namespace MyShop.DAO
             List<CategoryDTO> list = new List<CategoryDTO>();
             CategoryDTO result = new CategoryDTO();
 
-            string sql = $"select CatID, CatName from category where CatID = @id";
+            string sql = $"select CatID, CatName, CatIcon from category where CatID = @id";
 
             var command = new SqlCommand(sql, db.connection);
             command.Parameters.Add("@id", SqlDbType.Int).Value = id;
@@ -56,6 +56,7 @@ namespace MyShop.DAO
 
                 category.CatID = (int)reader["CatID"];
                 category.CatName = reader["CatName"] == DBNull.Value ? "Lỗi tên thể loại" : (string?)reader["CatName"];
+                category.CatIcon = (string)reader["CatIcon"];
 
                 list.Add(category);
             }

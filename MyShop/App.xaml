@@ -2,7 +2,9 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:MyShop"
-             StartupUri="UI/MainPage/MainWindow.xaml">
+             
+             StartupUri="UI/LoginPage/LoginWindow.xaml">
+             <!--Muốn Start Window gì thì cập nhật ở đây--> 
     <Application.Resources>
         <FontFamily x:Key="FontAwesome">/Fonts/fontawesome-webfont.ttf#FontAwesome</FontFamily>
         <Style x:Key="MyButtonStyle" TargetType="Button">

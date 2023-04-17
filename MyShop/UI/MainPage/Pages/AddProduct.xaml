@@ -15,15 +15,45 @@
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0"
+        <!--Hiển thị nút bấm trở về-->
+        <Button
+            Name="BackButton"
+            Width="85"
+            Height="30"
+            Style="{StaticResource MyButtonStyle}"
+            BorderThickness="0.5"
+            BorderBrush="Orange"
+            HorizontalAlignment="Left"
+            Margin="20,10,0,0"
+            Click="BackButton_Click"
+            >
+            <StackPanel
+                Orientation="Horizontal">
+                <fa:ImageAwesome 
+                    Name="CatIcon"
+                    Width="11"
+                    Height="11"
+                    Margin="0, 0, 8, 0"
+                    RenderOptions.BitmapScalingMode="HighQuality"
+                    Icon="Backward"
+                    Foreground="#8B4000"
+                        />
+                <TextBlock
+                    FontWeight="Bold"
+                    Foreground="#8B4000"
+                    >Trở về</TextBlock>
+            </StackPanel>
+        </Button>
+        <Border Grid.Row="1"
               Grid.Column="1"
               Background="#60ffffff"
-              Margin="20,30,20,0"
+              Margin="20,10,20,0"
                 CornerRadius="10"
               >
             <Grid>
@@ -158,7 +188,7 @@
             </Grid>
         </Border>
 
-        <Border Grid.Row="1"
+        <Border Grid.Row="2"
               Grid.Column="1"
               Background="#60ffffff"
               Margin="20,20,20,0"
@@ -185,12 +215,12 @@
                     <Border 
                         BorderThickness="0.5" BorderBrush="Orange" CornerRadius="5"
                         Grid.Column="0" Background="White"
-                        Height="180"
+                        Height="150"
                         Width="290"
                         Margin="12">
                         <Grid
                             Width="270"
-                            Height="170"
+                            Height="140"
                             Margin="0"
                             HorizontalAlignment="Center">
                             <TextBox 
@@ -198,7 +228,7 @@
                                 VerticalContentAlignment="Top"
                                 HorizontalContentAlignment="Left"
                                 FontSize="13"
-                                Height="170"
+                                Height="140"
                                 TextAlignment="Left"
                                 TextWrapping="Wrap"
                                 Width="270"
@@ -553,7 +583,7 @@
         <!--Hiển thị nút bấm lưu -->
         <Button
             Name="SaveProduct"
-            Grid.Row="2"
+            Grid.Row="3"
             Width="120"
             Height="30"
             Style="{StaticResource MyButtonStyle}"
@@ -577,35 +607,6 @@
                     FontWeight="Medium"
                     Foreground="DarkRed"
                     >Lưu sản phẩm</TextBlock>
-            </StackPanel>
-        </Button>
-
-        <!--Hiển thị nút bấm thêm thể loại sản phẩm -->
-        <Button
-            Name="AddCategory"
-            Grid.Row="2"
-            Width="130"
-            Height="30"
-            Style="{StaticResource MyButtonStyle}"
-            BorderThickness="0.5"
-            BorderBrush="Red"
-            HorizontalAlignment="Right"
-            Margin="0,0,160,0"
-            >
-            <StackPanel
-                Orientation="Horizontal">
-                <fa:ImageAwesome 
-                    Width="11"
-                    Height="11"
-                    Margin="0, 0, 8, 0"
-                    RenderOptions.BitmapScalingMode="HighQuality"
-                    Icon="PlusSquare"
-                    Foreground="DarkRed"
-                        />
-                <TextBlock
-                    FontWeight="Medium"
-                    Foreground="DarkRed"
-                    >Thêm thể loại</TextBlock>
             </StackPanel>
         </Button>
     </Grid>

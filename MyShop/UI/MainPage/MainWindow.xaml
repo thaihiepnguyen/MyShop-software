@@ -24,7 +24,6 @@
             <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
         <!--nav - background-->
         <Image 
             Name="MainBackground"

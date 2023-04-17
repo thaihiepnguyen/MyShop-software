@@ -39,6 +39,7 @@ namespace MyShop.UI.SignupPage
             string inputAdress = txtAdress.Text;
             string inputNumberphone = txtNumberphone.Text;
 
+            // 
             UserDTO userDTO = new UserDTO
             {
                 Username = inputUsername,

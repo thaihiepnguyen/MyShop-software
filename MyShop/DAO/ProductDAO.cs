@@ -4,14 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Data.Common;
-using System.DirectoryServices;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Documents;
 
 namespace MyShop.DAO
 {
@@ -43,7 +35,7 @@ namespace MyShop.DAO
                 product.ImagePath = reader["ImagePath"] == DBNull.Value ? null : (string?)reader["ImagePath"];
                 product.Trademark = reader["Trademark"] == DBNull.Value ? null : (string?)reader["Trademark"];
                 product.BatteryCapacity = (int)reader["BatteryCapacity"];
-                product.CatID = reader["CatID"] == DBNull.Value ? null : (int?)reader["CatID"];
+                product.CatID = (int)reader["CatID"];
                 product.Quantity = (int)reader["Quantity"];
                 product.Block = (int)reader["Block"];
 
@@ -82,7 +74,7 @@ namespace MyShop.DAO
                 product.ImagePath = reader["ImagePath"] == DBNull.Value ? null : (string?)reader["ImagePath"];
                 product.Trademark = reader["Trademark"] == DBNull.Value ? null : (string?)reader["Trademark"];
                 product.BatteryCapacity = (int)reader["BatteryCapacity"];
-                product.CatID = reader["CatID"] == DBNull.Value ? null : (int?)reader["CatID"];
+                product.CatID = (int)reader["CatID"];
 
                 list.Add(product);
             }
@@ -212,7 +204,7 @@ namespace MyShop.DAO
                 product.ImagePath = reader["ImagePath"] == DBNull.Value ? null : (string?)reader["ImagePath"];
                 product.Trademark = reader["Trademark"] == DBNull.Value ? null : (string?)reader["Trademark"];
                 product.BatteryCapacity = (int)reader["BatteryCapacity"];
-                product.CatID = reader["CatID"] == DBNull.Value ? null : (int?)reader["CatID"];
+                product.CatID = (int)reader["CatID"];
 
                 list.Add(product);
             }
