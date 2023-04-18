@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyShop.BUS;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,29 @@ namespace MyShop.UI.MainPage.Pages
     /// </summary>
     public partial class ModifyCategory : Page
     {
+        private CategoryBUS _categoryBUS;
         public ModifyCategory()
         {
             InitializeComponent();
+        }
+
+        private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            _categoryBUS= new CategoryBUS();
+
+            var categories = _categoryBUS.getAll();
+
+            categoriesListView.ItemsSource = categories;
+        }
+
+        private void SaveCategory_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

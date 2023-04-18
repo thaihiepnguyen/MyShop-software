@@ -107,7 +107,7 @@
                     </Border>
                 </StackPanel>
 
-                <!--Hiển thị nhập thể loại bánh-->
+                <!--Hiển thị nhập thể loại sản phẩm-->
                 <StackPanel Grid.Column="1" Margin="0, 10, 0, 10" Orientation="Vertical">
                     <TextBlock Margin="20,0,0,0" 
                                Text="THỂ LOẠI SẢN PHẨM"
