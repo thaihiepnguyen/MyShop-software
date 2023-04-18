@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection.PortableExecutable;
+using System.Collections.ObjectModel;
 
 namespace MyShop.DAO
 {
@@ -15,11 +16,11 @@ namespace MyShop.DAO
     {
         DatabaseUtilitites db = DatabaseUtilitites.getInstance();
 
-        public List<CategoryDTO> getAll()
+        public ObservableCollection<CategoryDTO> getAll()
         {
-            List<CategoryDTO> list = new List<CategoryDTO>();
+            ObservableCollection<CategoryDTO> list = new ObservableCollection<CategoryDTO>();
 
-            string sql = "select CatID, CatName, CatIcon from category";
+            string sql = "select CatID, CatName, CatIcon, CatDescription from category";
 
             var command = new SqlCommand(sql, db.connection);
 
@@ -31,9 +32,12 @@ namespace MyShop.DAO
                 category.CatID = (int)reader["CatID"];
                 category.CatName = reader["CatName"] == DBNull.Value ? "Lỗi tên thể loại" : (string?)reader["CatName"];
                 category.CatIcon = (string)reader["CatIcon"];
+                category.CatDescription = (string)reader["CatDescription"];
 
                 list.Add(category);
             }
+
+
 
             reader.Close();
 
@@ -44,7 +48,7 @@ namespace MyShop.DAO
             List<CategoryDTO> list = new List<CategoryDTO>();
             CategoryDTO result = new CategoryDTO();
 
-            string sql = $"select CatID, CatName, CatIcon from category where CatID = @id";
+            string sql = $"select CatID, CatName, CatIcon, CatDescription from category where CatID = @id";
 
             var command = new SqlCommand(sql, db.connection);
             command.Parameters.Add("@id", SqlDbType.Int).Value = id;
@@ -57,6 +61,7 @@ namespace MyShop.DAO
                 category.CatID = (int)reader["CatID"];
                 category.CatName = reader["CatName"] == DBNull.Value ? "Lỗi tên thể loại" : (string?)reader["CatName"];
                 category.CatIcon = (string)reader["CatIcon"];
+                category.CatDescription = (string)reader["CatDescription"];
 
                 list.Add(category);
             }
@@ -65,6 +70,35 @@ namespace MyShop.DAO
             result = list[0];
 
             return result;
+        }
+
+        public int insertCategory(CategoryDTO category)
+        {
+            string sql = "insert into category(CatName, CatIcon, CatDescription)" +
+                "values(@CatName, @CatIcon, @CatDescription)";
+            var command = new SqlCommand(sql, db.connection);
+
+            command.Parameters.Add("@CatName", SqlDbType.NVarChar).Value = category.CatName;
+            command.Parameters.Add("@CatIcon", SqlDbType.NVarChar).Value = category.CatIcon;
+            command.Parameters.Add("@CatDescription", SqlDbType.NVarChar).Value = category.CatDescription;
+
+            command.ExecuteNonQuery();
+
+            // select SQL
+            int id = -1;
+            string sql1 = "SELECT TOP 1 CatID FROM category ORDER BY CatID DESC ";
+
+            var command1 = new SqlCommand(sql1, db.connection);
+
+            var reader = command1.ExecuteReader();
+            while (reader.Read())
+            {
+                id = (int)reader["CatID"];
+            }
+
+            reader.Close();
+
+            return id;
         }
     }
 }

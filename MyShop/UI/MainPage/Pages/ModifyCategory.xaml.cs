@@ -1,6 +1,9 @@
 ﻿using MyShop.BUS;
+using MyShop.DAO;
+using MyShop.DTO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,9 +25,26 @@ namespace MyShop.UI.MainPage.Pages
     public partial class ModifyCategory : Page
     {
         private CategoryBUS _categoryBUS;
+        private ObservableCollection<CategoryDTO> _categories;
+        List<Icon> _icons = new List<Icon>() {
+                new Icon("Android"),
+                new Icon("Apple"),
+                new Icon("Windows"),
+                new Icon("MobilePhone"),
+            };
         public ModifyCategory()
         {
             InitializeComponent();
+        }
+
+        public class Icon
+        {
+            public string CatIcon { get; set; }
+
+            public Icon(string catIcon)
+            {
+                CatIcon = catIcon;
+            }
         }
 
         private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -36,14 +56,30 @@ namespace MyShop.UI.MainPage.Pages
         {
             _categoryBUS= new CategoryBUS();
 
-            var categories = _categoryBUS.getAll();
+            _categories = _categoryBUS.getAll();
 
-            categoriesListView.ItemsSource = categories;
+
+            categoriesListView.ItemsSource = _categories;
+            CategoryCombobox.ItemsSource = _icons;
+
+            CategoryCombobox.SelectedIndex = 0;
         }
 
         private void SaveCategory_Click(object sender, RoutedEventArgs e)
         {
+            var category = new CategoryDTO();
 
+            category.CatName = NameTermTextBox.Text;
+            category.CatDescription = DesTermTextBox.Text;
+            category.CatIcon = _icons[CategoryCombobox.SelectedIndex].CatIcon;
+            
+
+            int id = _categoryBUS.addCategory(category);
+
+            category.CatID = id;
+            _categories.Add(category);
+
+            MessageBox.Show("Thể loại đã thêm thành công", "Thông báo", MessageBoxButton.OK);
         }
     }
 }
