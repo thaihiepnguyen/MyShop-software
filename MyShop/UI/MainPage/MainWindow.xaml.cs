@@ -54,8 +54,6 @@ namespace MyShop.UI.MainPage
                 "admin",
                 "admin"
                 );
-             LoginPage.LoginWindow loginWindow = new LoginPage.LoginWindow();
-            loginWindow.ShowDialog();
 
             // Load Nav Background
             this.DataContext = new Resoures()
