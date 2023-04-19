@@ -120,7 +120,7 @@ namespace MyShop.UI.MainPage
             if (selectedIndex == Category)
             {
 
-                pageNavigation.NavigationService.Navigate(new ModifyCategory());
+                pageNavigation.NavigationService.Navigate(new ModifyCategory(pageNavigation));
             }
             if (selectedIndex == Order)
             {

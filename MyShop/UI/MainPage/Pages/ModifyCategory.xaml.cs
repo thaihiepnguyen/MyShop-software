@@ -1,4 +1,5 @@
-﻿using MyShop.BUS;
+﻿using MaterialDesignThemes.Wpf;
+using MyShop.BUS;
 using MyShop.DAO;
 using MyShop.DTO;
 using System;
@@ -25,31 +26,29 @@ namespace MyShop.UI.MainPage.Pages
     public partial class ModifyCategory : Page
     {
         private CategoryBUS _categoryBUS;
+        private Frame _pageNavigation;
         private ObservableCollection<CategoryDTO> _categories;
-        List<Icon> _icons = new List<Icon>() {
-                new Icon("Android"),
-                new Icon("Apple"),
-                new Icon("Windows"),
-                new Icon("MobilePhone"),
+        List<IconCategoryDTO> _icons = new List<IconCategoryDTO>() {
+                new IconCategoryDTO("Android"),
+                new IconCategoryDTO("Apple"),
+                new IconCategoryDTO("Windows"),
+                new IconCategoryDTO("MobilePhone"),
             };
-        public ModifyCategory()
+        public ModifyCategory(Frame pageNavigation)
         {
+            _pageNavigation = pageNavigation;
             InitializeComponent();
-        }
-
-        public class Icon
-        {
-            public string CatIcon { get; set; }
-
-            public Icon(string catIcon)
-            {
-                CatIcon = catIcon;
-            }
         }
 
         private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            int i = categoriesListView.SelectedIndex;
 
+            var category = _categories[i];
+            if (category != null)
+            {
+                _pageNavigation.NavigationService.Navigate(new UpdateCategory(_pageNavigation, category, _icons));
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -81,5 +80,34 @@ namespace MyShop.UI.MainPage.Pages
 
             MessageBox.Show("Thể loại đã thêm thành công", "Thông báo", MessageBoxButton.OK);
         }
+
+        private void DelCategory_Click(object sender, RoutedEventArgs e)
+        {
+            int i = categoriesListView.SelectedIndex;
+
+            if (i == -1)
+            {
+                MessageBox.Show("Vui lòng chọn thể loại trước khi xóa", "Thông báo", MessageBoxButton.OK);
+            }
+            else
+            {
+                MessageBoxResult choice = MessageBox.Show("Bạn có chắc chắn muốn xóa không?", "Thông Báo", MessageBoxButton.OKCancel);
+
+                if (choice == MessageBoxResult.OK)
+                {
+
+                    var CatID = _categories[i].CatID;
+
+                    _categoryBUS.delCategoryById(CatID);
+
+                    _categories.RemoveAt(i);
+                }
+                else
+                {
+
+                }
+            }
+        }
+
     }
 }

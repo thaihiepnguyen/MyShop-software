@@ -110,7 +110,7 @@ namespace MyShop.UI.MainPage.Pages
 
         private void AddCategory_Click(object sender, RoutedEventArgs e)
         {
-            _pageNavigation.NavigationService.Navigate(new ModifyCategory());
+            _pageNavigation.NavigationService.Navigate(new ModifyCategory(_pageNavigation));
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

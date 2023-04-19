@@ -100,5 +100,32 @@ namespace MyShop.DAO
 
             return id;
         }
+
+        public void delCategoryById(int catID)
+        {
+            string sql = $"""
+                delete category 
+                where CatID = {catID}
+                """;
+
+            var command = new SqlCommand(sql, db.connection);
+
+            command.ExecuteNonQuery();
+        }
+
+        public void updateCategory(CategoryDTO category)
+        {
+            string sql = "update category " +
+                "set CatName =  @CatName, CatIcon = @CatIcon, CatDescription = @CatDescription " +
+                "where CatID = @CatID";
+            var command = new SqlCommand(sql, db.connection);
+
+            command.Parameters.Add("@CatID", SqlDbType.Int).Value = category.CatID;
+            command.Parameters.Add("@CatName", SqlDbType.NVarChar).Value = category.CatName;
+            command.Parameters.Add("@CatIcon", SqlDbType.NVarChar).Value = category.CatIcon;
+            command.Parameters.Add("@CatDescription", SqlDbType.NVarChar).Value = category.CatDescription;
+
+            command.ExecuteNonQuery();
+        }
     }
 }
