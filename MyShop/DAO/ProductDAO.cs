@@ -177,6 +177,26 @@ namespace MyShop.DAO
             command.ExecuteNonQuery();
         }
 
+        public int countTotalProduct()
+        {
+            int total = 0;
+            string sql = $"""
+                select sum(Quantity) as sum from product
+                """;
+
+            var command = new SqlCommand(sql, db.connection);
+
+            var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                total = (int)reader["sum"];
+            }
+
+            reader.Close();
+
+            return total;
+        }
+
         public ProductDTO getProductById(int id) 
         {
             List<ProductDTO> list = new List<ProductDTO>();
@@ -213,6 +233,42 @@ namespace MyShop.DAO
             result = list[0];
 
             return result;
+        }
+
+        public ObservableCollection<ProductDTO> getTop5Product()
+        {
+            ObservableCollection<ProductDTO> list = new ObservableCollection<ProductDTO>();
+            string sql = "select top 5 ProID, ProName, Ram, Rom, ScreenSize, TinyDes," +
+                " FullDes, Price, ImagePath, Trademark," +
+                "BatteryCapacity, CatID, Quantity, Block from product where Quantity < 5 order by Quantity asc";
+            var command = new SqlCommand(sql, db.connection);
+
+            var reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                ProductDTO product = new ProductDTO();
+                product.ProId = (int)reader["ProID"];
+                product.ProName = reader["ProName"] == DBNull.Value ? "Lỗi tên sản phẩm" : (string?)reader["ProName"];
+                product.Ram = (double)reader["Ram"];
+                product.Rom = (int)reader["Rom"];
+                product.ScreenSize = (double)reader["ScreenSize"];
+                product.TinyDes = reader["TinyDes"] == DBNull.Value ? null : (string?)reader["TinyDes"];
+                product.FullDes = reader["FullDes"] == DBNull.Value ? null : (string?)reader["FullDes"];
+                product.Price = (decimal)reader["Price"];
+                product.ImagePath = reader["ImagePath"] == DBNull.Value ? null : (string?)reader["ImagePath"];
+                product.Trademark = reader["Trademark"] == DBNull.Value ? null : (string?)reader["Trademark"];
+                product.BatteryCapacity = (int)reader["BatteryCapacity"];
+                product.CatID = (int)reader["CatID"];
+                product.Quantity = (int)reader["Quantity"];
+                product.Block = (int)reader["Block"];
+
+                list.Add(product);
+            }
+
+            reader.Close();
+
+            return list;
         }
     }
 }

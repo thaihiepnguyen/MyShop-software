@@ -3,6 +3,7 @@ using MyShop.DTO;
 using MyShop.UI.MainPage.Pages;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -85,6 +86,16 @@ namespace MyShop.BUS
         public ProductDTO findProductById(int id)
         {
             return _productDAO.getProductById(id);
+        }
+
+        public int countTotalProduct()
+        {
+            return _productDAO.countTotalProduct();
+        }
+
+        public ObservableCollection<ProductDTO> getTop5Product()
+        {
+            return _productDAO.getTop5Product();
         }
     }
 }
