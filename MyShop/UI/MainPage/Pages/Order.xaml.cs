@@ -1,4 +1,4 @@
-﻿
+
 
 using System;
 using System.Collections.Generic;
@@ -6,98 +6,47 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
+using MyShop.BUS;
+using MyShop.DTO;
+using System.Diagnostics;
+using MyShop.UI.MainPage.Pages.NewFolder;
+using Azure;
+using System.Windows.Input;
 
 namespace MyShop.UI.MainPage.Pages
 {
     public partial class Order : Page
     {
-        class SmartPhone 
-        {
-            public string ID { get; set; }
-            public string Name { get; set; }
-            public string Price { get; set; }
-            public string AddressOrder { get; set; }
 
-            // không nên để tên biến như này nhé!. Tất cả biến bên dưới là properties
-            // biến private thực sự bị dấu đi rồi.
-            // TODO: THAM KHẢO - https://docs.google.com/presentation/d/1x8LbCQq5hPI786MQilbk5cgx88Z0vji5/edit#slide=id.p13
-            public string imagePath { get; set; }
-            public string screenSize { get; set; }
-            public string trademark { get; set; }
-            public string batteryCapacity { get; set; }
-            public string ram { get; set; }
-
-            public string rom { get; set; }
-            public string tinyDes { get; set; }
-            public string fullDes { get; set; }
-            public string price { get; set; }
-            public string categoryID { get; set; }
-            public string quantity { get; set; }
-
-        }
+      
         public Order()
         {
             InitializeComponent();
         }
-
-        class StudentDao
+        class Data
         {
-            public Tuple<List<SmartPhone>, int> GetAll(
-                int currentPage = 1, int rowsPerPage = 10,
-                string keyword = "")
+            public string? ProName { get; set; }
+            public string? ProImage { get; set; }
+            public decimal? Price { get; set; }
+            public int OrderID { get; set; }
+            public int ProID { get; set; }
+
+            public Data(OrderDTO orderDTO)
             {
-                var origin = new ObservableCollection<SmartPhone>()
-                {
-                    new SmartPhone() { Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() { Name="Vivo Y22s 8GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/285224/vivo-y22s-xanh-vang-1.jpg"},
-                    new SmartPhone() { Name="Samsung Galaxy A14 6GB", Price="30.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() {Name="iPhone 14 Pro 128GB", Price="45.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/247508/iphone14-pro-1.jpg"},
-                    new SmartPhone() { Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() { Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() { Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() { Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() { Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() { Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() { Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() { Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() { Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() {Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() { Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() {Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() {Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() { Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() { Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() { Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() { Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() { Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() { Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() { Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() { Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() { Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                    new SmartPhone() {Name="Samsung Galaxy A14 6GB", Price="35.000", imagePath="https://cdn.tgdd.vn/Products/Images/42/292770/samsung-galaxy-a14-black-1.jpg"},
-                };
-                var list = origin.Where(
-                    item => item.Name.Contains(keyword)
-                );
-
-                var items = list.Skip((currentPage - 1) * rowsPerPage)
-                    .Take(rowsPerPage);
-
-
-                var result = new Tuple<List<SmartPhone>, int>(
-                    items.ToList(), list.Count()
-                );
-                return result;
+                ProName = orderDTO.ProName;
+                ProImage = orderDTO.ImagePath;
+                Price = orderDTO.Price;
+                OrderID = orderDTO.OrderID;
+                ProID = orderDTO.ProID;
             }
         }
 
-        List<SmartPhone> _students = null;
+            private List<OrderDTO>? _orders = null;
 
         int _currentPage = 1;
-        int _rowsPerPage = 10;
+        int _rowsPerPage = 6;
         int _totalItems = 0;
         int _totalPages = 0;
-        StudentDao _dao = new StudentDao();
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -109,21 +58,26 @@ namespace MyShop.UI.MainPage.Pages
         }
    
 
-        private void _updateDataSource(int page, string keyword = "")
+
+        private void _updateDataSource( int page = 1, string keyword = "", DateTime? startDate = null, DateTime? endDate = null)
         {
+            int userID = 4;
+            List<Data> list = new List<Data>();
             _currentPage = page;
-            (_students, _totalItems) = _dao.GetAll(
-                _currentPage, _rowsPerPage, keyword);
+            OrderBUS orderBUS = new OrderBUS();
+            (_orders, _totalItems) = orderBUS.findOderBySearch(userID,_currentPage, _rowsPerPage, keyword, startDate, endDate);
+            foreach (var order in _orders)
+            {
+                list.Add(new Data(order));
+            }
 
-
-
-
-
-
-
-            dataListView.ItemsSource = _students;
-            infoTextBlock.Text =
-                $"Đang hiển thị {_students.Count} / {_totalItems} điện thoại";
+     /*       if (list.Count == 0)
+            {
+                MessageText.Text = "Opps! Không tìm thấy bất kì sản phẩm nào.";
+            }
+*/
+            dataListView.ItemsSource = list; 
+            infoTextBlock.Text = $"Đang hiển thị {_orders.Count} trên tổng số {_totalItems} sản phẩm";
         }
 
 
@@ -160,6 +114,8 @@ namespace MyShop.UI.MainPage.Pages
 
                 _updateDataSource(_currentPage);
             }
+
+
         }
 
         /*      private void sortOptionRadioButton_Checked(object sender, RoutedEventArgs e)
@@ -170,10 +126,22 @@ namespace MyShop.UI.MainPage.Pages
 
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
-        {
+        {/*
             string keyword = keywordTextBox.Text;
 
             _updateDataSource(1, keyword);
+            _updatePagingInfo();
+
+            currentPageComboBox.SelectedIndex = _currentPage - 1;*/
+
+            /*   DateTime dateStart = dateStartPicker.SelectedDate.Value.Date;
+               DateTime dateEnd = dateEndPicker.SelectedDate.Value.Date;
+               Trace.WriteLine(dateEnd);
+               Trace.WriteLine(dateStart);*/
+            DateTime? startDate = dateStartPicker.SelectedDate;
+            DateTime? endDate = dateEndPicker.SelectedDate;
+
+            _updateDataSource(1, "", startDate, endDate);
             _updatePagingInfo();
 
             currentPageComboBox.SelectedIndex = _currentPage - 1;
@@ -208,6 +176,25 @@ namespace MyShop.UI.MainPage.Pages
         
         }
 
-      
+        private void Button_Click_Edit(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            if (button.DataContext == null)
+            {
+                return;
+            }
+
+            var item = button.DataContext as Data;
+            var screen = new DetailOrder(item.OrderID);
+
+            screen.Closed += (s, args) =>
+            {
+                _updateDataSource();
+            };
+
+            screen.ShowDialog();
+
+
+        }
     }
 }
