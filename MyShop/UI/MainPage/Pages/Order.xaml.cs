@@ -61,7 +61,7 @@ namespace MyShop.UI.MainPage.Pages
 
         private void _updateDataSource( int page = 1, string keyword = "", DateTime? startDate = null, DateTime? endDate = null)
         {
-            int userID = 4;
+            int userID = 2;
             List<Data> list = new List<Data>();
             _currentPage = page;
             OrderBUS orderBUS = new OrderBUS();
