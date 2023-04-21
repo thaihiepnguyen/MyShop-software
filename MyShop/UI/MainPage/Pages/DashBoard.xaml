@@ -88,6 +88,63 @@
                     />
                 </Grid>
             </Button>
+            
+             <Button Name="OrderButton"
+                     Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="290"
+                    Margin="10"
+                    Height="140"
+                    BorderThickness="0"
+                    Padding="12, 8,8,8"
+                    IsEnabled="False"
+                    Style="{StaticResource MyButtonStyle}"
+                    >
+
+                <Button.Background>
+                    <ImageBrush ImageSource="{Binding OrderTotalBG, Converter={StaticResource converter}}">
+                        
+                    </ImageBrush>
+                </Button.Background>
+                <Grid 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="280"
+                    Height="130">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel
+                        Orientation="Vertical"
+                        Margin="10">
+                        <TextBlock 
+                            Text="Tổng đơn hàng mới"
+                            FontSize="14"
+                            FontWeight="Medium"
+                            Foreground="White"/>
+                        
+                        <TextBlock
+                            Margin="0, 30, 0,0"
+                            Text="{Binding TotalProduct}"
+                            FontSize="45"
+                            FontWeight="Medium"
+                            Foreground="White"/>
+                    </StackPanel>
+                    
+                    <fa:ImageAwesome 
+                        VerticalAlignment="Bottom"
+                        Margin="0,0,0, 10"
+                        Grid.Column="1"
+                        Width="80"
+                        Height="80"
+                        RenderOptions.BitmapScalingMode="HighQuality"
+                        Icon="ShoppingCart"
+                        Foreground="White"
+                    />
+                </Grid>
+            </Button>
         </Grid>
         </Border>
 

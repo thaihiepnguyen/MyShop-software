@@ -262,6 +262,28 @@
             FontWeight="Medium"
             />
 
+        <Button
+                Name="Sheet"
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="0,0,210,0"
+                Width="28"
+                Height="28"
+                Style="{StaticResource MyButtonStyle}"
+                BorderThickness="0.5"
+                BorderBrush="Orange"
+                HorizontalAlignment="Right"
+                Click="Sheet_Click"
+            >
+            <fa:ImageAwesome 
+                    Width="14"
+                    Height="14"
+                    RenderOptions.BitmapScalingMode="HighQuality"
+                    Icon="FileExcelOutline"
+                    Foreground="#8B4000"
+                        />
+        </Button>
+
         <Border BorderThickness="0.5" BorderBrush="Orange" CornerRadius="15"
                 Background="White" 
                 HorizontalAlignment="Right"

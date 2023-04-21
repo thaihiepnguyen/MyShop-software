@@ -9,6 +9,9 @@ namespace MyShop.DTO
 {
     public class ProductDTO : ICloneable, INotifyPropertyChanged
     {
+        public ProductDTO() {
+            Block = 0;
+        }
         public int ProId { get; set; }
         public string? ProName { get; set; }
         public double Ram { get; set; }

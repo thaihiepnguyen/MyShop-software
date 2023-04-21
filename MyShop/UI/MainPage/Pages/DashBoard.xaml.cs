@@ -22,6 +22,7 @@ namespace MyShop.UI.MainPage.Pages
     class Resources
     {
         public string ProductTotalBG { get; set; }
+        public string OrderTotalBG { get; set; }
         public int TotalProduct { get; set; }
     }
 
@@ -46,6 +47,7 @@ namespace MyShop.UI.MainPage.Pages
             this.DataContext = new Resources()
             {
                 ProductTotalBG = "Assets/Images/item1-bg.jpg",
+                OrderTotalBG = "Assets/Images/item2-bg.jpg",
                 TotalProduct = total
             };
 

@@ -89,7 +89,7 @@ namespace MyShop.UI.MainPage
                 new Item()
                 {
                     FontIcon = "Briefcase",
-                    ItemName = "Statistical"
+                    ItemName = "Report"
                 },
                 new Item()
                 {

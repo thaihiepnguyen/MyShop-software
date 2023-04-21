@@ -1,22 +1,28 @@
 ﻿using Azure;
+using Microsoft.Win32;
 using MyShop.BUS;
 using MyShop.DAO;
 using MyShop.DTO;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
+
 
 namespace MyShop.UI.MainPage.Pages
 {
     /// <summary>
     /// Interaction logic for Home.xaml
     /// </summary>
-    public partial class Home : Page
+    public partial class Home : System.Windows.Controls.Page
     {
         private List<ProductDTO>? _products = null;
         private string _currentKey = "";
@@ -28,6 +34,7 @@ namespace MyShop.UI.MainPage.Pages
         private Decimal? _currentStartPrice = null;
         private Decimal? _currentEndPrice = null;
         private Frame _pageNavigation;
+        private FileInfo _selectedFile;
 
         public Tuple<string, int ,int,Decimal?, Decimal?> getCurrentState()
         {
@@ -257,6 +264,33 @@ namespace MyShop.UI.MainPage.Pages
         private void AddProduct_Click(object sender, RoutedEventArgs e)
         {
             _pageNavigation.NavigationService.Navigate(new AddProduct(_pageNavigation));
+        }
+
+        private void Sheet_Click(object sender, RoutedEventArgs e)
+        {
+            string filename = "";
+
+
+            var screen = new OpenFileDialog();
+            screen.Filter = "Files|*.xlsx; *.csv;";
+            if (screen.ShowDialog() == true)
+            {
+                filename = screen.FileName;
+
+                var sheetBUS = new SheetBUS();
+                var productBUS = new ProductBUS();
+
+                var products = sheetBUS.ReadExcelFile(filename);
+
+                foreach(var product in products)
+                {
+                    productBUS.saveProduct(product);
+                }
+                MessageBox.Show("Đã thêm thành công", "Thông báo");
+            } else
+            {
+                MessageBox.Show("Đã có lỗi xảy ra!", "Thông báo");
+            }
         }
     }
 }

@@ -40,6 +40,17 @@
           }
         }
       },
+      "DocumentFormat.OpenXml/2.20.0": {
+        "dependencies": {
+          "System.IO.Packaging": "4.7.0"
+        },
+        "runtime": {
+          "lib/net6.0/DocumentFormat.OpenXml.dll": {
+            "assemblyVersion": "2.20.0.0",
+            "fileVersion": "2.20.0.0"
+          }
+        }
+      },
       "Fody/6.6.4": {},
       "FontAwesome.WPF/4.7.0.9": {
         "runtime": {
@@ -344,6 +355,14 @@
           }
         }
       },
+      "System.IO.Packaging/4.7.0": {
+        "runtime": {
+          "lib/netstandard2.0/System.IO.Packaging.dll": {
+            "assemblyVersion": "4.0.5.0",
+            "fileVersion": "4.700.19.56404"
+          }
+        }
+      },
       "System.Memory/4.5.4": {},
       "System.Memory.Data/1.0.2": {
         "dependencies": {
@@ -566,6 +585,13 @@
       "path": "azure.identity/1.7.0",
       "hashPath": "azure.identity.1.7.0.nupkg.sha512"
     },
+    "DocumentFormat.OpenXml/2.20.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+oFMsEppo/W6KpGTRXaJl2jTFYn9zeon4FaZuDoCijQ1/0JaPENaCef7d4Y3f8v116eKhVBwd4Ya+/NDglxkjw==",
+      "path": "documentformat.openxml/2.20.0",
+      "hashPath": "documentformat.openxml.2.20.0.nupkg.sha512"
+    },
     "Fody/6.6.4": {
       "type": "package",
       "serviceable": true,
@@ -754,6 +780,13 @@
       "sha512": "sha512-Qibsj9MPWq8S/C0FgvmsLfIlHLE7ay0MJIaAmK94ivN3VyDdglqReed5qMvdQhSL0BzK6v0Z1wB/sD88zVu6Jw==",
       "path": "system.identitymodel.tokens.jwt/6.24.0",
       "hashPath": "system.identitymodel.tokens.jwt.6.24.0.nupkg.sha512"
+    },
+    "System.IO.Packaging/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9VV4KAbgRQZ79iEoG40KIeZy38O30oWwewScAST879+oki8g/Wa2HXZQgrhDDxQM4GkP1PnRJll05NMiVPbYAw==",
+      "path": "system.io.packaging/4.7.0",
+      "hashPath": "system.io.packaging.4.7.0.nupkg.sha512"
     },
     "System.Memory/4.5.4": {
       "type": "package",
