@@ -32,7 +32,7 @@ namespace MyShop.DAO
                 product.TinyDes = reader["TinyDes"] == DBNull.Value ? null : (string?)reader["TinyDes"];
                 product.FullDes = reader["FullDes"] == DBNull.Value ? null : (string?)reader["FullDes"];
                 product.Price = (decimal)reader["Price"];
-                product.ImagePath = reader["ImagePath"] == DBNull.Value ? null : (string?)reader["ImagePath"];
+                product.ImagePath = reader["ImagePath"] == DBNull.Value ? "Assets/Images/sp/404.png" : (string?)reader["ImagePath"];
                 product.Trademark = reader["Trademark"] == DBNull.Value ? null : (string?)reader["Trademark"];
                 product.BatteryCapacity = (int)reader["BatteryCapacity"];
                 product.CatID = (int)reader["CatID"];
@@ -71,7 +71,7 @@ namespace MyShop.DAO
                 product.TinyDes = reader["TinyDes"] == DBNull.Value ? null : (string?)reader["TinyDes"];
                 product.FullDes = reader["FullDes"] == DBNull.Value ? null : (string?)reader["FullDes"];
                 product.Price = (decimal)reader["Price"];
-                product.ImagePath = reader["ImagePath"] == DBNull.Value ? null : (string?)reader["ImagePath"];
+                product.ImagePath = reader["ImagePath"] == DBNull.Value ? "Assets/Images/sp/404.png" : (string?)reader["ImagePath"];
                 product.Trademark = reader["Trademark"] == DBNull.Value ? null : (string?)reader["Trademark"];
                 product.BatteryCapacity = (int)reader["BatteryCapacity"];
                 product.CatID = (int)reader["CatID"];

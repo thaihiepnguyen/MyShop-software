@@ -141,7 +141,7 @@ CREATE TABLE Orders (
     DeliveryDate date
 );
 
-INSERT INTO Orders (ProID, ProName, Price, ImagePath, UserID, Address, OrderDate, DeliveryDate)
+INSERT INTO Orders (ProID, ProName, Price, ImagePath, userId , Address, OrderDate, DeliveryDate)
 VALUES
 (3013, N'Samsung Galaxy S23', 20990000.0000, N'Assets/Images/sp/7d9c9403-abba-41e0-88c2-f55785a41f0e.png', 4, '123 Main St, Los Angeles, CA', '2023-04-16', '2023-04-18'),
 (3014, N'iPhone 14 Pro Max', 27290000.0000, N'Assets/Images/sp/3014.png', 4, '456 Oak St, New York, NY', '2023-04-16', '2023-04-19'),
