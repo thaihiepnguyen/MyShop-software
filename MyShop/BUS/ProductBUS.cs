@@ -1,15 +1,10 @@
 ﻿using MyShop.DAO;
 using MyShop.DTO;
-using MyShop.UI.MainPage.Pages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Documents;
 
 
 // BUS : bussiness (login BA)

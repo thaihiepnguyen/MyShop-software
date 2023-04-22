@@ -140,8 +140,8 @@ CREATE TABLE Orders (
     OrderDate date,
     DeliveryDate date
 );
-
-INSERT INTO Orders (ProID, ProName, Price, ImagePath, userId , Address, OrderDate, DeliveryDate)
+/*INSERT INTO Orders (ProID, ProName, Price, ImagePath, UserID, Address, OrderDate, DeliveryDate)
+>>>>>>> c5c98b99da8488656fd0b5e337f6384d519f397d
 VALUES
 (3013, N'Samsung Galaxy S23', 20990000.0000, N'Assets/Images/sp/7d9c9403-abba-41e0-88c2-f55785a41f0e.png', 4, '123 Main St, Los Angeles, CA', '2023-04-16', '2023-04-18'),
 (3014, N'iPhone 14 Pro Max', 27290000.0000, N'Assets/Images/sp/3014.png', 4, '456 Oak St, New York, NY', '2023-04-16', '2023-04-19'),
@@ -152,7 +152,7 @@ VALUES
 (3019, N'OnePlus 10 Pro', 22990000.0000, N'Assets/Images/sp/3019.png', 4, '1616 Main St, Houston, TX', '2023-04-16', '2023-04-24'),
 (3020, N'LG Velvet 2 Pro', 13990000.0000, N'Assets/Images/sp/3020.png', 4, '1818 Market St, Philadelphia, PA', '2023-04-16', '2023-04-25'),
 (3021, N'Vivo X70 Pro', 15990000.0000, N'Assets/Images/sp/3021.png', 4, '2020 Wilshire Blvd, Los Angeles, CA', '2023-04-16', '2023-04-26'),
-(3022, N'OPPO Find X5 Pro', 25990000.0000, N'Assets/Images/sp/3022.png', 4, '2222 Peachtree St, Atlanta, GA', '2023-04-16', '2023-04-27')
+(3022, N'OPPO Find X5 Pro', 25990000.0000, N'Assets/Images/sp/3022.png', 4, '2222 Peachtree St, Atlanta, GA', '2023-04-16', '2023-04-27')*/	
 
 
 ALTER TABLE [product]
