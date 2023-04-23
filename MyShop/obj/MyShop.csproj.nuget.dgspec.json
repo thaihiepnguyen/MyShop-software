@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Acer\\MyShop-software\\MyShop\\MyShop.csproj": {}
+    "C:\\Users\\Acer\\MyShop-software-3\\MyShop\\MyShop.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Acer\\MyShop-software\\MyShop\\MyShop.csproj": {
+    "C:\\Users\\Acer\\MyShop-software-3\\MyShop\\MyShop.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Acer\\MyShop-software\\MyShop\\MyShop.csproj",
+        "projectUniqueName": "C:\\Users\\Acer\\MyShop-software-3\\MyShop\\MyShop.csproj",
         "projectName": "MyShop",
-        "projectPath": "C:\\Users\\Acer\\MyShop-software\\MyShop\\MyShop.csproj",
+        "projectPath": "C:\\Users\\Acer\\MyShop-software-3\\MyShop\\MyShop.csproj",
         "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Acer\\MyShop-software\\MyShop\\obj\\",
+        "outputPath": "C:\\Users\\Acer\\MyShop-software-3\\MyShop\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",

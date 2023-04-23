@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.Data.SqlClient;
+using MyShop.BUS;
 using MyShop.DTO;
 using System;
 using System.Collections.ObjectModel;
@@ -144,18 +145,28 @@ namespace MyShop.DAO
             return id;
         }
 
-        public void insertPurchase(PurchaseDTO orderDetailDTO)
+        public void insertPurchase(PurchaseDTO purchaseDTO)
         {
             string sql = "insert into purchase(OrderID, ProID, Quantity, TotalPrice)" +
             "values(@OrderID, @ProID, @Quantity, @TotalPrice)";
             var command = new SqlCommand(sql, db.connection);
 
-            command.Parameters.Add("@OrderID", SqlDbType.Int).Value = orderDetailDTO.OrderID;
-            command.Parameters.Add("@ProID", SqlDbType.Int).Value = orderDetailDTO.ProID;
-            command.Parameters.Add("@Quantity", SqlDbType.Int).Value = orderDetailDTO.Quantity;
-            command.Parameters.Add("@TotalPrice", SqlDbType.Money).Value = orderDetailDTO.TotalPrice;
+            command.Parameters.Add("@OrderID", SqlDbType.Int).Value = purchaseDTO.OrderID;
+            command.Parameters.Add("@ProID", SqlDbType.Int).Value = purchaseDTO.ProID;
+            command.Parameters.Add("@Quantity", SqlDbType.Int).Value = purchaseDTO.Quantity;
+            command.Parameters.Add("@TotalPrice", SqlDbType.Money).Value = purchaseDTO.TotalPrice;
 
             command.ExecuteNonQuery();
+
+            // Xóa Quantity ở sản phẩm ProID
+
+            ProductBUS productBUS = new ProductBUS();
+
+            var product = productBUS.findProductById(purchaseDTO.ProID);
+
+            product.Quantity = product.Quantity - purchaseDTO.Quantity;
+
+            productBUS.patchProduct(product);
         }
 
         public void updateShopOrder(ShopOrderDTO shopOrder)

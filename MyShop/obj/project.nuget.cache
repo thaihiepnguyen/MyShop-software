@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/3rHuMZWSn8uIglH7j0V+ya68XvrP4He5HgkLyJv8wvCAD7Rdei2YQvFUlGJ67CLQOlVkDgUyS7x5mOdWGiX/g==",
+  "dgSpecHash": "VghHKktElkWgUdwopJeOrtGDoak/B6qp5F/DQGh5RtHTetdd3Zg6Ni+ghW/Ilq81N1JSq3WY6ZQoEgOZAW67bg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Acer\\MyShop-software\\MyShop\\MyShop.csproj",
+  "projectFilePath": "C:\\Users\\Acer\\MyShop-software-3\\MyShop\\MyShop.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Acer\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Acer\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

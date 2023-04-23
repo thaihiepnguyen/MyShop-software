@@ -225,6 +225,7 @@ namespace MyShop.DAO
                 product.Trademark = reader["Trademark"] == DBNull.Value ? null : (string?)reader["Trademark"];
                 product.BatteryCapacity = (int)reader["BatteryCapacity"];
                 product.CatID = (int)reader["CatID"];
+                product.Quantity = (int)reader["Quantity"];
 
                 list.Add(product);
             }

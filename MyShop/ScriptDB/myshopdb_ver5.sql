@@ -258,21 +258,3 @@ REFERENCES [dbo].[customer] ([CusID])
 GO
 ALTER TABLE [dbo].[shop_order] CHECK CONSTRAINT [FK_shop_order_customer]
 GO
-GO
-CREATE TABLE [dbo].[user](
-	[UserID] [int] IDENTITY(1,1) NOT NULL,
-	[Username] [nvarchar](50) NULL,
-	[Password] [nvarchar](50) NULL,
-	[Fullname] [text] NULL,
-	[Gender] [nchar](15) NULL,
-	[Address] [text] NULL,
-	[Tel] [nchar](15) NULL,
-	[AvatarPath] [text] NULL,
-	[IsHide] [tinyint] NULL,
-	[RoleID] [int] NULL,
- CONSTRAINT [pk_user] PRIMARY KEY CLUSTERED 
-(
-	[UserID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
