@@ -2,6 +2,7 @@
 using MyShop.DTO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -11,16 +12,16 @@ namespace MyShop.BUS
 {
     internal class OrderBUS
     {
-        private OrderDAO orderDAO;
+        private OrderDAO _orderDAO;
 
         public OrderBUS()
         {
-            orderDAO = new OrderDAO();
+            _orderDAO = new OrderDAO();
         }
         public Tuple<List<OrderDTO>, int> findOderBySearch(int userID,int currentPage = 1, int rowsPerPage = 6,
              string keyword = "", DateTime? startDate = null, DateTime? endDate = null)
         {
-            var origin = orderDAO.getOrders(userID);
+            var origin = _orderDAO.getOrders(userID);
 
             // TODO: nên handle việc ProName bị null ở đây .
             // 
@@ -50,7 +51,7 @@ namespace MyShop.BUS
 
         public bool createUser(int proID, int userID, string address, DateTime orderDate, DateTime deliveryDate)
         {
-            return orderDAO.CreateOrder( proID,  userID,  address,  orderDate,  deliveryDate);
+            return _orderDAO.CreateOrder( proID,  userID,  address,  orderDate,  deliveryDate);
         }
 /*        public List<OrderDTO>(int userID)
         {
@@ -58,15 +59,35 @@ namespace MyShop.BUS
         }*/
         public OrderDTO GetOne(int data)
         {
-            return orderDAO.GetOne(data);
+            return _orderDAO.GetOne(data);
         }
         public bool DeleteOne(int orderID)
         {
-            return orderDAO.DeleteOne(orderID);
+            return _orderDAO.DeleteOne(orderID);
         }
         public bool UpdateOne(int orderID, String newAdress)
         {
-            return orderDAO.UpdateOne(orderID, newAdress);
+            return _orderDAO.UpdateOne(orderID, newAdress);
+        }
+
+        public int addShopOrder(ShopOrderDTO shopOrderDTO)
+        {
+            return _orderDAO.insertShopOrder(shopOrderDTO);
+        }
+
+        public void addPurchase(PurchaseDTO purchaseDTO)
+        {
+            _orderDAO.insertPurchase(purchaseDTO);
+        }
+
+        public void patchShopOrder(ShopOrderDTO shopOrderDTO)
+        {
+            _orderDAO.updateShopOrder(shopOrderDTO);
+        }
+
+        public ObservableCollection<ShopOrderDTO> getAllShopOrder()
+        {
+            return _orderDAO.getAllShopOrder();
         }
     }
 }

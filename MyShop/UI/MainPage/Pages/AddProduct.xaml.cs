@@ -84,6 +84,7 @@ namespace MyShop.UI.MainPage.Pages
                 MessageBox.Show("Vui lòng nhập ảnh đại diện");
                 return;
             }
+            var categoryDTO = (CategoryDTO)CategoryCombobox.SelectedValue;
 
             var productDTO = new ProductDTO();
 
@@ -95,7 +96,7 @@ namespace MyShop.UI.MainPage.Pages
             productDTO.Price = Decimal.Parse(PriceTermTextBox.Text);
             productDTO.Trademark = TradeMarkTermTextBox.Text;
             productDTO.BatteryCapacity = int.Parse(PinTermTextBox.Text);
-            productDTO.CatID = CategoryCombobox.SelectedIndex + 1;
+            productDTO.CatID = categoryDTO.CatID;
             productDTO.Quantity = int.Parse(QuantityTermTextBox.Text);
             productDTO.Block = 0;
 

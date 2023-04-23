@@ -52,5 +52,25 @@ namespace MyShop.DTO
 
             return clonedProduct;
         }
+
+        public void copy(ProductDTO other)
+        {
+
+            // Set the properties of the cloned object to the same values as the original object
+            this.ProId = other.ProId;
+            this.ProName = other.ProName;
+            this.Ram = other.Ram;
+            this.Rom = other.Rom;
+            this.ScreenSize = other.ScreenSize;
+            this.TinyDes = other.TinyDes;
+            this.FullDes = other.FullDes;
+            this.Price = other.Price;
+            this.ImagePath = other.ImagePath;
+            this.Trademark = other.Trademark;
+            this.BatteryCapacity = other.BatteryCapacity;
+            this.CatID = other.CatID;
+            this.Quantity = other.Quantity;
+            this.Block = other.Block;
+        }
     }
 }

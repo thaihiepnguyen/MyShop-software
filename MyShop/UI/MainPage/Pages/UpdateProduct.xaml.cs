@@ -88,7 +88,8 @@ namespace MyShop.UI.MainPage.Pages
             string key = Guid.NewGuid().ToString();
 
             if (_isImageChanged)
-                _productBUS.uploadImage(_selectedImage, id, key);
+                _productDTO.ImagePath = _productBUS.uploadImage(_selectedImage, id, key);
+
 
             MessageBox.Show("Sản phẩm đã chỉnh sửa thành công", "Thông báo", MessageBoxButton.OK);
             _pageNavegation.NavigationService.GoBack();

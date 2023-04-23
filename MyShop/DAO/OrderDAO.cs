@@ -1,7 +1,9 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.Data.SqlClient;
 using MyShop.DTO;
 using System;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Diagnostics;
 
 namespace MyShop.DAO
@@ -113,5 +115,92 @@ namespace MyShop.DAO
             return rowsAffected > 0;
         }
 
+        public int insertShopOrder(ShopOrderDTO purchaseDTO)
+        {
+            // insert SQL
+            string sql = "insert into shop_order(CusID, CreateAt)" +
+            "values(@CusID, @CreateAt)";
+            var command = new SqlCommand(sql, db.connection);
+
+            command.Parameters.Add("@CusID", SqlDbType.Int).Value = purchaseDTO.CusID;
+            command.Parameters.Add("@CreateAt", SqlDbType.Date).Value = purchaseDTO.CreateAt;
+
+            command.ExecuteNonQuery();
+
+            // select SQL
+            int id = -1;
+            string sql1 = "SELECT TOP 1 OrderID FROM shop_order ORDER BY OrderID DESC ";
+
+            var command1 = new SqlCommand(sql1, db.connection);
+
+            var reader = command1.ExecuteReader();
+            while (reader.Read())
+            {
+                id = (int)reader["OrderID"];
+            }
+
+            reader.Close();
+
+            return id;
+        }
+
+        public void insertPurchase(PurchaseDTO orderDetailDTO)
+        {
+            string sql = "insert into purchase(OrderID, ProID, Quantity, TotalPrice)" +
+            "values(@OrderID, @ProID, @Quantity, @TotalPrice)";
+            var command = new SqlCommand(sql, db.connection);
+
+            command.Parameters.Add("@OrderID", SqlDbType.Int).Value = orderDetailDTO.OrderID;
+            command.Parameters.Add("@ProID", SqlDbType.Int).Value = orderDetailDTO.ProID;
+            command.Parameters.Add("@Quantity", SqlDbType.Int).Value = orderDetailDTO.Quantity;
+            command.Parameters.Add("@TotalPrice", SqlDbType.Money).Value = orderDetailDTO.TotalPrice;
+
+            command.ExecuteNonQuery();
+        }
+
+        public void updateShopOrder(ShopOrderDTO shopOrder)
+        {
+            string sql = "update shop_order " +
+                "set CusID =  @CusID, CreateAt = @CreateAt, FinalTotal = @FinalTotal " +
+                "where OrderID = @OrderID";
+            var command = new SqlCommand(sql, db.connection);
+
+            command.Parameters.Add("@OrderID", SqlDbType.Int).Value = shopOrder.OrderID;
+            command.Parameters.Add("@CusID", SqlDbType.Int).Value = shopOrder.CusID;
+            command.Parameters.Add("@CreateAt", SqlDbType.Date).Value = shopOrder.CreateAt;
+            command.Parameters.Add("@FinalTotal", SqlDbType.Money).Value = shopOrder.FinalTotal;
+
+            command.ExecuteNonQuery();
+        }
+
+        public ObservableCollection<ShopOrderDTO> getAllShopOrder()
+        {
+            ObservableCollection<ShopOrderDTO> list = new ObservableCollection<ShopOrderDTO>();
+
+            string sql = "select OrderID, CusID, CreateAt, FinalTotal from shop_order where FinalTotal > 0";
+
+            var command = new SqlCommand(sql, db.connection);
+
+            var reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                ShopOrderDTO shopOrder = new ShopOrderDTO
+                {
+                    OrderID = (int)reader["OrderID"],
+                    CusID = (int)reader["CusID"],
+                    CreateAt = (DateTime)reader["CreateAt"],
+                    FinalTotal = (decimal)reader["FinalTotal"]
+                };
+
+                list.Add(shopOrder);
+            }
+
+
+
+            reader.Close();
+
+            return list;
+        }
     }
 }

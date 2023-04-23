@@ -35,7 +35,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="SiteHoverListBox" TargetType="ListBoxItem">
+        <!--<Style x:Key="SiteHoverListBox" TargetType="ListBoxItem">
             <Setter Property="SnapsToDevicePixels" Value="true"/>
             <Setter Property="OverridesDefaultStyle" Value="true"/>
             <Setter Property="Foreground" Value="{DynamicResource RippleGreen}"/>
@@ -73,6 +73,6 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-        </Style>
+        </Style>-->
     </Application.Resources>
 </Application>

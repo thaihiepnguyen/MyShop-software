@@ -84,7 +84,7 @@ namespace MyShop.UI.MainPage
                 new Item()
                 {
                     FontIcon = "ShoppingCart",
-                    ItemName = "Order",
+                    ItemName = "Orders",
                 },
                 new Item()
                 {
@@ -122,7 +122,7 @@ namespace MyShop.UI.MainPage
             }
             if (selectedIndex == Order)
             {
-                pageNavigation.NavigationService.Navigate(new Order());
+                pageNavigation.NavigationService.Navigate(new OrderDetail(pageNavigation));
             }
             if (selectedIndex == Statistical)
             {

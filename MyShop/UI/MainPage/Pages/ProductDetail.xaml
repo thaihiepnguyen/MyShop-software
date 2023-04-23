@@ -26,7 +26,7 @@
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
 
-        <!--Hiển thị nút bấm trở về--> 
+        <!--Hiển thị nút bấm trở về-->
         <Button
             Name="BackButton"
             Width="85"
@@ -317,6 +317,10 @@
                 </Grid>
 
                 <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="47*"/>
+                        <ColumnDefinition Width="353*"/>
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="22"/>
                         <RowDefinition/>
@@ -324,9 +328,9 @@
                     <TextBlock Text="MÔ TẢ"
                                Foreground="#353935"
                                FontSize="16"
-                               FontWeight="Bold"></TextBlock>
+                               FontWeight="Bold" Grid.ColumnSpan="2"></TextBlock>
                     <TextBlock Grid.Row="1" Text="{Binding Product.TinyDes}"
-                               TextWrapping="Wrap"/>
+                               TextWrapping="Wrap" Grid.ColumnSpan="2"/>
                 </Grid>
             </Grid>
         </Border>
