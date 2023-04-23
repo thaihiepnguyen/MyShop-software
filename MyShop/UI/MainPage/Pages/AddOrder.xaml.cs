@@ -2,22 +2,10 @@
 using MyShop.DTO;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Collections.ObjectModel;
-using System.Xml.Schema;
-using DocumentFormat.OpenXml.Bibliography;
-using DocumentFormat.OpenXml.VariantTypes;
 
 namespace MyShop.UI.MainPage.Pages
 {
@@ -39,8 +27,13 @@ namespace MyShop.UI.MainPage.Pages
         private ObservableCollection<ProductDTO> _products;
         private Decimal _currentTotalPrice = 0;
         private ShopOrderDTO _shopOrderDTO;
+        private int _currentQuantity;
+        private ObservableCollection<OrderDetail.Data> _list;
+        private List<PurchaseDTO> _purchaseBuffer;
 
-        public class Data {
+
+        public class Data
+        {
             public string ProName { get; set; }
             public decimal Price { get; set; }
             public int Quantity { get; set; }
@@ -49,25 +42,44 @@ namespace MyShop.UI.MainPage.Pages
 
 
 
-        public AddOrder(Frame pageNavigation)
+        public AddOrder(Frame pageNavigation, ObservableCollection<OrderDetail.Data> list)
         {
             _pageNavigation = pageNavigation;
             _productBUS = new ProductBUS();
             _customerBUS = new CustomerBUS();
             _orderBUS = new OrderBUS();
             _data = new ObservableCollection<Data>();
+            _purchaseBuffer = new List<PurchaseDTO>();
+            _list = list;
             InitializeComponent();
         }
 
         private void SaveOrder_Click(object sender, RoutedEventArgs e)
         {
+            foreach (var purchase in _purchaseBuffer)
+            {
+                _orderBUS.addPurchase(purchase);
+            }
+
             _orderBUS.patchShopOrder(_shopOrderDTO);
+            _list.Add(new OrderDetail.Data(_shopOrderDTO, _customerBUS));
 
             MessageBox.Show("Đã lưu đơn hàng thành công", "Thông Báo");
+            _pageNavigation.NavigationService.GoBack();
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
+            MessageBoxResult result;
+            if (_verifyOrder == true)
+            {
+                result = MessageBox.Show("Đơn hàng chưa được lưu. Bạn có muốn tiếp tục không?", "Thông Báo", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+                    return;
+                }
+            }
+
             _pageNavigation.NavigationService.GoBack();
         }
 
@@ -83,14 +95,13 @@ namespace MyShop.UI.MainPage.Pages
 
             CustomerCombobox.ItemsSource = customers;
             CustomerCombobox.SelectedIndex = 0;
+            FinalPrice.Text = string.Format("{0:N0} đ", _currentTotalPrice);
 
             this.DataContext = _currentProduct;
-            FinalPrice.Text = string.Format("{0:N0} đ", _currentTotalPrice);
         }
 
         private void AddProduct_Click(object sender, RoutedEventArgs e)
         {
-
             if (QuantityTermTextBox.Text == "")
             {
                 MessageBox.Show("Vui lòng nhập số lượng");
@@ -101,18 +112,19 @@ namespace MyShop.UI.MainPage.Pages
             var orderDetailDTO = new ShopOrderDTO();
 
             var customerDTO = (CustomerDTO)CustomerCombobox.SelectedValue;
-            
+
             var productDTO = (ProductDTO)ProductCombobox.SelectedValue;
             int quantity = int.Parse(QuantityTermTextBox.Text);
 
-            orderDetailDTO.CusID = customerDTO.CusID;
-            orderDetailDTO.CreateAt = DateTime.Now.Date;
-
-            if (_verifyOrder && (customerDTO.CusID != _currentCustomerID))
+            _currentQuantity = quantity;
+            if (quantity <= 0 || _currentQuantity > _currentProduct.Quantity)
             {
-                MessageBox.Show("Vui lòng hoàn thiện đơn hàng", "Thông báo", MessageBoxButton.OK);
+                MessageBox.Show("Có lỗi xảy ra", "Thông báo", MessageBoxButton.OK);
                 return;
             }
+
+            orderDetailDTO.CusID = customerDTO.CusID;
+            orderDetailDTO.CreateAt = DateTime.Now.Date;
 
             if (!_verifyOrder)
             {
@@ -125,16 +137,18 @@ namespace MyShop.UI.MainPage.Pages
             purchareDTO.Quantity = quantity;
             purchareDTO.TotalPrice = productDTO.Price * quantity;
 
-            _orderBUS.addPurchase(purchareDTO);
+            _purchaseBuffer.Add(purchareDTO);
 
             MessageBox.Show("Sản phẩm đã thêm thành công", "Thông báo", MessageBoxButton.OK);
 
-            var data = new Data();
-            data.Quantity = quantity;
-            data.Price = productDTO.Price;
-            data.ProName = productDTO.ProName;
-            data.TotalPrice = productDTO.Price * quantity;
-
+            var data = new Data
+            {
+                Quantity = quantity,
+                Price = productDTO.Price,
+                ProName = productDTO.ProName,
+                TotalPrice = productDTO.Price * quantity
+            };
+            _currentProduct.Quantity -= quantity;
             _currentTotalPrice += data.TotalPrice;
 
             _data.Add(data);
@@ -147,6 +161,7 @@ namespace MyShop.UI.MainPage.Pages
             FinalPrice.Text = string.Format("{0:N0} đ", _currentTotalPrice);
             _shopOrderDTO = orderDetailDTO;
             _shopOrderDTO.FinalTotal = _currentTotalPrice;
+            CustomerCombobox.IsEnabled = false;
         }
 
         private void SaveCustomer_Click(object sender, RoutedEventArgs e)
@@ -174,7 +189,8 @@ namespace MyShop.UI.MainPage.Pages
         {
             int index = ProductCombobox.SelectedIndex;
 
-            _currentProduct.copy(_products[index]);
+            if (index != -1)
+                _currentProduct.copy(_products[index]);
         }
     }
 }

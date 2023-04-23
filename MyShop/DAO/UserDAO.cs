@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using MyShop.DTO;
 using System.Diagnostics;
 using System.Windows.Documents;
+using MyShop.UI.MainPage.Pages;
 
 namespace MyShop.DAO
 {
@@ -19,8 +20,10 @@ namespace MyShop.DAO
             var query = "SELECT * FROM [user] WHERE Username = @Username AND Password = @Password";
 
             var command = new SqlCommand(query, db.connection);
+            AesHelper aesHelper = new AesHelper();
+            string encryptedText = aesHelper.Encrypt(password);
             command.Parameters.AddWithValue("@Username", username);
-            command.Parameters.AddWithValue("@Password", password);
+            command.Parameters.AddWithValue("@Password", encryptedText);
 
             var reader = command.ExecuteReader();
 

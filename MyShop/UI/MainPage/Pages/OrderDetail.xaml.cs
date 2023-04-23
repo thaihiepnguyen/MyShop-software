@@ -26,8 +26,10 @@ namespace MyShop.UI.MainPage.Pages
     {
         Frame _pageNavigation;
         private OrderBUS _orderBUS;
-        private CustomerBUS _customer;
-        
+        private CustomerBUS _customerBUS;
+        private ObservableCollection<Data> _list;
+
+
         class Resources
         {
             public string FirstIcon { get; set; }
@@ -37,20 +39,19 @@ namespace MyShop.UI.MainPage.Pages
         }
 
 
-        class Data 
+        public class Data
         {
             public int OrderID { get; set; }
             public DateTime CreateAt { get; set; }
             public string CusName { get; set; }
             public string FinalTotal { get; set; }
 
-
             public Data(ShopOrderDTO list, CustomerBUS customer)
             {
 
                 customer = new CustomerBUS();
                 OrderID = list.OrderID;
-                CreateAt = list.CreateAt;
+                CreateAt = list.CreateAt.Date;
                 CusName = customer.getNameById(list.CusID);
                 FinalTotal = string.Format("{0:N0} đ", list.FinalTotal);
             }
@@ -60,7 +61,7 @@ namespace MyShop.UI.MainPage.Pages
         {
 
             InitializeComponent();
-            _customer = new CustomerBUS();
+            _customerBUS = new CustomerBUS();
             ObservableCollection<Data> list = new ObservableCollection<Data>();
             _pageNavigation = pageNavigation;
             _orderBUS = new OrderBUS();
@@ -68,14 +69,16 @@ namespace MyShop.UI.MainPage.Pages
 
             foreach (var order in orders)
             {
-                list.Add(new Data(order, _customer));
+                list.Add(new Data(order, _customerBUS));
             }
             productsListView.ItemsSource = list;
+
+            _list = list;
         }
 
         private void AddOrder_Click(object sender, RoutedEventArgs e)
         {
-            _pageNavigation.NavigationService.Navigate(new AddOrder(_pageNavigation));
+            _pageNavigation.NavigationService.Navigate(new AddOrder(_pageNavigation, _list));
         }
 
         private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)

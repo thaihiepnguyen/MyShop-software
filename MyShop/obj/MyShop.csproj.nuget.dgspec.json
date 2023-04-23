@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Nguyen Thai Hiep\\Desktop\\MyShop\\MyShop-software\\MyShop\\MyShop.csproj": {}
+    "C:\\Users\\Acer\\MyShop-software\\MyShop\\MyShop.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Nguyen Thai Hiep\\Desktop\\MyShop\\MyShop-software\\MyShop\\MyShop.csproj": {
+    "C:\\Users\\Acer\\MyShop-software\\MyShop\\MyShop.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nguyen Thai Hiep\\Desktop\\MyShop\\MyShop-software\\MyShop\\MyShop.csproj",
+        "projectUniqueName": "C:\\Users\\Acer\\MyShop-software\\MyShop\\MyShop.csproj",
         "projectName": "MyShop",
-        "projectPath": "C:\\Users\\Nguyen Thai Hiep\\Desktop\\MyShop\\MyShop-software\\MyShop\\MyShop.csproj",
-        "packagesPath": "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nguyen Thai Hiep\\Desktop\\MyShop\\MyShop-software\\MyShop\\obj\\",
+        "projectPath": "C:\\Users\\Acer\\MyShop-software\\MyShop\\MyShop.csproj",
+        "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Acer\\MyShop-software\\MyShop\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Nguyen Thai Hiep\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -80,7 +80,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

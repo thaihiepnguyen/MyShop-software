@@ -5,6 +5,10 @@ using System.Windows.Controls;
 using MyShop.BUS;
 using MyShop.DTO;
 using MyShop.UI.MainPage.Pages;
+using MyShop.DAO;
+using MyShop.UI.MainPage;
+using DocumentFormat.OpenXml.CustomProperties;
+using System.Linq;
 
 namespace MyShop.UI.LoginPage
 {
@@ -16,12 +20,15 @@ namespace MyShop.UI.LoginPage
         public LoginWindow()
         {
             InitializeComponent();
+
+
         }
         class Resoures
         {
             public string Logo { get; set; }
             public string MainBgPath { get; set; }
         }
+
         private void Button_Login(object sender, RoutedEventArgs e)
         {
             string inputUsername = txtUsername.Text;
@@ -32,8 +39,19 @@ namespace MyShop.UI.LoginPage
 
             if (handleApiUser != null)
             {
+                bool remember = RememberMeCheckBox.IsChecked == true;
+                Properties.Settings.Default.IdUser = handleApiUser.UserID;
+                Properties.Settings.Default.Save();
+                if (remember && inputUsername != null)
+                {
+                    Properties.Settings.Default.UsernameRemember = true;
+                    Properties.Settings.Default.Save();
+                }
+                Trace.WriteLine("Sucess");
                 Button button = sender as Button;
                 Window parentWindow = Window.GetWindow(button);
+                MainWindow mainPage = new MainWindow();
+                mainPage.Show();
                 parentWindow.Close();
             }
             else
@@ -45,12 +63,27 @@ namespace MyShop.UI.LoginPage
 
         private void Button_Signup(object sender, RoutedEventArgs e)
         {
-            SignupWindow loginWindow = new SignupWindow();
-            loginWindow.ShowDialog();
+            SignupWindow signUpWindow = new SignupWindow();
+            signUpWindow.Show();
+            this.Close();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            new DatabaseUtilitites(
+                  "sqlexpress",
+                  "MyShopDB",
+                  "admin",
+                  "admin"
+            );
+
+            if (Properties.Settings.Default.UsernameRemember)
+            {
+
+                MainWindow mainPage = new MainWindow();
+                mainPage.Show();
+                this.Close();
+            }
             this.DataContext = new Resoures()
             {
                 Logo = "Assets/Images/logo.png",
