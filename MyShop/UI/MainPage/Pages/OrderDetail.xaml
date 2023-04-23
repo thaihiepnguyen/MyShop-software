@@ -112,37 +112,79 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock
-                        Text="Mã hóa đơn"
-                        VerticalAlignment="Center"
-                        FontSize="12"
-                        FontWeight="Bold"
-                        Foreground="#353935"/>
-                    
-                    
-                    <TextBlock
-                        Grid.Column="1"
+
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <fa:ImageAwesome 
+                            Width="12"
+                            Height="12"
+                            Margin="0,0,6, 0"
+                            RenderOptions.BitmapScalingMode="HighQuality"
+                            Icon="Key"
+                            Foreground="#8B4000"
+                        />
+                        <TextBlock
+                            Text="Mã HD"
+                            FontSize="12"
+                            FontWeight="Bold"
+                            Foreground="#353935">
+                            
+                        </TextBlock>
+                    </StackPanel>
+
+
+                    <StackPanel Margin="-50, 0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Grid.Column="1">
+                        <fa:ImageAwesome 
+                            Width="12"
+                            Height="12"
+                            Margin="0,0,6, 0"
+                            RenderOptions.BitmapScalingMode="HighQuality"
+                            Icon="BirthdayCake"
+                            Foreground="#8B4000"
+                        />
+                        <TextBlock
                         Text="Ngày tạo"
                         VerticalAlignment="Center"
                         FontSize="12"
                         FontWeight="Bold"
                         Foreground="#353935"/>
+                    </StackPanel>
 
-                    <TextBlock
-                        Grid.Column="2"
+                    <StackPanel Margin="10, 0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Grid.Column="2">
+                        <fa:ImageAwesome 
+                            Width="12"
+                            Height="12"
+                            Margin="0,0,6, 0"
+                            RenderOptions.BitmapScalingMode="HighQuality"
+                            Icon="User"
+                            Foreground="#8B4000"
+                        />
+
+                        <TextBlock
                         Text="Khách hàng"
                         VerticalAlignment="Center"
                         FontSize="12"
                         FontWeight="Bold"
                         Foreground="#353935"/>
+                    </StackPanel>
 
-                    <TextBlock
-                        Grid.Column="3"
+                    <StackPanel Margin="0, 0,20,0" HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal" Grid.Column="3">
+                        <fa:ImageAwesome 
+                            Width="12"
+                            Height="12"
+                            Margin="0,0,6, 0"
+                            RenderOptions.BitmapScalingMode="HighQuality"
+                            Icon="Money"
+                            Foreground="#8B4000"
+                        />
+
+                        <TextBlock
                         Text="Tổng tiền"
                         VerticalAlignment="Center"
                         FontSize="12"
                         FontWeight="Bold"
                         Foreground="#353935"/>
+                    </StackPanel>
+                    
 
 
                 </Grid>
@@ -160,7 +202,7 @@
                                   Height="35"
                                   Margin="10, 0, 10, 0">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.6*"/>
+                                    <ColumnDefinition Width="0.3*"/>
                                     <ColumnDefinition Width="1*"/>
                                     <ColumnDefinition Width="1*"/>
                                     <ColumnDefinition Width="1*"/>
@@ -169,36 +211,36 @@
                                 <TextBlock
                                     Grid.Column="0"
                                     Margin="0, 0, 0, 0"
-                                    Text="{Binding OrderID}"
                                     FontWeight="Medium"
                                     Foreground="#353935"
                                     HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"/>
+                                    VerticalAlignment="Center">
+                                    <Run Text="HD -"></Run>
+                                    <Run Text="{Binding OrderID}"></Run>
+                                </TextBlock>
 
                                 <TextBlock
                                     Grid.Column="1"
-                                    Margin="-30, 0, 0, 0"
                                     Text="{Binding CreateAt}"
                                     FontWeight="Medium"
                                     Foreground="#353935"
-                                    HorizontalAlignment="Left"
+                                    HorizontalAlignment="Center"
                                     VerticalAlignment="Center"/>
 
                                 <TextBlock
                                     Grid.Column="2"
-                                    Margin="-40, 0, 0, 0"
                                     Text="{Binding CusName}"
                                     FontWeight="Medium"
                                     Foreground="#353935"
-                                    HorizontalAlignment="Left"
+                                    HorizontalAlignment="Center"
                                     VerticalAlignment="Center"/>
 
                                 <TextBlock
                                     Grid.Column="3"
-                                    Margin="-60, 0, 0, 0"
                                     Text="{Binding FinalTotal}"
                                     TextWrapping="Wrap"
                                     FontWeight="Medium"
+                                    HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Foreground="#353935"/>
                             </Grid>
