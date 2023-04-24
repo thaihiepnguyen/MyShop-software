@@ -104,12 +104,12 @@ namespace MyShop.UI.MainPage.Pages
         {
             if (QuantityTermTextBox.Text == "")
             {
-                MessageBox.Show("Vui lòng nhập số lượng");
+                MessageBox.Show("Vui lòng nhập số lượng", "Thông báo",MessageBoxButton.OK);
                 return;
             }
 
             var purchareDTO = new PurchaseDTO();
-            var orderDetailDTO = new ShopOrderDTO();
+            var shopOrderDTO = new ShopOrderDTO();
 
             var customerDTO = (CustomerDTO)CustomerCombobox.SelectedValue;
 
@@ -123,15 +123,15 @@ namespace MyShop.UI.MainPage.Pages
                 return;
             }
 
-            orderDetailDTO.CusID = customerDTO.CusID;
-            orderDetailDTO.CreateAt = DateTime.Now.Date;
+            shopOrderDTO.CusID = customerDTO.CusID;
+            shopOrderDTO.CreateAt = DateTime.Now.Date;
 
             if (!_verifyOrder)
             {
-                _orderID = _orderBUS.addShopOrder(orderDetailDTO);
+                _orderID = _orderBUS.addShopOrder(shopOrderDTO);
             }
 
-            orderDetailDTO.OrderID = _orderID;
+            shopOrderDTO.OrderID = _orderID;
             purchareDTO.OrderID = _orderID;
             purchareDTO.ProID = productDTO.ProId;
             purchareDTO.Quantity = quantity;
@@ -159,7 +159,7 @@ namespace MyShop.UI.MainPage.Pages
             _currentCustomerID = customerDTO.CusID;
 
             FinalPrice.Text = string.Format("{0:N0} đ", _currentTotalPrice);
-            _shopOrderDTO = orderDetailDTO;
+            _shopOrderDTO = shopOrderDTO;
             _shopOrderDTO.FinalTotal = _currentTotalPrice;
             CustomerCombobox.IsEnabled = false;
         }

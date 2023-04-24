@@ -184,7 +184,7 @@ namespace MyShop.DAO
             command.ExecuteNonQuery();
         }
 
-        public ObservableCollection<ShopOrderDTO> getAllShopOrder()
+        public ObservableCollection<ShopOrderDTO> getAll()
         {
             ObservableCollection<ShopOrderDTO> list = new ObservableCollection<ShopOrderDTO>();
 

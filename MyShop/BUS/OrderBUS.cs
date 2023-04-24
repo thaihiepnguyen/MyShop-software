@@ -1,4 +1,5 @@
-﻿using MyShop.DAO;
+﻿using DocumentFormat.OpenXml.Bibliography;
+using MyShop.DAO;
 using MyShop.DTO;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace MyShop.BUS
 {
@@ -85,9 +87,30 @@ namespace MyShop.BUS
             _orderDAO.updateShopOrder(shopOrderDTO);
         }
 
-        public ObservableCollection<ShopOrderDTO> getAllShopOrder()
+        public Tuple<ObservableCollection<ShopOrderDTO>, int> findOrderBySearch(int currentPage, int rowsPerPage, DateTime? startDate, DateTime? endDate)
         {
-            return _orderDAO.getAllShopOrder();
+            var origin = _orderDAO.getAll();
+
+            var list = origin
+                .Where((item) =>
+                {
+                    bool checkStartDate = startDate == null || item.CreateAt >= startDate;
+                    bool checkEndDate = endDate == null || item.CreateAt <= endDate;
+                    return checkStartDate && checkEndDate;
+                });
+
+            var items = list.Skip((currentPage - 1) * rowsPerPage)
+                    .Take(rowsPerPage);
+
+            var oc = new ObservableCollection<ShopOrderDTO>();
+            foreach (var item in items.ToList())
+                oc.Add(item);
+
+            var result = new Tuple<ObservableCollection<ShopOrderDTO>, int>(
+                   oc, list.Count()
+            );
+
+            return result;
         }
     }
 }

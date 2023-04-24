@@ -27,7 +27,14 @@ namespace MyShop.UI.MainPage.Pages
         Frame _pageNavigation;
         private OrderBUS _orderBUS;
         private CustomerBUS _customerBUS;
+        private ObservableCollection<ShopOrderDTO>? _orders = null;
         private ObservableCollection<Data> _list;
+        private int _currentPage = 1;
+        private int _rowsPerPage = 8;
+        private int _totalItems = 0;
+        private int _totalPages = 0;
+        private DateTime? _currentStartDate;
+        private DateTime? _currentEndDate;
 
 
         class Resources
@@ -59,22 +66,36 @@ namespace MyShop.UI.MainPage.Pages
 
         public OrderDetail(Frame pageNavigation)
         {
-
-            InitializeComponent();
-            _customerBUS = new CustomerBUS();
-            ObservableCollection<Data> list = new ObservableCollection<Data>();
             _pageNavigation = pageNavigation;
+            _customerBUS = new CustomerBUS();
             _orderBUS = new OrderBUS();
-            var orders = _orderBUS.getAllShopOrder();
+            InitializeComponent();
+        }
 
-            foreach (var order in orders)
+        private void updateDataSource(int page = 1, DateTime? startDate = null, DateTime? endDate = null)
+        {
+            ObservableCollection<Data> list = new ObservableCollection<Data>();
+            _currentPage = page;
+            (_orders, _totalItems) = _orderBUS.findOrderBySearch(_currentPage, _rowsPerPage, startDate, endDate); ;
+
+            foreach (var order in _orders)
             {
                 list.Add(new Data(order, _customerBUS));
             }
             productsListView.ItemsSource = list;
 
+            infoTextBlock.Text = $"Đang hiển thị {_orders.Count} trên tổng số {_totalItems} hóa đơn";
             _list = list;
         }
+
+        private void updatePagingInfo()
+        {
+            _totalPages = _totalItems / _rowsPerPage +
+                   (_totalItems % _rowsPerPage == 0 ? 0 : 1);
+
+            pageInfoTextBlock.Text = $"{_currentPage}/{_totalPages}";
+        }
+
 
         private void AddOrder_Click(object sender, RoutedEventArgs e)
         {
@@ -88,26 +109,40 @@ namespace MyShop.UI.MainPage.Pages
 
         private void FirstButton_Click(object sender, RoutedEventArgs e)
         {
-
+            updateDataSource(1, _currentStartDate, _currentEndDate);
+            updatePagingInfo();
         }
 
         private void PrevButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (_currentPage > 1)
+            {
+                _currentPage--;
+                updateDataSource(_currentPage);
+                updatePagingInfo();
+            }
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (_currentPage < _totalPages)
+            {
+                _currentPage++;
+                updateDataSource(_currentPage);
+                updatePagingInfo();
+            }
         }
 
         private void LastButton_Click(object sender, RoutedEventArgs e)
         {
-
+            updateDataSource(_totalPages, _currentStartDate, _currentEndDate);
+            updatePagingInfo();
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            updateDataSource();
+            updatePagingInfo();
             this.DataContext = new Resources()
             {
                 FirstIcon = "Assets/Images/ic-first.png",
@@ -115,6 +150,14 @@ namespace MyShop.UI.MainPage.Pages
                 NextIcon = "Assets/Images/ic-next.png",
                 PrevIcon = "Assets/Images/ic-prev.png"
             };
+        }
+
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+            _currentStartDate = StartDate.SelectedDate;
+            _currentEndDate = EndDate.SelectedDate;
+            updateDataSource(1, _currentStartDate, _currentEndDate);
+            updatePagingInfo();
         }
     }
 }

@@ -30,7 +30,7 @@ namespace MyShop.DAO
 
         public DatabaseUtilitites() {
             _server = "sqlexpress";
-            _databaseName = "RawDB";
+            _databaseName = "MyShopDB";
             _user = "admin";
             _password = "admin";
             _connection = null;

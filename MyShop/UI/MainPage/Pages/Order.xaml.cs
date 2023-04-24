@@ -41,7 +41,7 @@ namespace MyShop.UI.MainPage.Pages
             }
         }
 
-            private List<OrderDTO>? _orders = null;
+        private List<OrderDTO>? _orders = null;
 
         int _currentPage = 1;
         int _rowsPerPage = 6;

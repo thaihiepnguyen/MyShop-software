@@ -55,8 +55,6 @@ namespace MyShop.DTO
 
         public void copy(ProductDTO other)
         {
-
-            // Set the properties of the cloned object to the same values as the original object
             this.ProId = other.ProId;
             this.ProName = other.ProName;
             this.Ram = other.Ram;

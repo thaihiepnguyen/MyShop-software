@@ -72,7 +72,7 @@ namespace MyShop.UI.LoginPage
         {
             new DatabaseUtilitites(
                   "sqlexpress",
-                  "MyShopDB",
+                  "MyShopDB_5",
                   "admin",
                   "admin"
             );

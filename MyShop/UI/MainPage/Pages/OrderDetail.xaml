@@ -39,10 +39,65 @@
             FontFamily="Segoe UI"
             >
         </TextBlock>
+        
+        <!--Hiển thị search từ ngày đến ngày-->
+        <Grid x:Name="SearchContainer" Margin="0,0,30,0" Grid.Column="1" HorizontalAlignment="Center" Width="450" Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
 
-        <!--Hiển thị nút bấm lưu -->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                <TextBlock
+                    Margin="10"
+                    Text="Từ ngày"
+                    FontSize="12"
+                    FontWeight="Bold"
+                    Foreground="#353935"/>
+                <DatePicker Name="StartDate" Margin="0,0,0, 5" VerticalAlignment="Bottom" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="1/04/23"></DatePicker>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom">
+                <TextBlock
+                    Margin="10"
+                    Text="Đến ngày"
+                    FontSize="12"
+                    FontWeight="Bold"
+                    Foreground="#353935"/>
+                <DatePicker Name="EndDate" Margin="0,0,0, 5" VerticalAlignment="Bottom" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="1/04/23"></DatePicker>
+            </StackPanel>
+
+            <!--Hiển thị bút bấm tìm kiếm-->
+            <Button
+                Name="Search"
+                Grid.Column="2"
+                Width="35"
+                Height="30"
+                Style="{StaticResource MyButtonStyle}"
+                BorderThickness="0.5"
+                BorderBrush="Orange"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Click="Search_Click"
+                Margin="0,0,0, 3"
+            >
+                <StackPanel Orientation="Horizontal">
+                    <fa:ImageAwesome 
+                        Width="12"
+                        Height="12"
+                        RenderOptions.BitmapScalingMode="HighQuality"
+                        Icon="Search"
+                        Foreground="#8B4000"
+                        />
+                </StackPanel>
+            </Button>
+        </Grid>
+        
+
+        <!--Hiển thị nút bấm thêm đơn hàng -->
         <Button
-            Margin="0, 10, 0,0"
+            Margin="0, 25, 0,0"
             Name="AddOrder"
             Grid.Column="1"
             Width="130"
@@ -257,6 +312,17 @@
             </Grid>
         </Border>
 
+
+        <TextBlock 
+            Name="infoTextBlock"
+            Grid.Row="2"
+            Grid.Column="1"
+            Text = "Hiển thị 12 trong tổng số 72 hóa đơn" 
+            Margin="20, 0, 200, 0"
+            VerticalAlignment="Center"
+            Foreground="#353935"
+            FontWeight="Medium"
+            />
         <Border BorderThickness="0.5" BorderBrush="Orange" CornerRadius="15"
                 Background="White" 
                 HorizontalAlignment="Right"
