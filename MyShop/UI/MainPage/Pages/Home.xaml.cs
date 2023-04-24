@@ -58,15 +58,16 @@ namespace MyShop.UI.MainPage.Pages
             public string? ProImage { get; set; }
             public string? CatIcon { get; set; }
             public string? CatName { get; set; }
-            public decimal? Price { get; set; }
-
+            public decimal? originalPrice { get; set; }
+            public decimal? discountedPrice { get; set; }
             public Data(ProductDTO productDTO, CategoryDTO categoryDTO)
             {
                 ProName = productDTO.ProName;
                 ProImage = productDTO.ImagePath;
-                Price = productDTO.Price;
+                originalPrice = productDTO.Price;
                 CatIcon = categoryDTO.CatIcon;
                 CatName = categoryDTO.CatName;
+                discountedPrice = productDTO.OriginPrice;
             }
         }
 

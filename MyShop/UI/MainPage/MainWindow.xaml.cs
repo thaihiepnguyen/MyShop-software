@@ -24,10 +24,11 @@ namespace MyShop.UI.MainPage
         const int DashBoard = 0;
         const int Home = 1;
         const int Category = 2;
-        const int Order = 3;
-        const int Statistical = 4;
-        const int AboutUs = 5;
-        const int Logout = 6;
+        const int Promotion = 3;
+        const int Order = 4;
+        const int Statistical = 5;
+        const int AboutUs = 6;
+        const int Logout = 7;
         class Resoures
         {
             public string MainBgPath { get; set; }
@@ -84,6 +85,11 @@ namespace MyShop.UI.MainPage
                 },
                 new Item()
                 {
+                    FontIcon = "Tags",
+                    ItemName = "Promotion"
+                },
+                new Item()
+                {
                     FontIcon = "ShoppingCart",
                     ItemName = "Orders",
                 },
@@ -125,6 +131,10 @@ namespace MyShop.UI.MainPage
             {
 
                 pageNavigation.NavigationService.Navigate(new ModifyCategory(pageNavigation));
+            }
+            if (selectedIndex == Promotion)
+            {
+                pageNavigation.NavigationService.Navigate(new ModifyPromotion(pageNavigation));
             }
             if (selectedIndex == Order)
             {

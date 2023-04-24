@@ -76,7 +76,7 @@
                             <Style TargetType="{x:Type TextBlock}">
                                 <Setter Property="Visibility" Value="Collapsed"/>
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Text, ElementName=SearchTermTextBox}" Value="">
+                                    <DataTrigger Binding="{Binding Text, ElementName=SearchTermTextBox}" Value=" ">
                                         <Setter Property="Visibility" Value="Visible"/>
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -86,7 +86,7 @@
                 </Grid>
             </Grid>
         </Border>
-        
+
         <!--Hiển thị Filter (Sort by giá :))-->
 
         <StackPanel Orientation="Horizontal"
@@ -139,8 +139,8 @@
                         />
             </Button>
         </StackPanel>
-        
-        
+
+
 
         <!--Hiển thị avatar-->
 
@@ -167,7 +167,7 @@
                             VerticalAlignment="Bottom"
                             Width="155"
                             Margin="10"
-                            Height="83"
+                            Height="98"
                             BorderThickness="0.5"
                             BorderBrush="Orange"
                             Padding="12, 8,8,8"
@@ -206,9 +206,33 @@
 
                                 <!-- binding -->
                                 <TextBlock Name="priceTextBlock"
-                                           Text="{Binding Price, Converter={StaticResource currencyConverter}}"
+                                           Text="{Binding originalPrice, Converter={StaticResource currencyConverter}}"
                                            FontWeight="Bold"
                                            Foreground="#8B4000"/>
+
+                                <TextBlock Name="priceTextBlockAA" 
+                                    FontSize="10" 
+                                    Foreground="Gray">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding discountedPrice}" 
+                                                     Value="0">
+                                                    <Setter Property="TextDecorations" 
+                                                        Value="Strikethrough" />
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                    <TextBlock.Text>
+                                        <Binding Path="discountedPrice"
+                                            StringFormat="#,##0 đ" />
+                                    </TextBlock.Text>
+                                 <!--   <TextBlock.TextDecorations>
+                                        <TextDecoration Location="Strikethrough"/>
+                                    </TextBlock.TextDecorations>-->
+                                </TextBlock>
 
                             </StackPanel>
                         </Button>
@@ -248,9 +272,9 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
-        
+
         <!-- Phần Hiển thị thông tin bên dưới-->
-        
+
         <TextBlock 
             Name="infoTextBlock"
             Grid.Row="2"
@@ -348,6 +372,6 @@
                 </Button>
             </Grid>
         </Border>
-        
+
     </Grid>
 </Page>
