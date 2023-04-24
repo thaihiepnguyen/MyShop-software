@@ -4,6 +4,7 @@ using MyShop.DAO;
 using MyShop.DTO;
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -28,6 +29,14 @@ namespace MyShop.UI.MainPage.Pages
         {
             InitializeComponent();
 
+            // categoryDTO parameter của hàm này đang giữ vùng nhớ của page Detail
+            _categoryDTO = categoryDTO;
+            // dòng trên để lưu lại vùng nhớ
+
+
+            // trời ơi chúa tể vùng nhớ đây rùi hahaa :)))
+
+
             _pageNavegation = pageNavigation;
             _categoryBUS = new CategoryBUS();
             _productBUS = new ProductBUS();
@@ -37,9 +46,16 @@ namespace MyShop.UI.MainPage.Pages
 
             CategoryCombobox.ItemsSource = categories;
 
-            CategoryCombobox.SelectedIndex = (int)(product.CatID - 1);
+            foreach(var category in categories) { 
+                if (category.CatID == categoryDTO.CatID)
+                {
+                    categoryDTO = category;
+                }
+            }
+
+            CategoryCombobox.SelectedValue = categoryDTO;
             _productDTO = product;
-            _categoryDTO = categoryDTO;
+            
             DataContext = product;
         }
 
@@ -63,6 +79,7 @@ namespace MyShop.UI.MainPage.Pages
 
         private void SaveProduct_Click(object sender, RoutedEventArgs e)
         {
+            var categoryDTO = (CategoryDTO)CategoryCombobox.SelectedValue;
             int id = _productDTO.ProId;
             _productDTO.ProId = id;
             _productDTO.ProName = NameTermTextBox.Text;
@@ -73,7 +90,7 @@ namespace MyShop.UI.MainPage.Pages
             _productDTO.Price = Decimal.Parse(PriceTermTextBox.Text);
             _productDTO.Trademark = TradeMarkTermTextBox.Text;
             _productDTO.BatteryCapacity = int.Parse(PinTermTextBox.Text);
-            _productDTO.CatID = CategoryCombobox.SelectedIndex + 1;
+            _productDTO.CatID = categoryDTO.CatID;
 
             var categoryTemp = _categoryBUS.getCategoryById(_productDTO.CatID);
             _categoryDTO.CatID = categoryTemp.CatID;

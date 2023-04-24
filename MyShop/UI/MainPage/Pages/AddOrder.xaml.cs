@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using System.Printing;
 
 namespace MyShop.UI.MainPage.Pages
 {
@@ -26,10 +27,13 @@ namespace MyShop.UI.MainPage.Pages
         private ProductDTO _currentProduct;
         private ObservableCollection<ProductDTO> _products;
         private Decimal _currentTotalPrice = 0;
+        private Decimal _totalRealPrice = 0;
         private ShopOrderDTO _shopOrderDTO;
         private int _currentQuantity;
         private ObservableCollection<OrderDetail.Data> _list;
         private List<PurchaseDTO> _purchaseBuffer;
+        private decimal _realPrice;
+        
 
 
         public class Data
@@ -56,6 +60,7 @@ namespace MyShop.UI.MainPage.Pages
 
         private void SaveOrder_Click(object sender, RoutedEventArgs e)
         {
+            // lúc này mới lưu vào database 
             foreach (var purchase in _purchaseBuffer)
             {
                 _orderBUS.addPurchase(purchase);
@@ -109,7 +114,7 @@ namespace MyShop.UI.MainPage.Pages
             }
 
             var purchareDTO = new PurchaseDTO();
-            var shopOrderDTO = new ShopOrderDTO();
+            
 
             var customerDTO = (CustomerDTO)CustomerCombobox.SelectedValue;
 
@@ -122,20 +127,27 @@ namespace MyShop.UI.MainPage.Pages
                 MessageBox.Show("Có lỗi xảy ra", "Thông báo", MessageBoxButton.OK);
                 return;
             }
-
-            shopOrderDTO.CusID = customerDTO.CusID;
-            shopOrderDTO.CreateAt = DateTime.Now.Date;
-
+            // lúc này chưa tạo đơn hàng
             if (!_verifyOrder)
             {
+                var shopOrderDTO = new ShopOrderDTO();
+                shopOrderDTO.CusID = customerDTO.CusID;
+                shopOrderDTO.CreateAt = DateTime.Now.Date;
                 _orderID = _orderBUS.addShopOrder(shopOrderDTO);
+                shopOrderDTO.OrderID = _orderID;
+                _shopOrderDTO = shopOrderDTO;
             }
 
-            shopOrderDTO.OrderID = _orderID;
+            // đã khởi tạo một đơn hàng
+
+            // quá trình tạo đơn hàng
             purchareDTO.OrderID = _orderID;
             purchareDTO.ProID = productDTO.ProId;
             purchareDTO.Quantity = quantity;
-            purchareDTO.TotalPrice = productDTO.Price * quantity;
+            purchareDTO.TotalPrice = _orderBUS.calProductProfit(productDTO.Price) * quantity;
+
+            // giá real :))) 
+            _realPrice = productDTO.Price * quantity;
 
             _purchaseBuffer.Add(purchareDTO);
 
@@ -146,7 +158,7 @@ namespace MyShop.UI.MainPage.Pages
                 Quantity = quantity,
                 Price = productDTO.Price,
                 ProName = productDTO.ProName,
-                TotalPrice = productDTO.Price * quantity
+                TotalPrice = _orderBUS.calProductProfit(productDTO.Price) * quantity
             };
             _currentProduct.Quantity -= quantity;
             _currentTotalPrice += data.TotalPrice;
@@ -159,8 +171,12 @@ namespace MyShop.UI.MainPage.Pages
             _currentCustomerID = customerDTO.CusID;
 
             FinalPrice.Text = string.Format("{0:N0} đ", _currentTotalPrice);
-            _shopOrderDTO = shopOrderDTO;
+            
             _shopOrderDTO.FinalTotal = _currentTotalPrice;
+            _totalRealPrice += _realPrice;
+
+            // tính lợi nhuận
+            _shopOrderDTO.ProfitTotal = _currentTotalPrice - _totalRealPrice;
             CustomerCombobox.IsEnabled = false;
         }
 

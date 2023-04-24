@@ -48,6 +48,10 @@
               "target": "Package",
               "version": "[4.7.0.9, )"
             },
+            "LiveCharts.Wpf.NetCore3": {
+              "target": "Package",
+              "version": "[0.9.7, )"
+            },
             "MaterialDesignThemes": {
               "target": "Package",
               "version": "[4.8.0, )"

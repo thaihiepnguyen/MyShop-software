@@ -241,7 +241,7 @@ namespace MyShop.DAO
             ObservableCollection<ProductDTO> list = new ObservableCollection<ProductDTO>();
             string sql = "select top 5 ProID, ProName, Ram, Rom, ScreenSize, TinyDes," +
                 " FullDes, Price, ImagePath, Trademark," +
-                "BatteryCapacity, CatID, Quantity, Block from product where Quantity < 5 order by Quantity asc";
+                "BatteryCapacity, CatID, Quantity, Block from product where Quantity <= 5 order by Quantity asc";
             var command = new SqlCommand(sql, db.connection);
 
             var reader = command.ExecuteReader();

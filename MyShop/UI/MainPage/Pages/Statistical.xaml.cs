@@ -1,4 +1,4 @@
-using MyShop.BUS;
+﻿using MyShop.BUS;
 using MyShop.DTO;
 using System;
 using System.Collections.Generic;
@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LiveCharts;
+using LiveCharts.Wpf;
 
 namespace MyShop.UI.MainPage.Pages
 {
@@ -36,14 +38,39 @@ namespace MyShop.UI.MainPage.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            int currentYear = DateTime.Now.Year;
-            int currentMonth = DateTime.Now.Month;
-            int userId = 2;
-            SaleBUS saleBUS = new SaleBUS();
-            decimal salesYear = saleBUS.getSaleByYear(userId, currentYear);
-            decimal salesMonth = saleBUS.getSaleByMonth(userId, currentYear);
-            decimal salesDay = saleBUS.getSaleByDate(userId);
-            this.DataContext = new DateSale() { year=salesYear, month=salesMonth, day=salesDay };
+            chart.Series.Add(new LineSeries()
+            {
+                Title = "Doanh thu theo tháng",
+                Values = new ChartValues<double>() { 3, 5, 9000, 4 }
+            });
+
+            chart.Series.Add(new ColumnSeries()
+            {
+                StrokeThickness = 1,
+                Title = "Các mặt hàng bán chạy",
+                Values = new ChartValues<double>() { 5, 6, 1100, 7 }
+            });
+
+            chart.AxisX.Add(
+                new Axis()
+                {
+                    Title = "Thang",
+                    Labels = new string[] { "Mar", "Apr", "May", "Jun" }
+                });
+        }
+
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DateCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void NextProductReport_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }

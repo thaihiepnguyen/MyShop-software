@@ -102,7 +102,7 @@
                 </ListView.ItemContainerStyle>
             </ListView>
 
-            <TextBlock Grid.Row="1" VerticalAlignment="Center" Margin="30, 0,0,0">Version 1.0.0</TextBlock>
+            <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">Version 1.0.0</TextBlock>
             
         </Grid>
 

@@ -112,5 +112,14 @@ namespace MyShop.BUS
 
             return result;
         }
+
+
+        // tính lợi nhuận trên một sản phẩm
+        public decimal calProductProfit(decimal productPrice)
+        {
+            float profit = 1.07f;
+
+            return productPrice * (decimal)profit;
+        }
     }
 }

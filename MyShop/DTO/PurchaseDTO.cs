@@ -12,6 +12,8 @@ namespace MyShop.DTO
         public int OrderID { get; set; }
         public int ProID { get; set; }
         public int Quantity { get; set; }
+
+        // tổng tiền ở đây là đã có chiết xuất lợi nhuận rồi 
         public Decimal TotalPrice { get; set; }
     }
 }

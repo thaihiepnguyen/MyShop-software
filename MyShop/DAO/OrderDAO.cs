@@ -116,15 +116,15 @@ namespace MyShop.DAO
             return rowsAffected > 0;
         }
 
-        public int insertShopOrder(ShopOrderDTO purchaseDTO)
+        public int insertShopOrder(ShopOrderDTO shopOrderDTO)
         {
             // insert SQL
             string sql = "insert into shop_order(CusID, CreateAt)" +
             "values(@CusID, @CreateAt)";
             var command = new SqlCommand(sql, db.connection);
 
-            command.Parameters.Add("@CusID", SqlDbType.Int).Value = purchaseDTO.CusID;
-            command.Parameters.Add("@CreateAt", SqlDbType.Date).Value = purchaseDTO.CreateAt;
+            command.Parameters.Add("@CusID", SqlDbType.Int).Value = shopOrderDTO.CusID;
+            command.Parameters.Add("@CreateAt", SqlDbType.Date).Value = shopOrderDTO.CreateAt;
 
             command.ExecuteNonQuery();
 
@@ -172,7 +172,7 @@ namespace MyShop.DAO
         public void updateShopOrder(ShopOrderDTO shopOrder)
         {
             string sql = "update shop_order " +
-                "set CusID =  @CusID, CreateAt = @CreateAt, FinalTotal = @FinalTotal " +
+                "set CusID =  @CusID, CreateAt = @CreateAt, FinalTotal = @FinalTotal, ProfitTotal = @ProfitTotal " +
                 "where OrderID = @OrderID";
             var command = new SqlCommand(sql, db.connection);
 
@@ -180,6 +180,7 @@ namespace MyShop.DAO
             command.Parameters.Add("@CusID", SqlDbType.Int).Value = shopOrder.CusID;
             command.Parameters.Add("@CreateAt", SqlDbType.Date).Value = shopOrder.CreateAt;
             command.Parameters.Add("@FinalTotal", SqlDbType.Money).Value = shopOrder.FinalTotal;
+            command.Parameters.Add("@ProfitTotal", SqlDbType.Money).Value = shopOrder.ProfitTotal;
 
             command.ExecuteNonQuery();
         }
@@ -188,7 +189,7 @@ namespace MyShop.DAO
         {
             ObservableCollection<ShopOrderDTO> list = new ObservableCollection<ShopOrderDTO>();
 
-            string sql = "select OrderID, CusID, CreateAt, FinalTotal from shop_order where FinalTotal > 0";
+            string sql = "select OrderID, CusID, CreateAt, FinalTotal, ProfitTotal from shop_order where FinalTotal > 0";
 
             var command = new SqlCommand(sql, db.connection);
 
@@ -201,8 +202,10 @@ namespace MyShop.DAO
                     OrderID = (int)reader["OrderID"],
                     CusID = (int)reader["CusID"],
                     CreateAt = (DateTime)reader["CreateAt"],
-                    FinalTotal = (decimal)reader["FinalTotal"]
-                };
+                    // này tránh lỗi :)
+                    FinalTotal = reader["FinalTotal"] == DBNull.Value ? null : (decimal?)reader["FinalTotal"],
+                    ProfitTotal = reader["ProfitTotal"] == DBNull.Value ? null : (decimal?)reader["ProfitTotal"]
+            };
 
                 list.Add(shopOrder);
             }

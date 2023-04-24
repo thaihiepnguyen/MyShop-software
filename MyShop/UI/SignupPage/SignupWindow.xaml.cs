@@ -100,7 +100,7 @@ namespace MyShop.UI.SignupPage
         {
             new DatabaseUtilitites(
                  "sqlexpress",
-                 "MyShopDB_5",
+                 "MyShopDB_7",
                  "admin",
                  "admin"
            );
