@@ -33,8 +33,8 @@ namespace MyShop.UI.MainPage.Pages
         private int _rowsPerPage = 8;
         private int _totalItems = 0;
         private int _totalPages = 0;
-        private DateTime? _currentStartDate;
-        private DateTime? _currentEndDate;
+        private DateTime? _currentStartDate = null;
+        private DateTime? _currentEndDate = null;
 
 
         class Resources
@@ -118,7 +118,7 @@ namespace MyShop.UI.MainPage.Pages
             if (_currentPage > 1)
             {
                 _currentPage--;
-                updateDataSource(_currentPage);
+                updateDataSource(_currentPage, _currentStartDate, _currentEndDate);
                 updatePagingInfo();
             }
         }
@@ -128,7 +128,7 @@ namespace MyShop.UI.MainPage.Pages
             if (_currentPage < _totalPages)
             {
                 _currentPage++;
-                updateDataSource(_currentPage);
+                updateDataSource(_currentPage, _currentStartDate, _currentEndDate);
                 updatePagingInfo();
             }
         }
@@ -141,7 +141,7 @@ namespace MyShop.UI.MainPage.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            updateDataSource();
+            updateDataSource(1, _currentStartDate, _currentEndDate);
             updatePagingInfo();
             this.DataContext = new Resources()
             {
