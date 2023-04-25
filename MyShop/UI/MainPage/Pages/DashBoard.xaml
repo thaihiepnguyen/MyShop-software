@@ -120,14 +120,14 @@
                         Orientation="Vertical"
                         Margin="10">
                         <TextBlock 
-                            Text="Tổng đơn hàng mới"
+                            Text="Tổng đơn hàng mới trong tuần"
                             FontSize="14"
                             FontWeight="Medium"
                             Foreground="White"/>
                         
                         <TextBlock
                             Margin="0, 30, 0,0"
-                            Text="{Binding TotalProduct}"
+                            Text="{Binding TotalOrder}"
                             FontSize="45"
                             FontWeight="Medium"
                             Foreground="White"/>

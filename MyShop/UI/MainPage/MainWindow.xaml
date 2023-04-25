@@ -11,6 +11,7 @@
     <Window.Resources>
         <local:RelativeToAbsoluteConverter x:Key="converter"/>
     </Window.Resources>
+
     <Grid Name="MainContainer">
         <Grid.ColumnDefinitions>
             <!--chia width = 250 cho Nav, còn lại là Content-->
@@ -24,7 +25,6 @@
             <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
         <!--nav - background-->
         <Image 
             Name="MainBackground"

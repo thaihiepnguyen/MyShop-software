@@ -214,5 +214,25 @@ namespace MyShop.DAO
 
             return list;
         }
+
+        public int countTotalOrder()
+        {
+            int total = 0;
+            string sql = $"""
+                select count(*) as sum from shop_order
+                """;
+
+            var command = new SqlCommand(sql, db.connection);
+
+            var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                total = (int)reader["sum"];
+            }
+
+            reader.Close();
+
+            return total;
+        }
     }
 }
