@@ -189,6 +189,68 @@ namespace MyShop.BUS
             return result;
         }
 
+        public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
+        {
+            for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
+                yield return day;
+        }
 
+        public List<Decimal> groupPriceTotalByDate(DateTime startDate, DateTime endDate)
+        {
+            List<Decimal> result = new List<Decimal>();
+
+            foreach (DateTime day in EachDay(startDate, endDate))
+            {
+                List<decimal> prices = new List<decimal>();
+                foreach (var order in _orders)
+                {
+                    if (order.CreateAt.Date == day)
+                    {
+                        // này nguy hiểm :))) nhưng kệ 
+                        prices.Add((decimal)order.FinalTotal);
+                    }
+                }
+                var totalPrice = prices.Sum();
+
+                result.Add(totalPrice);
+            }
+
+            return result;
+        }
+
+        public List<Decimal> groupProfitTotalByDate(DateTime startDate, DateTime endDate)
+        {
+            List<Decimal> result = new List<Decimal>();
+
+            foreach (DateTime day in EachDay(startDate, endDate))
+            {
+                List<decimal> prices = new List<decimal>();
+                foreach (var order in _orders)
+                {
+                    if (order.CreateAt.Date == day)
+                    {
+                        // này nguy hiểm :))) nhưng kệ 
+                        prices.Add((decimal)order.ProfitTotal);
+                    }
+                }
+                var totalPrice = prices.Sum();
+
+                result.Add(totalPrice);
+            }
+
+            return result;
+        }
+
+        public List<String> EachDayConverter(DateTime startDate, DateTime endDate)
+        {
+            List<string> result = new List<string>();
+
+            foreach (DateTime day in EachDay(startDate, endDate))
+            {
+                result.Add(day.Date.ToString());
+            }
+
+            return result;
+        }
     }
 }

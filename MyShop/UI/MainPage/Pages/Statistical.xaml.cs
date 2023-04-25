@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
+using DocumentFormat.OpenXml.Bibliography;
 
 namespace MyShop.UI.MainPage.Pages
 {
@@ -56,7 +57,7 @@ namespace MyShop.UI.MainPage.Pages
 
             _chart.Series.Add(new LineSeries()
             {
-                Stroke = Brushes.DarkOrange,
+                Stroke = Brushes.DeepSkyBlue,
                 Title = "Lợi nhuận theo năm",
                 Values = valuesLineChart
             });
@@ -71,6 +72,7 @@ namespace MyShop.UI.MainPage.Pages
             chart.AxisX.Add(
                 new Axis()
                 {
+                    Foreground = Brushes.Black,
                     Title = "Year",
                     Labels = new string[] {
                         "Năm 2021",
@@ -104,7 +106,7 @@ namespace MyShop.UI.MainPage.Pages
 
             _chart.Series.Add(new LineSeries()
             {
-                Stroke = Brushes.DarkOrange,
+                Stroke = Brushes.DeepSkyBlue,
                 Title = "Lợi nhuận theo tháng",
                 Values = valuesLineChart
             });
@@ -119,6 +121,7 @@ namespace MyShop.UI.MainPage.Pages
             chart.AxisX.Add(
                 new Axis()
                 {
+                    Foreground = Brushes.Black,
                     Title = "Month",
                     Labels = new string[] {
                         "Tháng 1",
@@ -163,7 +166,7 @@ namespace MyShop.UI.MainPage.Pages
 
             _chart.Series.Add(new LineSeries()
             {
-                Stroke = Brushes.DarkOrange,
+                Stroke = Brushes.DeepSkyBlue,
                 Title = "Lợi nhuận theo tuần",
                 Values = valuesLineChart
             });
@@ -178,6 +181,7 @@ namespace MyShop.UI.MainPage.Pages
             chart.AxisX.Add(
                 new Axis()
                 {
+                    Foreground = Brushes.Black,
                     Title = "Week",
                     Labels = new string[] {
                         "Tuần 1",
@@ -190,11 +194,59 @@ namespace MyShop.UI.MainPage.Pages
             Title.Text = "Đang hiển thị chế độ xem theo tuần";
         }
 
+        private void displayDateMode(DateTime startDate, DateTime endDate)
+        {
+            var pricesByDate = _reportBUS.groupPriceTotalByDate(startDate, endDate);
+            var profitsByDate = _reportBUS.groupProfitTotalByDate(startDate, endDate);
+
+            var valuesLineChart = new ChartValues<double>();
+            var valuesColChart = new ChartValues<double>();
+
+            foreach (var item in pricesByDate)
+            {
+                valuesColChart.Add((double)item);
+            }
+
+            foreach (var item in profitsByDate)
+            {
+                valuesLineChart.Add((double)item);
+            }
+
+            _chart.Series = new SeriesCollection();
+            _chart.AxisX = new AxesCollection();
+
+            _chart.Series.Add(new LineSeries()
+            {
+                Stroke = Brushes.DeepSkyBlue,
+                Title = "Lợi nhuận theo ngày",
+                Values = valuesLineChart
+            });
+
+            _chart.Series.Add(new ColumnSeries()
+            {
+                Fill = Brushes.Chocolate,
+                Title = "Doanh thu theo ngày",
+                Values = valuesColChart
+            });
+
+            chart.AxisX.Add(
+                new Axis()
+                {
+                    Foreground = Brushes.Black,
+                    Title = "Date",
+                    Labels = _reportBUS.EachDayConverter(startDate, endDate)
+                });
+            Title.Text = "Đang hiển thị chế độ xem theo ngày";
+        }
+
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             _chart = chart;
+          
             _chart.AxisY.Add(new Axis
             {
+                Foreground = Brushes.Black,
+                Title = "Doanh thu/ lợi nhuận",
                 MinValue = 0
             });
             Title.Text = "Đang hiển thị chế độ xem theo năm";
@@ -203,7 +255,10 @@ namespace MyShop.UI.MainPage.Pages
 
         private void Search_Click(object sender, RoutedEventArgs e)
         {
+            var startDate = StartDate.SelectedDate;
+            var endDate = EndDate.SelectedDate;
 
+            displayDateMode((DateTime)startDate, (DateTime)endDate);
         }
 
         private void NextProductReport_Click(object sender, RoutedEventArgs e)
