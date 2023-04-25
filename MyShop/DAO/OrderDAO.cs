@@ -202,15 +202,13 @@ namespace MyShop.DAO
                     OrderID = (int)reader["OrderID"],
                     CusID = (int)reader["CusID"],
                     CreateAt = (DateTime)reader["CreateAt"],
-                    // này tránh lỗi :)
+                    // này để tránh lỗi :)
                     FinalTotal = reader["FinalTotal"] == DBNull.Value ? null : (decimal?)reader["FinalTotal"],
                     ProfitTotal = reader["ProfitTotal"] == DBNull.Value ? null : (decimal?)reader["ProfitTotal"]
             };
 
                 list.Add(shopOrder);
             }
-
-
 
             reader.Close();
 

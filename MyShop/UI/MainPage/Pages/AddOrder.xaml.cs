@@ -34,8 +34,6 @@ namespace MyShop.UI.MainPage.Pages
         private List<PurchaseDTO> _purchaseBuffer;
         private decimal _realPrice;
         
-
-
         public class Data
         {
             public string ProName { get; set; }
