@@ -231,7 +231,21 @@ INSERT [dbo].[purchase] ([PurchaseID], [OrderID], [ProID], [Quantity], [TotalPri
 SET IDENTITY_INSERT [dbo].[purchase] OFF
 GO
 SET IDENTITY_INSERT [dbo].[shop_order] ON 
-
+INSERT [dbo].[shop_order] ([OrderID], [CusID], [CreateAt], [FinalTotal]) VALUES (06, 1, CAST(N'2022-04-23' AS Date), 42360000.0000)
+INSERT [dbo].[shop_order] ([OrderID], [CusID], [CreateAt], [FinalTotal]) VALUES (07, 1, CAST(N'2022-04-23' AS Date), 43150000.0000)
+INSERT [dbo].[shop_order] ([OrderID], [CusID], [CreateAt], [FinalTotal]) VALUES (08, 1, CAST(N'2022-04-23' AS Date), 162540000.0000)
+INSERT [dbo].[shop_order] ([OrderID], [CusID], [CreateAt], [FinalTotal]) VALUES (09, 1, CAST(N'2022-04-23' AS Date), 10990000.0000)
+INSERT [dbo].[shop_order] ([OrderID], [CusID], [CreateAt], [FinalTotal]) VALUES (10, 1, CAST(N'2022-04-23' AS Date), 58770000.0000)
+INSERT [dbo].[shop_order] ([OrderID], [CusID], [CreateAt], [FinalTotal]) VALUES (11, 1, CAST(N'2022-04-23' AS Date), 83960000.0000)
+INSERT [dbo].[shop_order] ([OrderID], [CusID], [CreateAt], [FinalTotal]) VALUES (12, 1, CAST(N'2022-04-23' AS Date), 83960000.0000)
+INSERT [dbo].[shop_order] ([OrderID], [CusID], [CreateAt], [FinalTotal]) VALUES (13, 1, CAST(N'2023-03-23' AS Date), 23880000.0000)
+INSERT [dbo].[shop_order] ([OrderID], [CusID], [CreateAt], [FinalTotal]) VALUES (14, 1, CAST(N'2023-03-23' AS Date), 42360000.0000)
+INSERT [dbo].[shop_order] ([OrderID], [CusID], [CreateAt], [FinalTotal]) VALUES (15, 1, CAST(N'2023-03-23' AS Date), 23880000.0000)
+INSERT [dbo].[shop_order] ([OrderID], [CusID], [CreateAt], [FinalTotal]) VALUES (16, 1, CAST(N'2023-03-23' AS Date), 42360000.0000)
+INSERT [dbo].[shop_order] ([OrderID], [CusID], [CreateAt], [FinalTotal]) VALUES (17, 1, CAST(N'2023-03-23' AS Date), 58770000.0000)
+INSERT [dbo].[shop_order] ([OrderID], [CusID], [CreateAt], [FinalTotal]) VALUES (18, 1, CAST(N'2023-03-23' AS Date), 23880000.0000)
+INSERT [dbo].[shop_order] ([OrderID], [CusID], [CreateAt], [FinalTotal]) VALUES (19, 1, CAST(N'2023-03-23' AS Date), 10990000.0000)
+INSERT [dbo].[shop_order] ([OrderID], [CusID], [CreateAt], [FinalTotal]) VALUES (20, 1, CAST(N'2023-04-23' AS Date), NULL)
 INSERT [dbo].[shop_order] ([OrderID], [CusID], [CreateAt], [FinalTotal]) VALUES (13, 1, CAST(N'2023-04-23' AS Date), NULL)
 INSERT [dbo].[shop_order] ([OrderID], [CusID], [CreateAt], [FinalTotal]) VALUES (14, 1, CAST(N'2023-04-23' AS Date), NULL)
 INSERT [dbo].[shop_order] ([OrderID], [CusID], [CreateAt], [FinalTotal]) VALUES (15, 1, CAST(N'2023-04-23' AS Date), NULL)
