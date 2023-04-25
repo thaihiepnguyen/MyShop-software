@@ -119,7 +119,9 @@ namespace MyShop.BUS
         {
             float profit = 1.07f;
 
-            return productPrice * (decimal)profit;
+            decimal result = productPrice * (decimal)profit;
+
+            return result;
         }
     }
 }

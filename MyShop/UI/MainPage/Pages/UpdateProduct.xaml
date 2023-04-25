@@ -399,6 +399,52 @@
                             </Grid>
                         </Border>
                     </StackPanel>
+
+                    <StackPanel Grid.Column="1"
+                            Grid.Row="1" 
+                            Margin="0, 0, 0, 0" Orientation="Vertical">
+                        <TextBlock Margin="20,0,0,0" 
+                               Text="MÃ KHUYẾN MÃI"
+                               FontSize="14"
+                               FontWeight="Medium"
+                               Foreground="#353935"/>
+                        <Border 
+                    BorderThickness="0.5" BorderBrush="Orange" CornerRadius="5"
+                    Grid.Column="0" Background="White"
+                    Height="35"
+                    Width="190"
+                    Margin="10">
+                            <Grid
+                            Width="170"
+                            Margin="0"
+                            HorizontalAlignment="Center">
+                                <TextBox 
+                                BorderThickness="0"
+                                VerticalContentAlignment="Center"
+                                FontSize="13"
+                                Width="190"
+                                    Text="{Binding PromoCode}"
+                                x:Name="PromoCodeTextBox">
+                                </TextBox>
+                                <TextBlock IsHitTestVisible="False" Text="Nhập mã khuyến mãi" 
+                                   VerticalAlignment="Center"
+                                   FontSize="13"
+                                   HorizontalAlignment="Left" Margin="5,0,0,0"
+                                   Foreground="DarkGray">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, ElementName=PromoCodeTextBox}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
                 </StackPanel>
 
                 <StackPanel Grid.Row="0"

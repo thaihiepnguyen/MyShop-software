@@ -81,6 +81,35 @@
             </Button>
         </Grid>
 
+        <!--Hiển thị combo box theo năm-->
+        <Border
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Grid.Column="1"
+                Height="30"
+                Width="120"
+                Margin="0,0,150,3"
+                BorderThickness="0.5" BorderBrush="Orange" CornerRadius="14"
+                 Background="WhiteSmoke" 
+            >
+            <ComboBox 
+                    Name="YearCombobox"
+                    BorderThickness="0" BorderBrush="Transparent" Width="90"
+                    VerticalContentAlignment="Center"
+                    SelectionChanged="YearCombobox_SelectionChanged">
+                <ComboBox.ItemContainerStyle>
+                    <Style TargetType="ComboBoxItem">
+
+                    </Style>
+                </ComboBox.ItemContainerStyle>
+                <ComboBoxItem IsHitTestVisible="False" IsEnabled="False" IsSelected="True" >Chọn năm</ComboBoxItem>
+                <ComboBoxItem>Năm 2021</ComboBoxItem>
+                <ComboBoxItem>Năm 2022</ComboBoxItem>
+                <ComboBoxItem>Năm 2023</ComboBoxItem>
+            </ComboBox>
+        </Border>
+
+        <!--Hiển thị combo box theo tháng-->
         <Border
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
@@ -92,19 +121,29 @@
                  Background="WhiteSmoke" 
             >
             <ComboBox 
-                    Name="DateCombobox"
+                    IsEnabled="False" 
+                    Name="MonthCombobox"
                     BorderThickness="0" BorderBrush="Transparent" Width="90"
                     VerticalContentAlignment="Center"
-                    SelectionChanged="DateCombobox_SelectionChanged">
+                    SelectionChanged="MonthCombobox_SelectionChanged">
                 <ComboBox.ItemContainerStyle>
                     <Style TargetType="ComboBoxItem">
 
                     </Style>
                 </ComboBox.ItemContainerStyle>
-                <ComboBoxItem IsHitTestVisible="False" IsEnabled="False" IsSelected="True" >Thời gian</ComboBoxItem>
-                <ComboBoxItem>Theo ngày</ComboBoxItem>
-                <ComboBoxItem>Theo tháng</ComboBoxItem>
-                <ComboBoxItem>Theo năm</ComboBoxItem>
+                <ComboBoxItem IsHitTestVisible="False" IsEnabled="False" IsSelected="True" >Chọn tháng</ComboBoxItem>
+                <ComboBoxItem>Tháng 1</ComboBoxItem>
+                <ComboBoxItem>Tháng 2</ComboBoxItem>
+                <ComboBoxItem>Tháng 3</ComboBoxItem>
+                <ComboBoxItem>Tháng 4</ComboBoxItem>
+                <ComboBoxItem>Tháng 5</ComboBoxItem>
+                <ComboBoxItem>Tháng 6</ComboBoxItem>
+                <ComboBoxItem>Tháng 7</ComboBoxItem>
+                <ComboBoxItem>Tháng 8</ComboBoxItem>
+                <ComboBoxItem>Tháng 9</ComboBoxItem>
+                <ComboBoxItem>Tháng 10</ComboBoxItem>
+                <ComboBoxItem>Tháng 11</ComboBoxItem>
+                <ComboBoxItem>Tháng 12</ComboBoxItem>
             </ComboBox>
         </Border>
 
@@ -117,8 +156,9 @@
             </Grid.RowDefinitions>
 
             <TextBlock
+                Name="Title"
                 Grid.Column="1"
-                Text="Đang hiển thị xem doanh thu theo tháng"
+                Text="Đang hiển thị xem doanh thu theo năm"
                 Margin="20, 0,0 ,0"
                 Foreground="#8B4000"
                 VerticalAlignment="Center"

@@ -86,7 +86,7 @@
                 </Grid>
             </Grid>
         </Border>
-        
+
         <!--Hiển thị Filter (Sort by giá :))-->
 
         <StackPanel Orientation="Horizontal"
@@ -139,8 +139,8 @@
                         />
             </Button>
         </StackPanel>
-        
-        
+
+
 
         <!--Hiển thị avatar-->
 
@@ -248,9 +248,9 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
-        
+
         <!-- Phần Hiển thị thông tin bên dưới-->
-        
+
         <TextBlock 
             Name="infoTextBlock"
             Grid.Row="2"
@@ -348,6 +348,6 @@
                 </Button>
             </Grid>
         </Border>
-        
+
     </Grid>
 </Page>

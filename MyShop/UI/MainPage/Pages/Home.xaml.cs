@@ -30,9 +30,9 @@ namespace MyShop.UI.MainPage.Pages
         private Frame _pageNavigation;
         private FileInfo _selectedFile;
 
-        public Tuple<string, int ,int,Decimal?, Decimal?> getCurrentState()
+        public Tuple<string, int, int, Decimal?, Decimal?> getCurrentState()
         {
-            return new Tuple<string,int,int, Decimal?, Decimal?>
+            return new Tuple<string, int, int, Decimal?, Decimal?>
                 (
                     _currentKey,
                     _currentPage,
@@ -106,8 +106,8 @@ namespace MyShop.UI.MainPage.Pages
             ProductBUS productBUS = new ProductBUS();
             CategoryBUS categoryBUS = new CategoryBUS();
             (_products, _totalItems) = productBUS.findProductBySearch(_currentPage, _rowsPerPage, keyword, currentStartPrice, currentEndPrice);
-            
-            
+
+
             foreach (var product in _products)
             {
                 var category = categoryBUS.getCategoryById(product.CatID);
@@ -157,7 +157,8 @@ namespace MyShop.UI.MainPage.Pages
 
         private void PrevButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_currentPage > 1) {
+            if (_currentPage > 1)
+            {
                 _currentPage--;
                 updateDataSource(_currentPage, _currentKey, _currentCurrency, _currentStartPrice, _currentEndPrice);
                 updatePagingInfo();
@@ -243,7 +244,8 @@ namespace MyShop.UI.MainPage.Pages
             int i = dataListView.SelectedIndex;
 
             var product = _products[i];
-            if (product != null ) {
+            if (product != null)
+            {
                 _pageNavigation.NavigationService.Navigate(new ProductDetail(this, product, _pageNavigation));
             }
         }
@@ -269,12 +271,13 @@ namespace MyShop.UI.MainPage.Pages
 
                 var products = sheetBUS.ReadExcelFile(filename);
 
-                foreach(var product in products)
+                foreach (var product in products)
                 {
                     productBUS.saveProduct(product);
                 }
                 MessageBox.Show("Đã thêm thành công", "Thông báo");
-            } else
+            }
+            else
             {
                 MessageBox.Show("Đã có lỗi xảy ra!", "Thông báo");
             }
