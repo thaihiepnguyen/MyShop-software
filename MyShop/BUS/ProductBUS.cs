@@ -31,13 +31,12 @@ namespace MyShop.BUS
                 .Where((item) =>
                     {
                         bool checkName = item.ProName.ToLower().Contains(keyword.ToLower());
-                        bool checkBlock = item.Block == 0;
 
-                        if (startPrice == null || endPrice == null) return checkName && checkBlock;
+                        if (startPrice == null || endPrice == null) return checkName;
 
                         bool checkPrice = item.Price >= startPrice && item.Price <= endPrice;
 
-                        return checkName && checkPrice && checkBlock;
+                        return checkName && checkPrice;
                     });
 
 

@@ -15,9 +15,12 @@ namespace MyShop.BUS
     {
         // Nói chung là sẽ get all còn phân tích thế nào thì chưa biết :)
         private List<ShopOrderDTO> _orders;
+        private OrderBUS _orderBUS;
         public ReportBUS()
         {
             var orderDAO = new OrderDAO();
+            var orderBUS = new OrderBUS();
+            _orderBUS = orderBUS;
             
             var ob = orderDAO.getAll();
 
@@ -44,6 +47,35 @@ namespace MyShop.BUS
                 var totalPrice = prices.Sum();
 
                 result.Add(totalPrice);
+            }
+
+            return result;
+        }
+
+        public List<int> groupQuantityOfProductByMonth(ProductDTO product, int year)
+        {
+            List<int> result = new List<int>();
+
+            for (int month = 1; month <= 12; month++)
+            {
+                int quantity = 0;
+                foreach (var order in _orders)
+                {
+                    if (order.CreateAt.Month == month
+                        && order.CreateAt.Year == year)
+                    {
+                        var purchases = _orderBUS.findPurchaseDTOs(order.OrderID);
+                        foreach (var purchase in purchases)
+                        {
+                            if (purchase.ProID == product.ProId)
+                            {
+                                quantity += purchase.Quantity;
+                            }
+                        }
+                    }
+                }
+
+                result.Add(quantity);
             }
 
             return result;
@@ -94,6 +126,49 @@ namespace MyShop.BUS
                 }
 
                 result.Add(totalPrice);
+
+                if (weekCount < 5 && week == weekCount) // if there are less than 5 weeks in the month
+                {
+                    for (int i = week + 1; i <= 5; i++) // add 0 to the remaining weeks
+                    {
+                        result.Add(0);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public List<int> groupQuantityOfProductByWeek(ProductDTO product, int year, int month)
+        {
+            List<int> result = new List<int>();
+            DateTime firstDayOfMonth = new DateTime(year, month, 1);
+            int daysInMonth = DateTime.DaysInMonth(year, month);
+            DateTime lastDayOfMonth = new DateTime(year, month, daysInMonth);
+            int weekCount = (int)Math.Ceiling((double)daysInMonth / 7);
+
+            for (int week = 1; week <= 5; week++) // loop over 5 weeks only
+            {
+                int quantity = 0;
+                DateTime startDate = firstDayOfMonth.AddDays((week - 1) * 7);
+                DateTime endDate = startDate.AddDays(6);
+
+                foreach (var order in _orders)
+                {
+                    if (order.CreateAt >= startDate && order.CreateAt <= endDate)
+                    {
+                        var purchases = _orderBUS.findPurchaseDTOs(order.OrderID);
+                        foreach (var purchase in purchases)
+                        {
+                            if (purchase.ProID == product.ProId)
+                            {
+                                quantity += purchase.Quantity;
+                            }
+                        }
+                    }
+                }
+
+                result.Add(quantity);
 
                 if (weekCount < 5 && week == weekCount) // if there are less than 5 weeks in the month
                 {
@@ -189,6 +264,35 @@ namespace MyShop.BUS
             return result;
         }
 
+
+        public List<int> groupQuantityOfProductByYear(ProductDTO product)
+        {
+            List<int> result = new List<int>();
+
+            for (int year = 2021; year <= 2023; year++)
+            {
+                int quantity = 0;
+                foreach (var order in _orders)
+                {
+                    if (order.CreateAt.Year == year)
+                    {
+                        var purchases = _orderBUS.findPurchaseDTOs(order.OrderID);
+                        foreach (var purchase in purchases)
+                        {
+                            if (purchase.ProID == product.ProId)
+                            {
+                                quantity += purchase.Quantity;
+                            }
+                        }
+                    }
+                }
+
+                result.Add(quantity);
+            }
+
+            return result;
+        }
+
         public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
         {
             for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
@@ -236,6 +340,33 @@ namespace MyShop.BUS
                 var totalPrice = prices.Sum();
 
                 result.Add(totalPrice);
+            }
+
+            return result;
+        }
+
+        public List<int> groupQuantityOfProductByDate(ProductDTO product, DateTime startDate, DateTime endDate)
+        {
+            List<int> result = new List<int>();
+
+            foreach (DateTime day in EachDay(startDate, endDate))
+            {
+                int quantity = 0;
+                foreach (var order in _orders)
+                {
+                    if (order.CreateAt.Date == day)
+                    {
+                        var purchases = _orderBUS.findPurchaseDTOs(order.OrderID);
+                        foreach (var purchase in purchases)
+                        {
+                            if (purchase.ProID == product.ProId)
+                            {
+                                quantity += purchase.Quantity;
+                            }
+                        }
+                    }
+                }
+                result.Add(quantity);
             }
 
             return result;

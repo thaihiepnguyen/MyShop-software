@@ -142,7 +142,7 @@ namespace MyShop.UI.MainPage
             }
             if (selectedIndex == Statistical)
             {
-                pageNavigation.NavigationService.Navigate(new Statistical());
+                pageNavigation.NavigationService.Navigate(new Statistical(pageNavigation));
             }
             if (selectedIndex == AboutUs)
             {

@@ -28,9 +28,11 @@ namespace MyShop.UI.MainPage.Pages
         private ReportBUS _reportBUS;
         private CartesianChart _chart;
         private int _currentYear;
-        public Statistical()
+        private Frame _pageNavigation;
+        public Statistical(Frame pageNavigation)
         {
             _reportBUS = new ReportBUS();
+            _pageNavigation = pageNavigation;
             InitializeComponent();
         }
 
@@ -263,7 +265,7 @@ namespace MyShop.UI.MainPage.Pages
 
         private void NextProductReport_Click(object sender, RoutedEventArgs e)
         {
-
+            _pageNavigation.NavigationService.Navigate(new StatisticalProduct(_pageNavigation));
         }
 
         private void MonthCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)

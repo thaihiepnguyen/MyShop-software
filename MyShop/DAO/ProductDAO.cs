@@ -18,7 +18,7 @@ namespace MyShop.DAO
             ObservableCollection<ProductDTO> list = new ObservableCollection<ProductDTO>();
             string sql = "select ProID, ProName, Ram, Rom, ScreenSize, TinyDes," +
                 " FullDes, Price, ImagePath, Trademark," +
-                "BatteryCapacity, CatID, Quantity,PromoCode, Block from product";
+                "BatteryCapacity, CatID, Quantity,PromoCode, Block from product where Block = 0";
             var command = new SqlCommand(sql, db.connection);
 
             var reader = command.ExecuteReader();
