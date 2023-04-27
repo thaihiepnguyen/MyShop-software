@@ -120,7 +120,7 @@
                         Orientation="Vertical"
                         Margin="10">
                         <TextBlock 
-                            Text="Tổng đơn hàng mới trong tuần"
+                            Text="Số đơn hàng trong tuần"
                             FontSize="14"
                             FontWeight="Medium"
                             Foreground="White"/>

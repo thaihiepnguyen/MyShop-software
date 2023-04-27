@@ -29,5 +29,10 @@ namespace MyShop.BUS
         {
             return _customerDAO.getNameById(cusID);
         }
+
+        public CustomerDTO findCustomerById(int cusID)
+        {
+            return _customerDAO.getCustomerById(cusID);
+        }
     }
 }

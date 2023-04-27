@@ -32,7 +32,13 @@
     <Compile Update="UI\MainPage\Pages\Statistical.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UI\MainPage\Pages\SuperOrderDetail.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UI\MainPage\Pages\UpdateCategory.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\MainPage\Pages\UpdateOrder.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\MainPage\Pages\UpdateProduct.xaml.cs">
@@ -82,7 +88,13 @@
     <Page Update="UI\MainPage\Pages\Statistical.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="UI\MainPage\Pages\SuperOrderDetail.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UI\MainPage\Pages\UpdateCategory.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\MainPage\Pages\UpdateOrder.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\MainPage\Pages\UpdateProduct.xaml">

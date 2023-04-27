@@ -1,8 +1,10 @@
-﻿using DocumentFormat.OpenXml.Spreadsheet;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.Data.SqlClient;
 using MyShop.BUS;
 using MyShop.DTO;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics;
@@ -233,6 +235,64 @@ namespace MyShop.DAO
             reader.Close();
 
             return total;
+        }
+
+        public List<PurchaseDTO> getPurchaseDTOs(int id)
+        {
+            List<PurchaseDTO> list = new List<PurchaseDTO>();
+
+            string sql = "select PurchaseID, OrderID, ProID, Quantity, TotalPrice " +
+            "from purchase where OrderID = @id";
+
+            var command = new SqlCommand(sql, db.connection);
+            command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+
+            var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                PurchaseDTO purchase= new PurchaseDTO();
+                purchase.PurchaseID = (int)reader["PurchaseID"];
+                purchase.OrderID = (int)reader["OrderID"];
+                purchase.ProID = (int)reader["ProID"];
+                purchase.Quantity = (int)reader["Quantity"];
+                purchase.TotalPrice = (decimal)reader["TotalPrice"];
+
+                list.Add(purchase);
+            }
+
+            reader.Close();
+            return list;
+        }
+
+        public void deletePurchaseById(int id)
+        {
+            string sql = $"""
+                delete purchase 
+                where PurchaseID = {id}
+                """;
+
+            var command = new SqlCommand(sql, db.connection);
+
+            command.ExecuteNonQuery();
+        }
+
+        public void deleteOrderById(int id)
+        {
+            // Xóa ở bảng purchase
+            var purchases = getPurchaseDTOs(id);
+            foreach (var purchase in purchases)
+            {
+                deletePurchaseById(purchase.PurchaseID);
+            }
+            // Xóa ở bảng shop_order
+            string sql = $"""
+                delete shop_order 
+                where OrderID = {id}
+                """;
+
+            var command = new SqlCommand(sql, db.connection);
+
+            command.ExecuteNonQuery();
         }
     }
 }

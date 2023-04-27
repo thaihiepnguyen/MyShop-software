@@ -82,7 +82,7 @@ namespace MyShop.UI.MainPage.Pages
             {
                 list.Add(new Data(order, _customerBUS));
             }
-            productsListView.ItemsSource = list;
+            ordersListView.ItemsSource = list;
 
             infoTextBlock.Text = $"Đang hiển thị {_orders.Count} trên tổng số {_totalItems} hóa đơn";
             _list = list;
@@ -104,7 +104,13 @@ namespace MyShop.UI.MainPage.Pages
 
         private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            int i = ordersListView.SelectedIndex;
 
+            var order = _orders[i];
+            if (order != null)
+            {
+                _pageNavigation.NavigationService.Navigate(new SuperOrderDetail(order, _pageNavigation));
+            }
         }
 
         private void FirstButton_Click(object sender, RoutedEventArgs e)

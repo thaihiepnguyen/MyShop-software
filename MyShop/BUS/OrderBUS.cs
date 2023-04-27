@@ -82,6 +82,11 @@ namespace MyShop.BUS
             _orderDAO.insertPurchase(purchaseDTO);
         }
 
+        public void delPurchaseById(int id)
+        {
+            _orderDAO.deletePurchaseById(id);
+        }
+
         public void patchShopOrder(ShopOrderDTO shopOrderDTO)
         {
             _orderDAO.updateShopOrder(shopOrderDTO);
@@ -137,6 +142,16 @@ namespace MyShop.BUS
                 .ToList();
 
             return ordersByLastWeek.Count;
+        }
+
+        public List<PurchaseDTO> findPurchaseDTOs(int orderID)
+        {
+            return _orderDAO.getPurchaseDTOs(orderID);
+        }
+
+        public void delOrderById(int orderID)
+        {
+            _orderDAO.deleteOrderById(orderID);
         }
     }
 }

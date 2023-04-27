@@ -61,6 +61,7 @@ namespace MyShop.UI.MainPage.Pages
             // lúc này mới lưu vào database 
             foreach (var purchase in _purchaseBuffer)
             {
+                // lúc mà thêm purchase thì ở DAO đã xóa số lượng bên product luôn rồi !
                 _orderBUS.addPurchase(purchase);
             }
 
@@ -69,6 +70,7 @@ namespace MyShop.UI.MainPage.Pages
 
             MessageBox.Show("Đã lưu đơn hàng thành công", "Thông Báo");
             _pageNavigation.NavigationService.GoBack();
+            _verifyOrder = false;
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -196,7 +198,13 @@ namespace MyShop.UI.MainPage.Pages
 
         private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            var result = MessageBox.Show("Bạn có muốn xóa không?", "Thông Báo", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                int index = ordersListView.SelectedIndex; if (index == -1) return;
+                _data.RemoveAt(index);
+            }
+            _verifyOrder = true;
         }
 
         private void ProductCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -244,7 +244,7 @@
 
                 </Grid>
                 <ListView 
-                        Name="productsListView"
+                        Name="ordersListView"
                         BorderThickness="0"
                         Grid.Row="2"
                         Grid.Column="0"
@@ -276,7 +276,7 @@
 
                                 <TextBlock
                                     Grid.Column="1"
-                                    Text="{Binding CreateAt}"
+                                    Text="{Binding CreateAt, StringFormat=dd/MM/yyyy}"
                                     FontWeight="Medium"
                                     Foreground="#353935"
                                     HorizontalAlignment="Center"
