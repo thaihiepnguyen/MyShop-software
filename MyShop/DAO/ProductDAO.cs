@@ -18,7 +18,7 @@ namespace MyShop.DAO
             ObservableCollection<ProductDTO> list = new ObservableCollection<ProductDTO>();
             string sql = "select ProID, ProName, Ram, Rom, ScreenSize, TinyDes," +
                 " FullDes, Price, ImagePath, Trademark," +
-                "BatteryCapacity, CatID, Quantity,PromoCode, Block from product where Block = 0";
+                "BatteryCapacity, CatID, Quantity,PromoID, PromotionPrice, Block from product where Block = 0";
             var command = new SqlCommand(sql, db.connection);
 
             var reader = command.ExecuteReader();
@@ -39,18 +39,9 @@ namespace MyShop.DAO
                 product.BatteryCapacity = (int)reader["BatteryCapacity"];
                 product.CatID = (int)reader["CatID"];
                 product.Quantity = (int)reader["Quantity"];
-                product.PromoCode = reader["PromoCode"] == DBNull.Value ? null : (string?)reader["PromoCode"];
+                product.PromotionPrice = reader["PromotionPrice"] == DBNull.Value ? product.Price : (decimal?)reader["PromotionPrice"];
+                product.PromoID = reader["PromoID"] == DBNull.Value ? null : (int?)reader["PromoID"];
                 product.Block = (int)reader["Block"];
-
-                if (product.PromoCode != null)
-                {
-                    var item = _promotion.FirstOrDefault(p => p.PromoCode == product.PromoCode);
-                    if (item != null)
-                    {
-                        product.OriginPrice = product.Price;
-                        product.Price = (product.Price * (100 - item.DiscountPercent)) / 100;
-                    }
-                }
                 list.Add(product);
             }
 
@@ -67,7 +58,7 @@ namespace MyShop.DAO
             var list = new ObservableCollection<ProductDTO>();
             string sql = "select ProID, ProName, Ram, Rom, ScreenSize, TinyDes," +
                 " FullDes, Price, ImagePath, Trademark," +
-                "BatteryCapacity, CatID, PromoCode  from product";
+                "BatteryCapacity, CatID, PromoID  from product";
 
             var command = new SqlCommand(sql, db.connection);
             var reader = command.ExecuteReader();
@@ -86,8 +77,9 @@ namespace MyShop.DAO
                 product.ImagePath = reader["ImagePath"] == DBNull.Value ? "Assets/Images/sp/404.png" : (string?)reader["ImagePath"];
                 product.Trademark = reader["Trademark"] == DBNull.Value ? null : (string?)reader["Trademark"];
                 product.BatteryCapacity = (int)reader["BatteryCapacity"];
+                product.PromotionPrice = reader["PromotionPrice"] == DBNull.Value ? (decimal)reader["Price"] : (decimal?)reader["PromotionPrice"];
                 product.CatID = (int)reader["CatID"];
-                product.PromoCode = reader["PromoCode"] == DBNull.Value ? null : (string?)reader["PromoCode"];
+                product.PromoID = reader["PromoID"] == DBNull.Value ? null : (int?)reader["PromoID"];
 
                 list.Add(product);
             }
@@ -117,8 +109,8 @@ namespace MyShop.DAO
         public int insertProduct(ProductDTO productDTO)
         {
             // insert SQL
-            string sql = "insert into product(ProName, Ram, Rom, ScreenSize, TinyDes, Price, Trademark, BatteryCapacity, CatID, Quantity,Block)" +
-            "values(@ProName, @Ram, @Rom, @ScreenSize, @TinyDes, @Price, @Trademark, @BatteryCapacity, @CatID, @Quantity,@Block)";
+            string sql = "insert into product(ProName, Ram, Rom, ScreenSize, TinyDes, Price, PromotionPrice, Trademark, BatteryCapacity, CatID, Quantity,Block)" +
+            "values(@ProName, @Ram, @Rom, @ScreenSize, @TinyDes, @Price, @PromotionPrice, @Trademark, @BatteryCapacity, @CatID, @Quantity,@Block)";
             var command = new SqlCommand(sql, db.connection);
 
             command.Parameters.Add("@ProName", SqlDbType.NVarChar).Value = productDTO.ProName;
@@ -127,11 +119,11 @@ namespace MyShop.DAO
             command.Parameters.Add("@ScreenSize", SqlDbType.Float).Value = productDTO.ScreenSize;
             command.Parameters.Add("@TinyDes", SqlDbType.NVarChar).Value = productDTO.TinyDes;
             command.Parameters.Add("@Price", SqlDbType.Money).Value = productDTO.Price;
+            command.Parameters.Add("@PromotionPrice", SqlDbType.Money).Value = productDTO.PromotionPrice == null? productDTO.Price : productDTO.PromotionPrice;
             command.Parameters.Add("@Trademark", SqlDbType.Text).Value = productDTO.Trademark;
             command.Parameters.Add("@BatteryCapacity", SqlDbType.Int).Value = productDTO.BatteryCapacity;
             command.Parameters.Add("@CatID", SqlDbType.Int).Value = productDTO.CatID;
             command.Parameters.Add("@Quantity", SqlDbType.Int).Value = productDTO.Quantity;
-            //command.Parameters.Add("@PromoCode", SqlDbType.NVarChar).Value = productDTO.PromoCode;
             command.Parameters.Add("@Block", SqlDbType.Int).Value = productDTO.Block;
 
             command.ExecuteNonQuery();
@@ -158,7 +150,7 @@ namespace MyShop.DAO
             string sql = "update product " +
                 "set ProName =  @ProName, Ram = @Ram, Rom = @Rom, ScreenSize = @ScreenSize, TinyDes = @TinyDes," +
                 "Price = @Price, Trademark = @Trademark, BatteryCapacity = @BatteryCapacity," +
-                "CatID = @CatID, Quantity = @Quantity, Block = @Block " +
+                "CatID = @CatID, Quantity = @Quantity, PromoID = @PromoID, PromotionPrice = @PromotionPrice, Block = @Block " +
                 "where ProID = @ProID";
             var command = new SqlCommand(sql, db.connection);
 
@@ -173,7 +165,8 @@ namespace MyShop.DAO
             command.Parameters.Add("@BatteryCapacity", SqlDbType.Int).Value = productDTO.BatteryCapacity;
             command.Parameters.Add("@CatID", SqlDbType.Int).Value = productDTO.CatID;
             command.Parameters.Add("@Quantity", SqlDbType.Int).Value = productDTO.Quantity;
-            //command.Parameters.Add("@PromoCode", SqlDbType.NVarChar).Value = productDTO.PromoCode;
+            command.Parameters.Add("@PromotionPrice", SqlDbType.Money).Value = productDTO.PromotionPrice == null ? productDTO.Price : productDTO.PromotionPrice;
+            command.Parameters.Add("@PromoID", SqlDbType.Int).Value = productDTO.PromoID == null ? DBNull.Value : productDTO.PromoID;
             command.Parameters.Add("@Block", SqlDbType.Int).Value = productDTO.Block;
 
             command.ExecuteNonQuery();
@@ -219,7 +212,7 @@ namespace MyShop.DAO
 
             string sql = "select ProID, ProName, Ram, Rom, ScreenSize, TinyDes," +
                 " FullDes, Price, ImagePath, Trademark," +
-                "BatteryCapacity, CatID, Quantity, PromoCode, Block from product where ProID = @id";
+                "BatteryCapacity, CatID, Quantity, PromoID, PromotionPrice, Block from product where ProID = @id";
 
             var command = new SqlCommand(sql, db.connection);
             command.Parameters.Add("@id", SqlDbType.Int).Value = id;
@@ -240,7 +233,8 @@ namespace MyShop.DAO
                 product.Trademark = reader["Trademark"] == DBNull.Value ? null : (string?)reader["Trademark"];
                 product.BatteryCapacity = (int)reader["BatteryCapacity"];
                 product.CatID = (int)reader["CatID"];
-                product.PromoCode = reader["PromoCode"] == DBNull.Value ? null : (string?)reader["PromoCode"];
+                product.PromoID = reader["PromoID"] == DBNull.Value ? null : (int?)reader["PromoID"];
+                product.PromotionPrice = reader["PromotionPrice"] == DBNull.Value ? (decimal)reader["Price"] : (decimal?)reader["PromotionPrice"];
                 product.Quantity = (int)reader["Quantity"];
 
                 list.Add(product);
@@ -257,7 +251,7 @@ namespace MyShop.DAO
             ObservableCollection<ProductDTO> list = new ObservableCollection<ProductDTO>();
             string sql = "select top 5 ProID, ProName, Ram, Rom, ScreenSize, TinyDes," +
                 " FullDes, Price, ImagePath, Trademark," +
-                "BatteryCapacity, CatID, Quantity,  PromoCode, Block from product where Quantity <= 5 order by Quantity asc";
+                "BatteryCapacity, CatID, Quantity,  PromoID,PromotionPrice, Block from product where Quantity <= 5 order by Quantity asc";
             var command = new SqlCommand(sql, db.connection);
 
             var reader = command.ExecuteReader();
@@ -278,7 +272,8 @@ namespace MyShop.DAO
                 product.BatteryCapacity = (int)reader["BatteryCapacity"];
                 product.CatID = (int)reader["CatID"];
                 product.Quantity = (int)reader["Quantity"];
-                product.PromoCode = reader["PromoCode"] == DBNull.Value ? null : (string?)reader["PromoCode"];
+                product.PromoID = reader["PromoID"] == DBNull.Value ? null : (int?)reader["PromoID"];
+                product.PromotionPrice = reader["PromotionPrice"] == DBNull.Value ? (decimal)reader["Price"] : (decimal?)reader["PromotionPrice"];
                 product.Block = (int)reader["Block"];
 
                 list.Add(product);

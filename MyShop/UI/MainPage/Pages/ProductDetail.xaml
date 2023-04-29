@@ -12,6 +12,7 @@
     <Page.Resources>
         <local:RelativeToAbsoluteConverter x:Key="absoluteConverter"/>
         <local:DecimalToCurrencyConverter x:Key="currencyConverter"/>
+        <local:PromotionPercentConverter x:Key="promotionConverter"/>
     </Page.Resources>
 
     <Grid>
@@ -85,7 +86,8 @@
                     <!--Hiển thị thông tin chi tiết sản phẩm-->
                     <RowDefinition/>
                     <!--Hiển thị mô tả sản phẩm-->
-                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="120"/>
+                    <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
 
 
@@ -154,17 +156,34 @@
                             FontSize="12"
                             FontWeight="Medium"
                             />
-                            </StackPanel>
-                            <TextBlock Text="{Binding Product.Price, Converter={StaticResource currencyConverter}}"
-                        
+                            </StackPanel >
+
+                            <StackPanel Orientation="Horizontal" Name="PriceSP">
+                                <TextBlock Text="{Binding Product.PromotionPrice, Converter={StaticResource currencyConverter}}"
                                    Foreground="DarkRed"
                                    FontWeight="Bold"
                                    FontSize="20"
-                                   Margin="22, 0,0,0"/>
-                            <TextBlock Text="{Binding Product.OriginPrice, Converter={StaticResource currencyConverter}}" 
-                                   Foreground="Gray"
-                                   FontSize="14"
-                                   Margin="22, 0,0,0"/>
+                                   Margin="22,0,0,0">
+                                </TextBlock>
+                                <Border
+                                    Name="PromotionBorder"
+                                    Background="#60ffffff"
+                                    CornerRadius="5"
+                                    Margin="10, 0,0,0"
+                                    Height="20"
+                                    Width="40"
+                                  >
+                                    <TextBlock
+                                        Name ="PromotionTextBlock"
+                                        Foreground="DarkRed"
+                                        FontWeight="Bold"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding Promotion.DiscountPercent, Converter={StaticResource promotionConverter}}">
+                                    </TextBlock>
+                                </Border>
+                                
+                            </StackPanel>
                         </StackPanel>
 
                         <!--Hiển thi Số lượng hiện tại-->
@@ -336,6 +355,41 @@
                     <TextBlock Grid.Row="1" Text="{Binding Product.TinyDes}"
                                TextWrapping="Wrap" Grid.ColumnSpan="2"/>
                 </Grid>
+
+                <StackPanel Orientation="Vertical" Grid.Row="3">
+                    <TextBlock Text="ÁP DỤNG KHUYẾN MÃI"
+                    Foreground="#353935"
+                    FontSize="16"
+                    FontWeight="Bold" Grid.ColumnSpan="2"></TextBlock>
+                    <Border
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    
+                    Height="30"
+                    Width="170"
+                    Margin="0,0,20,10"
+                    BorderThickness="0.5" BorderBrush="Orange" CornerRadius="14"
+                     Background="WhiteSmoke" 
+                >
+                        <ComboBox 
+                    Name="PromotionsCombobox"
+                    BorderThickness="0" BorderBrush="Transparent" Width="140"
+                    VerticalContentAlignment="Center"
+                    SelectionChanged="PromotionsCombobox_SelectionChanged">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding PromoCode}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="ComboBoxItem">
+
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                        </ComboBox>
+                    </Border>
+                </StackPanel>
+
             </Grid>
         </Border>
 

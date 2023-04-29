@@ -12,6 +12,7 @@
     <Page.Resources>
         <local:RelativeToAbsoluteConverter x:Key="converter"/>
         <local:DecimalToCurrencyConverter x:Key="currencyConverter"/>
+        <local:PromotionPercentConverter x:Key="promotionConverter"/>
     </Page.Resources>
 
     <Grid Name="MainContainer">
@@ -209,10 +210,30 @@
                                            />
 
                                 <!-- binding -->
-                                <TextBlock Name="priceTextBlock"
-                                           Text="{Binding Price, Converter={StaticResource currencyConverter}}"
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Name="priceTextBlock"
+                                           Text="{Binding PromotionPrice, Converter={StaticResource currencyConverter}}"
                                            FontWeight="Bold"
                                            Foreground="#8B4000"/>
+                                    <Border
+                                        HorizontalAlignment="Right"
+                                        Name="PromotionBorder"
+                                        Background="#30FF5733"
+                                        CornerRadius="5"
+                                        Margin="10, 0,0,0"
+                                        Height="15"
+                                        Width="36"
+                                      >
+                                        <TextBlock
+                                        Name ="PromotionTextBlock"
+                                        Foreground="DarkRed"
+                                        FontWeight="Bold"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding DiscountPercent, Converter={StaticResource promotionConverter}}">
+                                        </TextBlock>
+                                    </Border>
+                                </StackPanel>
 
                             </StackPanel>
                         </Button>

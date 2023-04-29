@@ -37,20 +37,22 @@ namespace MyShop.UI.MainPage.Pages
             public string? ProImage { get; set; }
             public string? CatIcon { get; set; }
             public string? CatName { get; set; }
-            public decimal? Price { get; set; }
+            public decimal? PromotionPrice { get; set; }
 
             public int ProductItemWitdh { get; set; }
             public string ScaleValue { get; set; }
+            public int DiscountPercent { get; set; }
 
-            public Data(ProductDTO productDTO, CategoryDTO categoryDTO)
+            public Data(ProductDTO productDTO, CategoryDTO categoryDTO, int discountPercent)
             {
                 ProName = productDTO.ProName;
                 ProImage = productDTO.ImagePath;
-                Price = productDTO.Price;
+                PromotionPrice = productDTO.PromotionPrice;
                 CatIcon = categoryDTO.CatIcon;
                 CatName = categoryDTO.CatName;
                 ProductItemWitdh = 200;
                 ScaleValue = "1";
+                DiscountPercent = discountPercent;
             }
         }
 
@@ -115,13 +117,19 @@ namespace MyShop.UI.MainPage.Pages
             _currentPage = page;
             ProductBUS productBUS = new ProductBUS();
             CategoryBUS categoryBUS = new CategoryBUS();
+            PromotionBUS promotionBUS = new PromotionBUS();
             (_products, _totalItems) = productBUS.findProductBySearch(_currentPage, _rowsPerPage, keyword, currentStartPrice, currentEndPrice);
 
 
             foreach (var product in _products)
             {
+                int DiscountPercent = 0;
+                if (product.PromoID != null) 
+                {
+                    DiscountPercent = promotionBUS.getPromotionById((int)product.PromoID).DiscountPercent;
+                }
                 var category = categoryBUS.getCategoryById(product.CatID);
-                list.Add(new Data(product, category));
+                list.Add(new Data(product, category, DiscountPercent));
             }
 
             if (list.Count == 0)

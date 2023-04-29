@@ -67,7 +67,7 @@ namespace MyShop.UI.MainPage.Pages
 
                     var IdPromo = _promotion[i].IdPromo;
 
-                    _promotionBUS.delPromotionById(IdPromo);
+                    _promotionBUS.delPromotionById((int)IdPromo);
 
                     _promotion.RemoveAt(i);
                 }

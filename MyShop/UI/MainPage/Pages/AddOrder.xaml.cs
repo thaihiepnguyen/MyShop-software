@@ -139,15 +139,16 @@ namespace MyShop.UI.MainPage.Pages
             }
 
             // đã khởi tạo một đơn hàng
-
+            // giá này là đã có khuyến mãi rồi 
+            decimal priceOfProduct = (int)productDTO.PromotionPrice;
             // quá trình tạo đơn hàng
             purchareDTO.OrderID = _orderID;
             purchareDTO.ProID = productDTO.ProId;
             purchareDTO.Quantity = quantity;
-            purchareDTO.TotalPrice = _orderBUS.calProductProfit(productDTO.Price) * quantity;
+            purchareDTO.TotalPrice = _orderBUS.calProductProfit(priceOfProduct) * quantity;
 
             // giá real :))) 
-            _realPrice = productDTO.Price * quantity;
+            _realPrice = priceOfProduct * quantity;
 
             _purchaseBuffer.Add(purchareDTO);
 
@@ -156,9 +157,9 @@ namespace MyShop.UI.MainPage.Pages
             var data = new Data
             {
                 Quantity = quantity,
-                Price = productDTO.Price,
+                Price = priceOfProduct,
                 ProName = productDTO.ProName,
-                TotalPrice = _orderBUS.calProductProfit(productDTO.Price) * quantity
+                TotalPrice = _orderBUS.calProductProfit(priceOfProduct) * quantity
             };
             _currentProduct.Quantity -= quantity;
             _currentTotalPrice += data.TotalPrice;

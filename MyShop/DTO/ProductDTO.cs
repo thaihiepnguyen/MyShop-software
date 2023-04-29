@@ -20,13 +20,13 @@ namespace MyShop.DTO
         public string? TinyDes { get; set; }
         public string? FullDes { get; set;}
         public decimal Price { get; set; }
-        public decimal OriginPrice { get; set; }
+        public decimal? PromotionPrice { get; set; }
         public string? ImagePath { get; set; }
         public string? Trademark { get; set;}
         public int BatteryCapacity { get; set; }
         public int CatID { get; set; }
         public int Quantity { get; set; }
-        public string? PromoCode { get; set; }
+        public int? PromoID{ get; set; }
         public int? Block { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -45,13 +45,13 @@ namespace MyShop.DTO
             clonedProduct.TinyDes = this.TinyDes;
             clonedProduct.FullDes = this.FullDes;
             clonedProduct.Price = this.Price;
-            clonedProduct.OriginPrice = this.OriginPrice;
+            clonedProduct.PromotionPrice = this.PromotionPrice;
             clonedProduct.ImagePath = this.ImagePath;
             clonedProduct.Trademark = this.Trademark;
             clonedProduct.BatteryCapacity = this.BatteryCapacity;
             clonedProduct.CatID = this.CatID;
             clonedProduct.Quantity = this.Quantity;
-            clonedProduct.PromoCode = this.PromoCode;
+            clonedProduct.PromoID = this.PromoID;
             clonedProduct.Block = this.Block;
 
             return clonedProduct;
@@ -67,13 +67,13 @@ namespace MyShop.DTO
             this.TinyDes = other.TinyDes;
             this.FullDes = other.FullDes;
             this.Price = other.Price;
-            this.OriginPrice = other.OriginPrice;
+            this.PromotionPrice = other.PromotionPrice;
             this.ImagePath = other.ImagePath;
             this.Trademark = other.Trademark;
             this.BatteryCapacity = other.BatteryCapacity;
             this.CatID = other.CatID;
             this.Quantity = other.Quantity;
-            this.PromoCode = other.PromoCode;
+            this.PromoID = other.PromoID;
             this.Block = other.Block;
         }
     }

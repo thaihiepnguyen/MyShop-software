@@ -33,7 +33,7 @@ namespace MyShop.UI.MainPage.Pages
         private ProductBUS _productBUS;
         private CategoryBUS _categoryBUS;
         private Frame _pageNavigation;
-        class Resources
+        class AddProductResources
         {
             public string ProImage { get; set; }
         }
@@ -51,7 +51,7 @@ namespace MyShop.UI.MainPage.Pages
             CategoryCombobox.ItemsSource = categories;
             CategoryCombobox.SelectedIndex = 0;
 
-            DataContext = new Resources()
+            DataContext = new AddProductResources()
             {
                 ProImage = "Assets/Images/add_image.png"
             };
@@ -98,7 +98,6 @@ namespace MyShop.UI.MainPage.Pages
             productDTO.BatteryCapacity = int.Parse(PinTermTextBox.Text);
             productDTO.CatID = categoryDTO.CatID;
             productDTO.Quantity = int.Parse(QuantityTermTextBox.Text);
-            productDTO.PromoCode = PromoCodeTextBox.Text;
             productDTO.Block = 0;
 
             int id = _productBUS.saveProduct(productDTO);

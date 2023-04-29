@@ -37,7 +37,7 @@ namespace MyShop.UI.MainPage.Pages
         private DateTime? _currentEndDate = null;
 
 
-        class Resources
+        class OrderDetailResources
         {
             public string FirstIcon { get; set; }
             public string LastIcon { get; set; }
@@ -149,7 +149,7 @@ namespace MyShop.UI.MainPage.Pages
         {
             updateDataSource(1, _currentStartDate, _currentEndDate);
             updatePagingInfo();
-            this.DataContext = new Resources()
+            this.DataContext = new OrderDetailResources()
             {
                 FirstIcon = "Assets/Images/ic-first.png",
                 LastIcon = "Assets/Images/ic-last.png",

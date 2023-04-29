@@ -49,7 +49,7 @@
             <Grid.RowDefinitions>
                 <!--chia width = 250 cho Nav, còn lại là Content-->
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="30"/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
 
             <ListView Name="ListOfItems"
@@ -80,7 +80,7 @@
                                        FontWeight="Medium"
                                        Foreground="#353935"
                                        >
-                                    
+
                                 </TextBlock>
                             </StackPanel>
                         </Border>
@@ -102,8 +102,38 @@
                 </ListView.ItemContainerStyle>
             </ListView>
 
-            <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">Version 1.0.0</TextBlock>
-            
+            <!--Hiển thị nút bấm đăng xuất-->
+            <Button
+                Grid.Row="1" 
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Left"
+                Name="LogoutButton"
+                Width="110"
+                Height="35"
+                Style="{StaticResource MyButtonStyle}"
+                BorderThickness="0.5"
+                Margin="25,0,0, 10"
+                BorderBrush="Orange"
+                Click="LogoutButton_Click"
+            >
+                <StackPanel
+                Orientation="Horizontal">
+                    <fa:ImageAwesome 
+                        Name="Logout"
+                        Width="16"
+                        Height="16"
+                        RenderOptions.BitmapScalingMode="HighQuality"
+                        Icon="SignOut"
+                        Margin="5"
+                        Foreground="#8B4000"
+                        />
+                    <TextBlock
+                        FontWeight="Bold"
+                        Foreground="#8B4000"
+                        VerticalAlignment="Center"
+                    >Đăng xuất</TextBlock>
+                </StackPanel>
+            </Button>
         </Grid>
 
         <Frame Name="pageNavigation" 

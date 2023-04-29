@@ -19,7 +19,7 @@ namespace MyShop.DAO
         {
             ObservableCollection<PromotionDTO> list = new ObservableCollection<PromotionDTO>();
 
-            string sql = "select IdPromo, PromoCode, DiscountPercent from promotions";
+            string sql = "select IdPromo, PromoCode, DiscountPercent from promotion";
 
             var command = new SqlCommand(sql, db.connection);
 
@@ -44,7 +44,7 @@ namespace MyShop.DAO
             List<PromotionDTO> list = new List<PromotionDTO>();
             PromotionDTO result = new PromotionDTO();
 
-            string sql = $"select IdPromo, PromoCode, DiscountPercent from promotions where IdPromo = @id";
+            string sql = $"select IdPromo, PromoCode, DiscountPercent from promotion where IdPromo = @id";
 
             var command = new SqlCommand(sql, db.connection);
             command.Parameters.Add("@id", SqlDbType.Int).Value = id;
@@ -68,7 +68,7 @@ namespace MyShop.DAO
 
         public int insertPromo(PromotionDTO category)
         {
-            string sql = "insert into promotions(PromoCode, DiscountPercent)" +
+            string sql = "insert into promotion(PromoCode, DiscountPercent)" +
                 "values(@PromoCode, @DiscountPercent)";
             var command = new SqlCommand(sql, db.connection);
 
@@ -79,7 +79,7 @@ namespace MyShop.DAO
 
             // select SQL
             int id = -1;
-            string sql1 = "SELECT TOP 1 IdPromo FROM promotions ORDER BY IdPromo DESC ";
+            string sql1 = "SELECT TOP 1 IdPromo FROM promotion ORDER BY IdPromo DESC ";
 
             var command1 = new SqlCommand(sql1, db.connection);
 
@@ -97,7 +97,7 @@ namespace MyShop.DAO
         public void delPromoById(int idPromo)
         {
             string sql = $"""
-                delete promotions 
+                delete promotion 
                 where IdPromo = {idPromo}
                 """;
 
@@ -108,8 +108,8 @@ namespace MyShop.DAO
 
         public void updatePromo(PromotionDTO category)
         {
-            string sql = "update promotions " +
-                "set PromoCode =  @PromoCode, DiscountPercent = @DiscountPercent " +
+            string sql = "update promotion " +
+                "set PromoCode = @PromoCode, DiscountPercent = @DiscountPercent " +
                 "where IdPromo = @IdPromo";
             var command = new SqlCommand(sql, db.connection);
 

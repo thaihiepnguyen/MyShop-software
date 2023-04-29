@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock
-            Text="Promotion"
+            Text="Promotions"
             Margin="30,0,0,10"
             Foreground="#8B4000"
             VerticalAlignment="Center"
@@ -84,7 +84,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock
                                     Grid.Column="0"
-                                    Margin="40, 0, 0, 0"
+                                    Margin="30, 0, 0, 0"
                                     Text="{Binding PromoCode}"
                                     FontWeight="Medium"
                                     Foreground="#353935"
@@ -92,7 +92,7 @@
                                     VerticalAlignment="Center"/>
                                 <TextBlock
                                     Grid.Column="1"
-                                    Margin="40, 0, 0, 0"
+                                    Margin="80, 0, 0, 0"
                                     Text="{Binding DiscountPercent}"
                                     TextWrapping="Wrap"
                                     FontWeight="Medium"
@@ -252,7 +252,7 @@
         <Button
             Name="DelPromotion"
             Grid.Row="3"
-            Width="150"
+            Width="120"
             Height="30"
             Style="{StaticResource MyButtonStyle}"
             BorderThickness="0.5"

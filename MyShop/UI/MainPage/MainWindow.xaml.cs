@@ -28,7 +28,6 @@ namespace MyShop.UI.MainPage
         const int Order = 4;
         const int Statistical = 5;
         const int AboutUs = 6;
-        const int Logout = 7;
         class Resoures
         {
             public string MainBgPath { get; set; }
@@ -86,7 +85,7 @@ namespace MyShop.UI.MainPage
                 new Item()
                 {
                     FontIcon = "Tags",
-                    ItemName = "Promotion"
+                    ItemName = "Promotions"
                 },
                 new Item()
                 {
@@ -102,11 +101,6 @@ namespace MyShop.UI.MainPage
                 {
                     FontIcon = "InfoCircle",
                     ItemName = "About us"
-                },
-                new Item()
-                {
-                    FontIcon = "SignOut",
-                    ItemName = "Logout"
                 }
             };
 
@@ -147,14 +141,6 @@ namespace MyShop.UI.MainPage
             if (selectedIndex == AboutUs)
             {
                 pageNavigation.NavigationService.Navigate(new AboutUs());
-            }
-            if (selectedIndex == Logout)
-            {
-                Properties.Settings.Default.UsernameRemember = false;
-                Properties.Settings.Default.Save();
-                LoginWindow loginWindow = new LoginWindow();
-                loginWindow.Show();
-                this.Close();
             }
             // reset border trước khi click
             resetBorder();
@@ -247,6 +233,15 @@ namespace MyShop.UI.MainPage
                     }
                 }
             }
+        }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.UsernameRemember = false;
+            Properties.Settings.Default.Save();
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Show();
+            this.Close();
         }
     }
 }
