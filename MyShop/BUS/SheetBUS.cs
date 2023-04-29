@@ -101,7 +101,7 @@ namespace MyShop.BUS
                         }
                         if (columnIndex == (int)Product.ScreenSize)
                         {
-                            productDTO.ScreenSize = float.Parse(cellValue);
+                            productDTO.ScreenSize = double.Parse(cellValue);
                         }
                         if (columnIndex == (int)Product.TinyDes)
                         {
