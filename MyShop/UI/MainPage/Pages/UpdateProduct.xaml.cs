@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.Win32;
 using MyShop.BUS;
 using MyShop.DAO;
 using MyShop.DTO;
@@ -22,10 +23,11 @@ namespace MyShop.UI.MainPage.Pages
         private FileInfo? _selectedImage = null;
         private CategoryBUS _categoryBUS;
         private ProductBUS _productBUS;
-        private Frame _pageNavegation;
+        private PromotionBUS _promotionBUS;
+        private System.Windows.Controls.Frame _pageNavegation;
         private ProductDTO _productDTO;
         private CategoryDTO _categoryDTO;
-        public UpdateProduct(ProductDTO product, CategoryDTO categoryDTO, Frame pageNavigation)
+        public UpdateProduct(ProductDTO product, CategoryDTO categoryDTO, System.Windows.Controls.Frame pageNavigation)
         {
             InitializeComponent();
 
@@ -40,6 +42,7 @@ namespace MyShop.UI.MainPage.Pages
             _pageNavegation = pageNavigation;
             _categoryBUS = new CategoryBUS();
             _productBUS = new ProductBUS();
+            _promotionBUS = new PromotionBUS();
 
             var categories = _categoryBUS.getAll();
 
@@ -80,6 +83,13 @@ namespace MyShop.UI.MainPage.Pages
         private void SaveProduct_Click(object sender, RoutedEventArgs e)
         {
             var categoryDTO = (CategoryDTO)CategoryCombobox.SelectedValue;
+
+            // cập nhật giá khuyến mãi
+            int discountPercent = 0;
+            if (_productDTO.PromoID != null)
+            {
+                discountPercent = _promotionBUS.getPromotionById((int)_productDTO.PromoID).DiscountPercent;
+            }
             int id = _productDTO.ProId;
             _productDTO.ProId = id;
             _productDTO.ProName = NameTermTextBox.Text;
@@ -88,6 +98,8 @@ namespace MyShop.UI.MainPage.Pages
             _productDTO.ScreenSize = Double.Parse(ScreenSizeTermTextBox.Text);
             _productDTO.TinyDes = DesTermTextBox.Text;
             _productDTO.Price = Decimal.Parse(PriceTermTextBox.Text);
+            double percent = 1 - discountPercent * 1.0 / 100;
+            _productDTO.PromotionPrice = (decimal?)((double)_productDTO.Price * percent);
             _productDTO.Trademark = TradeMarkTermTextBox.Text;
             _productDTO.BatteryCapacity = int.Parse(PinTermTextBox.Text);
             _productDTO.CatID = categoryDTO.CatID;
