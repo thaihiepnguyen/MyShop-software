@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using DocumentFormat.OpenXml.CustomProperties;
+using System.Diagnostics;
 
 namespace MyShop.UI.MainPage
 {
@@ -28,6 +30,8 @@ namespace MyShop.UI.MainPage
         const int Order = 4;
         const int Statistical = 5;
         const int AboutUs = 6;
+        private int _currentPage = 0;
+
         class Resoures
         {
             public string MainBgPath { get; set; }
@@ -51,7 +55,7 @@ namespace MyShop.UI.MainPage
 
             //new DatabaseUtilitites(
             //    "sqlexpress",
-            //    "MyShopDB",
+            //    "MyShopDB_9",
             //    "admin",
             //    "admin"
             //    );
@@ -106,16 +110,29 @@ namespace MyShop.UI.MainPage
 
             ListOfItems.ItemsSource = Items;
 
-            pageNavigation.NavigationService.Navigate(new DashBoard());
+
+            var currentpage = Properties.Settings.Default.CurrentPage;
+            _currentPage = currentpage;
+
+            ListOfItems.SelectedIndex = currentpage;
         }
 
         private void ListOfItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedIndex = ListOfItems.SelectedIndex;
 
+            Properties.Settings.Default.CurrentPage = selectedIndex;
+            Properties.Settings.Default.Save();
+
+            changePage(selectedIndex, e);
+        }
+
+        private void changePage(int selectedIndex, SelectionChangedEventArgs e)
+        {
             if (selectedIndex == DashBoard)
             {
                 pageNavigation.NavigationService.Navigate(new DashBoard());
+
             }
             if (selectedIndex == Home)
             {
@@ -123,7 +140,6 @@ namespace MyShop.UI.MainPage
             }
             if (selectedIndex == Category)
             {
-
                 pageNavigation.NavigationService.Navigate(new ModifyCategory(pageNavigation));
             }
             if (selectedIndex == Promotion)
@@ -202,7 +218,7 @@ namespace MyShop.UI.MainPage
             {
                 // Phải chờ cho nó load xong thì mới gán border được haha
                 await Task.Delay(50);
-                var container = ListOfItems.ItemContainerGenerator.ContainerFromIndex(0) as ListViewItem;
+                var container = ListOfItems.ItemContainerGenerator.ContainerFromIndex(_currentPage) as ListViewItem;
                 if (container != null)
                 {
                     var border = FindVisualChild<Border>(container);
