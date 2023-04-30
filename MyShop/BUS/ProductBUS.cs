@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 
 // BUS : bussiness (login BA)
@@ -18,12 +19,12 @@ namespace MyShop.BUS
             _productDAO = new ProductDAO();
         }
 
-        public ObservableCollection<ProductDTO> getAll() { return _productDAO.getAll(); }
+        public async Task<ObservableCollection<ProductDTO>> getAll() { return await _productDAO.getAll(); }
 
-        public Tuple<List<ProductDTO>, int> findProductBySearch(int currentPage = 1, int rowsPerPage = 9,
+        public async Task<Tuple<List<ProductDTO>, int>> findProductBySearch(int currentPage = 1, int rowsPerPage = 9,
                 string keyword = "", Decimal? startPrice = null, Decimal? endPrice = null)
         {
-            var origin = _productDAO.getAll();
+            var origin = await _productDAO.getAll();
 
             // TODO: nên handle việc ProName bị null ở đây .
             // 
@@ -87,14 +88,14 @@ namespace MyShop.BUS
             return _productDAO.getProductById(id);
         }
 
-        public int countTotalProduct()
+        public async Task<int> countTotalProduct()
         {
-            return _productDAO.countTotalProduct();
+            return await _productDAO.countTotalProduct();
         }
 
-        public ObservableCollection<ProductDTO> getTop5Product()
+        public async Task<ObservableCollection<ProductDTO>> getTop5Product()
         {
-            return _productDAO.getTop5Product();
+            return await _productDAO.getTop5Product();
         }
     }
 }

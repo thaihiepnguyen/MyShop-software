@@ -68,6 +68,7 @@ namespace MyShop.UI.MainPage.Pages
         private Decimal? _currentEndPrice = null;
         private Frame _pageNavigation;
         private FileInfo _selectedFile;
+        private ProgressBar _loadingProgressBar;
 
         public Tuple<string, int, int, Decimal?, Decimal?> getCurrentState()
         {
@@ -81,7 +82,7 @@ namespace MyShop.UI.MainPage.Pages
                 );
         }
 
-        public Home(Frame pageNavigation, int page = 1, int currentCurrency = 0, string keyword = "",
+        public Home(Frame pageNavigation, ProgressBar loadingProgressBar, int page = 1, int currentCurrency = 0, string keyword = "",
             Decimal? currentStartPrice = null, Decimal? currentEndPrice = null
             )
         {
@@ -93,13 +94,13 @@ namespace MyShop.UI.MainPage.Pages
             _currentStartPrice = currentStartPrice;
             _currentEndPrice = currentEndPrice;
             _currentCurrency = currentCurrency;
+            _loadingProgressBar = loadingProgressBar;
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            
             updateDataSource(_currentPage, _currentKey, _currentCurrency, _currentStartPrice, _currentEndPrice);
-            updatePagingInfo();
-
 
             this.DataContext = new Resources()
             {
@@ -110,7 +111,7 @@ namespace MyShop.UI.MainPage.Pages
             };
         }
 
-        private void updateDataSource(int page = 1, string keyword = "", int currentCurrency = 0, Decimal? currentStartPrice = null, Decimal? currentEndPrice = null)
+        private async void updateDataSource(int page = 1, string keyword = "", int currentCurrency = 0, Decimal? currentStartPrice = null, Decimal? currentEndPrice = null)
         {
             MessageText.Text = string.Empty;
             List<Data> list = new List<Data>();
@@ -118,8 +119,10 @@ namespace MyShop.UI.MainPage.Pages
             ProductBUS productBUS = new ProductBUS();
             CategoryBUS categoryBUS = new CategoryBUS();
             PromotionBUS promotionBUS = new PromotionBUS();
-            (_products, _totalItems) = productBUS.findProductBySearch(_currentPage, _rowsPerPage, keyword, currentStartPrice, currentEndPrice);
+            _loadingProgressBar.IsIndeterminate = true;
+            (_products, _totalItems) = await productBUS.findProductBySearch(_currentPage, _rowsPerPage, keyword, currentStartPrice, currentEndPrice);
 
+            _loadingProgressBar.IsIndeterminate = false;
 
             foreach (var product in _products)
             {
@@ -151,6 +154,7 @@ namespace MyShop.UI.MainPage.Pages
 
 
             infoTextBlock.Text = $"Đang hiển thị {_products.Count} trên tổng số {_totalItems} sản phẩm";
+            updatePagingInfo();
         }
 
         private void updatePagingInfo()
@@ -179,7 +183,7 @@ namespace MyShop.UI.MainPage.Pages
             {
                 _currentPage--;
                 updateDataSource(_currentPage, _currentKey, _currentCurrency, _currentStartPrice, _currentEndPrice);
-                updatePagingInfo();
+                //updatePagingInfo();
             }
         }
 
@@ -189,20 +193,19 @@ namespace MyShop.UI.MainPage.Pages
             {
                 _currentPage++;
                 updateDataSource(_currentPage, _currentKey, _currentCurrency, _currentStartPrice, _currentEndPrice);
-                updatePagingInfo();
             }
         }
 
         private void FirstButton_Click(object sender, RoutedEventArgs e)
         {
             updateDataSource(1, _currentKey, _currentCurrency, _currentStartPrice, _currentEndPrice);
-            updatePagingInfo();
+            //updatePagingInfo();
         }
 
         private void LastButton_Click(object sender, RoutedEventArgs e)
         {
             updateDataSource(_totalPages, _currentKey, _currentCurrency, _currentStartPrice, _currentEndPrice);
-            updatePagingInfo();
+            //updatePagingInfo();
         }
 
         private void PriceCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -264,13 +267,13 @@ namespace MyShop.UI.MainPage.Pages
             var product = _products[i];
             if (product != null)
             {
-                _pageNavigation.NavigationService.Navigate(new ProductDetail(this, product, _pageNavigation));
+                _pageNavigation.NavigationService.Navigate(new ProductDetail(this, product, _pageNavigation, _loadingProgressBar));
             }
         }
 
         private void AddProduct_Click(object sender, RoutedEventArgs e)
         {
-            _pageNavigation.NavigationService.Navigate(new AddProduct(_pageNavigation));
+            _pageNavigation.NavigationService.Navigate(new AddProduct(_pageNavigation, _loadingProgressBar));
         }
 
         private void Sheet_Click(object sender, RoutedEventArgs e)
@@ -315,7 +318,7 @@ namespace MyShop.UI.MainPage.Pages
             }
 
             updateDataSource(1, _currentKey, _currentCurrency, _currentStartPrice, _currentEndPrice);
-            updatePagingInfo();
+            //updatePagingInfo();
 
             flag = !flag;
         }

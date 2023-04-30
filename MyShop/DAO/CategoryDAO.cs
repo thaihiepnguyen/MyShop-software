@@ -101,16 +101,29 @@ namespace MyShop.DAO
             return id;
         }
 
-        public void delCategoryById(int catID)
+        public Tuple<Boolean, string> delCategoryById(int catID)
         {
+            string message = "";
+            bool isSuccess = true;
+            Tuple<Boolean, string> result = new Tuple<bool, string>(isSuccess, message);
+            
             string sql = $"""
                 delete category 
                 where CatID = {catID}
                 """;
 
             var command = new SqlCommand(sql, db.connection);
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch(SqlException ex) {
+                message = ex.Message;
+                isSuccess = false;
+                return new Tuple<bool, string>(isSuccess, message);
+            }
 
-            command.ExecuteNonQuery();
+            return result;
         }
 
         public void updateCategory(CategoryDTO category)

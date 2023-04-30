@@ -29,18 +29,21 @@ namespace MyShop.UI.MainPage.Pages
         private CartesianChart _chart;
         private int _currentYear;
         private Frame _pageNavigation;
-        public Statistical(Frame pageNavigation)
+        private ProgressBar _loadingProgressBar;
+        public Statistical(Frame pageNavigation, ProgressBar loadingProgressBar)
         {
             _reportBUS = new ReportBUS();
             _pageNavigation = pageNavigation;
+            _loadingProgressBar = loadingProgressBar;
             InitializeComponent();
         }
 
-        private void displayYearMode()
+        private async void displayYearMode()
         {
-            var pricesByYear = _reportBUS.groupPriceTotalByYear();
-            var profitsByYear = _reportBUS.groupProfitTotalByYear();
-
+            _loadingProgressBar.IsIndeterminate = true;
+            var pricesByYear = await _reportBUS.groupPriceTotalByYear();
+            var profitsByYear = await _reportBUS.groupProfitTotalByYear();
+            _loadingProgressBar.IsIndeterminate = false;
             var valuesLineChart = new ChartValues<double>();
             var valuesColChart = new ChartValues<double>();
 
@@ -85,11 +88,12 @@ namespace MyShop.UI.MainPage.Pages
             Title.Text = "Đang hiển thị chế độ xem theo năm";
         }
 
-        private void displayMonthMode(int year)
+        private async void displayMonthMode(int year)
         {
-            var pricesByMonth = _reportBUS.groupPriceTotalByMonth(year);
-            var profitsByMonth = _reportBUS.groupProfitTotalByMonth(year);
-
+            _loadingProgressBar.IsIndeterminate = true;
+            var pricesByMonth = await _reportBUS.groupPriceTotalByMonth(year);
+            var profitsByMonth = await _reportBUS.groupProfitTotalByMonth(year);
+            _loadingProgressBar.IsIndeterminate = false;
             var valuesLineChart = new ChartValues<double>();
             var valuesColChart = new ChartValues<double>();
 
@@ -145,11 +149,12 @@ namespace MyShop.UI.MainPage.Pages
             MonthCombobox.SelectedIndex = 0;
         }
 
-        private void displayWeekMode(int month, int year)
+        private async void displayWeekMode(int month, int year)
         {
-            var pricesByWeek = _reportBUS.groupPriceTotalByWeek(month, year);
-            var profitsByWeek = _reportBUS.groupProfitTotalByWeek(month, year);
-
+            _loadingProgressBar.IsIndeterminate = true;
+            var pricesByWeek = await _reportBUS.groupPriceTotalByWeek(month, year);
+            var profitsByWeek = await _reportBUS.groupProfitTotalByWeek(month, year);
+            _loadingProgressBar.IsIndeterminate = false;
             var valuesLineChart = new ChartValues<double>();
             var valuesColChart = new ChartValues<double>();
 
@@ -196,11 +201,12 @@ namespace MyShop.UI.MainPage.Pages
             Title.Text = "Đang hiển thị chế độ xem theo tuần";
         }
 
-        private void displayDateMode(DateTime startDate, DateTime endDate)
+        private async void displayDateMode(DateTime startDate, DateTime endDate)
         {
-            var pricesByDate = _reportBUS.groupPriceTotalByDate(startDate, endDate);
-            var profitsByDate = _reportBUS.groupProfitTotalByDate(startDate, endDate);
-
+            _loadingProgressBar.IsIndeterminate = true;
+            var pricesByDate = await _reportBUS.groupPriceTotalByDate(startDate, endDate);
+            var profitsByDate = await _reportBUS.groupProfitTotalByDate(startDate, endDate);
+            _loadingProgressBar.IsIndeterminate = false;
             var valuesLineChart = new ChartValues<double>();
             var valuesColChart = new ChartValues<double>();
 
@@ -265,7 +271,7 @@ namespace MyShop.UI.MainPage.Pages
 
         private void NextProductReport_Click(object sender, RoutedEventArgs e)
         {
-            _pageNavigation.NavigationService.Navigate(new StatisticalProduct(_pageNavigation));
+            _pageNavigation.NavigationService.Navigate(new StatisticalProduct(_pageNavigation, _loadingProgressBar));
         }
 
         private void MonthCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -32,21 +32,28 @@ namespace MyShop.UI.MainPage.Pages
     {
         ProductBUS _productBUS;
         OrderBUS _orderBUS;
+        private ProgressBar _loadingProgressBar;
 
-        public DashBoard()
+        public DashBoard(ProgressBar loadingProgressBar)
         {
             _productBUS = new ProductBUS();
             _orderBUS = new OrderBUS();
+            _loadingProgressBar = loadingProgressBar;
             InitializeComponent();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            int totalProduct = _productBUS.countTotalProduct();
-            int totalOrder = _orderBUS.countTotalOrderbyLastWeek();
+            _loadingProgressBar.IsIndeterminate = true;
+            
 
-            var top5Product = _productBUS.getTop5Product();
+            int totalProduct = await _productBUS.countTotalProduct();
 
+            int totalOrder = await _orderBUS.countTotalOrderbyLastWeek();
+
+            var top5Product = await _productBUS.getTop5Product();
+
+            _loadingProgressBar.IsIndeterminate = false;
 
             this.DataContext = new Resources()
             {

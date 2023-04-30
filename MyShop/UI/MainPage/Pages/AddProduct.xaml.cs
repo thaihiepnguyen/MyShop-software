@@ -33,17 +33,19 @@ namespace MyShop.UI.MainPage.Pages
         private ProductBUS _productBUS;
         private CategoryBUS _categoryBUS;
         private Frame _pageNavigation;
+        private ProgressBar _loadingProgressBar;
         class AddProductResources
         {
             public string ProImage { get; set; }
         }
 
-        public AddProduct(Frame pageNavigation)
+        public AddProduct(Frame pageNavigation, ProgressBar loadingProgressBar)
         {
             InitializeComponent();
 
             _productBUS = new ProductBUS();
             _categoryBUS = new CategoryBUS();
+            _loadingProgressBar = loadingProgressBar;
 
             var categories = _categoryBUS.getAll();
 
@@ -111,7 +113,7 @@ namespace MyShop.UI.MainPage.Pages
 
         private void AddCategory_Click(object sender, RoutedEventArgs e)
         {
-            _pageNavigation.NavigationService.Navigate(new ModifyCategory(_pageNavigation));
+            _pageNavigation.NavigationService.Navigate(new ModifyCategory(_pageNavigation, _loadingProgressBar));
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

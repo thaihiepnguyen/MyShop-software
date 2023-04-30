@@ -48,7 +48,7 @@ namespace MyShop.UI.MainPage
         ObservableCollection<Item> Items = null;
         
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
             // init db
@@ -131,28 +131,28 @@ namespace MyShop.UI.MainPage
         {
             if (selectedIndex == DashBoard)
             {
-                pageNavigation.NavigationService.Navigate(new DashBoard());
+                pageNavigation.NavigationService.Navigate(new DashBoard(loadingProgressBar));
 
             }
             if (selectedIndex == Home)
             {
-                pageNavigation.NavigationService.Navigate(new Home(pageNavigation));
+                pageNavigation.NavigationService.Navigate(new Home(pageNavigation, loadingProgressBar));
             }
             if (selectedIndex == Category)
             {
-                pageNavigation.NavigationService.Navigate(new ModifyCategory(pageNavigation));
+                pageNavigation.NavigationService.Navigate(new ModifyCategory(pageNavigation, loadingProgressBar));
             }
             if (selectedIndex == Promotion)
             {
-                pageNavigation.NavigationService.Navigate(new ModifyPromotion(pageNavigation));
+                pageNavigation.NavigationService.Navigate(new ModifyPromotion(pageNavigation, loadingProgressBar));
             }
             if (selectedIndex == Order)
             {
-                pageNavigation.NavigationService.Navigate(new OrderDetail(pageNavigation));
+                pageNavigation.NavigationService.Navigate(new OrderDetail(pageNavigation, loadingProgressBar));
             }
             if (selectedIndex == Statistical)
             {
-                pageNavigation.NavigationService.Navigate(new Statistical(pageNavigation));
+                pageNavigation.NavigationService.Navigate(new Statistical(pageNavigation, loadingProgressBar));
             }
             if (selectedIndex == AboutUs)
             {

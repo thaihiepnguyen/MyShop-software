@@ -35,7 +35,7 @@ namespace MyShop.UI.MainPage.Pages
         private int _totalPages = 0;
         private DateTime? _currentStartDate = null;
         private DateTime? _currentEndDate = null;
-
+        private ProgressBar _loadingProgressBar;
 
         class OrderDetailResources
         {
@@ -64,20 +64,22 @@ namespace MyShop.UI.MainPage.Pages
             }
         }
 
-        public OrderDetail(Frame pageNavigation)
+        public OrderDetail(Frame pageNavigation, ProgressBar loadingProgressBar)
         {
             _pageNavigation = pageNavigation;
             _customerBUS = new CustomerBUS();
             _orderBUS = new OrderBUS();
+            _loadingProgressBar = loadingProgressBar;
             InitializeComponent();
         }
 
-        private void updateDataSource(int page = 1, DateTime? startDate = null, DateTime? endDate = null)
+        private async void updateDataSource(int page = 1, DateTime? startDate = null, DateTime? endDate = null)
         {
             ObservableCollection<Data> list = new ObservableCollection<Data>();
             _currentPage = page;
-            (_orders, _totalItems) = _orderBUS.findOrderBySearch(_currentPage, _rowsPerPage, startDate, endDate); ;
-
+            _loadingProgressBar.IsIndeterminate = true;
+            (_orders, _totalItems) = await _orderBUS.findOrderBySearch(_currentPage, _rowsPerPage, startDate, endDate); ;
+            _loadingProgressBar.IsIndeterminate = false;
             foreach (var order in _orders)
             {
                 list.Add(new Data(order, _customerBUS));
@@ -86,6 +88,7 @@ namespace MyShop.UI.MainPage.Pages
 
             infoTextBlock.Text = $"Đang hiển thị {_orders.Count} trên tổng số {_totalItems} hóa đơn";
             _list = list;
+            updatePagingInfo();
         }
 
         private void updatePagingInfo()
@@ -116,7 +119,6 @@ namespace MyShop.UI.MainPage.Pages
         private void FirstButton_Click(object sender, RoutedEventArgs e)
         {
             updateDataSource(1, _currentStartDate, _currentEndDate);
-            updatePagingInfo();
         }
 
         private void PrevButton_Click(object sender, RoutedEventArgs e)
@@ -125,7 +127,6 @@ namespace MyShop.UI.MainPage.Pages
             {
                 _currentPage--;
                 updateDataSource(_currentPage, _currentStartDate, _currentEndDate);
-                updatePagingInfo();
             }
         }
 
@@ -135,20 +136,17 @@ namespace MyShop.UI.MainPage.Pages
             {
                 _currentPage++;
                 updateDataSource(_currentPage, _currentStartDate, _currentEndDate);
-                updatePagingInfo();
             }
         }
 
         private void LastButton_Click(object sender, RoutedEventArgs e)
         {
             updateDataSource(_totalPages, _currentStartDate, _currentEndDate);
-            updatePagingInfo();
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             updateDataSource(1, _currentStartDate, _currentEndDate);
-            updatePagingInfo();
             this.DataContext = new OrderDetailResources()
             {
                 FirstIcon = "Assets/Images/ic-first.png",

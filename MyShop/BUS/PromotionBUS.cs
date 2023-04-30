@@ -33,9 +33,9 @@ namespace MyShop.BUS
             return _PromotionDAO.insertPromo(promotion);
         }
 
-        public void delPromotionById(int idPromo)
+        public Tuple<Boolean, string> delPromotionById(int idPromo)
         {
-            _PromotionDAO.delPromoById(idPromo);
+            return _PromotionDAO.delPromoById(idPromo);
         }
 
         public void updatePromotion(PromotionDTO promotion)

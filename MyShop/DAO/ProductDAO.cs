@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyShop.DAO
 {
@@ -13,39 +14,46 @@ namespace MyShop.DAO
     {
         DatabaseUtilitites db = DatabaseUtilitites.getInstance();
         private ObservableCollection<PromotionDTO> _promotion = (new PromotionDAO()).getAll();
-        public ObservableCollection<ProductDTO> getAll()
+        public async Task<ObservableCollection<ProductDTO>> getAll()
         {
             ObservableCollection<ProductDTO> list = new ObservableCollection<ProductDTO>();
-            string sql = "select ProID, ProName, Ram, Rom, ScreenSize, TinyDes," +
-                " FullDes, Price, ImagePath, Trademark," +
-                "BatteryCapacity, CatID, Quantity,PromoID, PromotionPrice, Block from product where Block = 0";
-            var command = new SqlCommand(sql, db.connection);
 
-            var reader = command.ExecuteReader();
-
-            while (reader.Read())
+            await Task.Run(() =>
             {
-                ProductDTO product = new ProductDTO();
-                product.ProId = (int)reader["ProID"];
-                product.ProName = reader["ProName"] == DBNull.Value ? "Lỗi tên sản phẩm" : (string?)reader["ProName"];
-                product.Ram = (double)reader["Ram"];
-                product.Rom = (int)reader["Rom"];
-                product.ScreenSize = (double)reader["ScreenSize"];
-                product.TinyDes = reader["TinyDes"] == DBNull.Value ? null : (string?)reader["TinyDes"];
-                product.FullDes = reader["FullDes"] == DBNull.Value ? null : (string?)reader["FullDes"];
-                product.Price = (decimal)reader["Price"];
-                product.ImagePath = reader["ImagePath"] == DBNull.Value ? "Assets/Images/sp/404.png" : (string?)reader["ImagePath"];
-                product.Trademark = reader["Trademark"] == DBNull.Value ? null : (string?)reader["Trademark"];
-                product.BatteryCapacity = (int)reader["BatteryCapacity"];
-                product.CatID = (int)reader["CatID"];
-                product.Quantity = (int)reader["Quantity"];
-                product.PromotionPrice = reader["PromotionPrice"] == DBNull.Value ? product.Price : (decimal?)reader["PromotionPrice"];
-                product.PromoID = reader["PromoID"] == DBNull.Value ? null : (int?)reader["PromoID"];
-                product.Block = (int)reader["Block"];
-                list.Add(product);
-            }
+                string sql = "select ProID, ProName, Ram, Rom, ScreenSize, TinyDes," +
+    " FullDes, Price, ImagePath, Trademark," +
+    "BatteryCapacity, CatID, Quantity,PromoID, PromotionPrice, Block from product where Block = 0";
+                var command = new SqlCommand(sql, db.connection);
 
-            reader.Close();
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    ProductDTO product = new ProductDTO();
+                    product.ProId = (int)reader["ProID"];
+                    product.ProName = reader["ProName"] == DBNull.Value ? "Lỗi tên sản phẩm" : (string?)reader["ProName"];
+                    product.Ram = (double)reader["Ram"];
+                    product.Rom = (int)reader["Rom"];
+                    product.ScreenSize = (double)reader["ScreenSize"];
+                    product.TinyDes = reader["TinyDes"] == DBNull.Value ? null : (string?)reader["TinyDes"];
+                    product.FullDes = reader["FullDes"] == DBNull.Value ? null : (string?)reader["FullDes"];
+                    product.Price = (decimal)reader["Price"];
+                    product.ImagePath = reader["ImagePath"] == DBNull.Value ? "Assets/Images/sp/404.png" : (string?)reader["ImagePath"];
+                    product.Trademark = reader["Trademark"] == DBNull.Value ? null : (string?)reader["Trademark"];
+                    product.BatteryCapacity = (int)reader["BatteryCapacity"];
+                    product.CatID = (int)reader["CatID"];
+                    product.Quantity = (int)reader["Quantity"];
+                    product.PromotionPrice = reader["PromotionPrice"] == DBNull.Value ? product.Price : (decimal?)reader["PromotionPrice"];
+                    product.PromoID = reader["PromoID"] == DBNull.Value ? null : (int?)reader["PromoID"];
+                    product.Block = (int)reader["Block"];
+                    list.Add(product);
+                }
+
+                System.Threading.Thread.Sleep(1000);
+
+                reader.Close();
+            });
+
 
             return list;
         }
@@ -185,22 +193,29 @@ namespace MyShop.DAO
             command.ExecuteNonQuery();
         }
 
-        public int countTotalProduct()
+        public async Task<int> countTotalProduct()
         {
             int total = 0;
-            string sql = $"""
+            await Task.Run(() =>
+            {
+                string sql = $"""
                 select sum(Quantity) as sum from product
                 """;
 
-            var command = new SqlCommand(sql, db.connection);
+                var command = new SqlCommand(sql, db.connection);
 
-            var reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                total = (int)reader["sum"];
-            }
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    total = (int)reader["sum"];
+                }
 
-            reader.Close();
+                System.Threading.Thread.Sleep(200);
+
+                reader.Close();
+
+                return total;
+            });
 
             return total;
         }
@@ -246,40 +261,46 @@ namespace MyShop.DAO
             return result;
         }
 
-        public ObservableCollection<ProductDTO> getTop5Product()
+        public async Task<ObservableCollection<ProductDTO>> getTop5Product()
         {
             ObservableCollection<ProductDTO> list = new ObservableCollection<ProductDTO>();
-            string sql = "select top 5 ProID, ProName, Ram, Rom, ScreenSize, TinyDes," +
-                " FullDes, Price, ImagePath, Trademark," +
-                "BatteryCapacity, CatID, Quantity,  PromoID,PromotionPrice, Block from product where Quantity <= 5 and Quantity > 0 order by Quantity asc";
-            var command = new SqlCommand(sql, db.connection);
-
-            var reader = command.ExecuteReader();
-
-            while (reader.Read())
+            await Task.Run(() =>
             {
-                ProductDTO product = new ProductDTO();
-                product.ProId = (int)reader["ProID"];
-                product.ProName = reader["ProName"] == DBNull.Value ? "Lỗi tên sản phẩm" : (string?)reader["ProName"];
-                product.Ram = (double)reader["Ram"];
-                product.Rom = (int)reader["Rom"];
-                product.ScreenSize = (double)reader["ScreenSize"];
-                product.TinyDes = reader["TinyDes"] == DBNull.Value ? null : (string?)reader["TinyDes"];
-                product.FullDes = reader["FullDes"] == DBNull.Value ? null : (string?)reader["FullDes"];
-                product.Price = (decimal)reader["Price"];
-                product.ImagePath = reader["ImagePath"] == DBNull.Value ? null : (string?)reader["ImagePath"];
-                product.Trademark = reader["Trademark"] == DBNull.Value ? null : (string?)reader["Trademark"];
-                product.BatteryCapacity = (int)reader["BatteryCapacity"];
-                product.CatID = (int)reader["CatID"];
-                product.Quantity = (int)reader["Quantity"];
-                product.PromoID = reader["PromoID"] == DBNull.Value ? null : (int?)reader["PromoID"];
-                product.PromotionPrice = reader["PromotionPrice"] == DBNull.Value ? (decimal)reader["Price"] : (decimal?)reader["PromotionPrice"];
-                product.Block = (int)reader["Block"];
+                string sql = "select top 5 ProID, ProName, Ram, Rom, ScreenSize, TinyDes," +
+    " FullDes, Price, ImagePath, Trademark," +
+    "BatteryCapacity, CatID, Quantity,  PromoID,PromotionPrice, Block from product where Quantity <= 5 and Quantity > 0 order by Quantity asc";
+                var command = new SqlCommand(sql, db.connection);
 
-                list.Add(product);
-            }
+                var reader = command.ExecuteReader();
 
-            reader.Close();
+                while (reader.Read())
+                {
+                    ProductDTO product = new ProductDTO();
+                    product.ProId = (int)reader["ProID"];
+                    product.ProName = reader["ProName"] == DBNull.Value ? "Lỗi tên sản phẩm" : (string?)reader["ProName"];
+                    product.Ram = (double)reader["Ram"];
+                    product.Rom = (int)reader["Rom"];
+                    product.ScreenSize = (double)reader["ScreenSize"];
+                    product.TinyDes = reader["TinyDes"] == DBNull.Value ? null : (string?)reader["TinyDes"];
+                    product.FullDes = reader["FullDes"] == DBNull.Value ? null : (string?)reader["FullDes"];
+                    product.Price = (decimal)reader["Price"];
+                    product.ImagePath = reader["ImagePath"] == DBNull.Value ? null : (string?)reader["ImagePath"];
+                    product.Trademark = reader["Trademark"] == DBNull.Value ? null : (string?)reader["Trademark"];
+                    product.BatteryCapacity = (int)reader["BatteryCapacity"];
+                    product.CatID = (int)reader["CatID"];
+                    product.Quantity = (int)reader["Quantity"];
+                    product.PromoID = reader["PromoID"] == DBNull.Value ? null : (int?)reader["PromoID"];
+                    product.PromotionPrice = reader["PromotionPrice"] == DBNull.Value ? (decimal)reader["Price"] : (decimal?)reader["PromotionPrice"];
+                    product.Block = (int)reader["Block"];
+
+                    list.Add(product);
+                }
+                System.Threading.Thread.Sleep(200);
+
+                reader.Close();
+            });
+
+
 
             return list;
         }

@@ -24,6 +24,7 @@ namespace MyShop.UI.MainPage.Pages
         protected PromotionDTO _promotion;
         private Home _home;
         private Data _currentData;
+        private ProgressBar _loadingProgressBar;
 
 
 
@@ -55,7 +56,7 @@ namespace MyShop.UI.MainPage.Pages
             public event PropertyChangedEventHandler? PropertyChanged;
         }
 
-        public ProductDetail(Home home, ProductDTO product, Frame pageNavigation)
+        public ProductDetail(Home home, ProductDTO product, Frame pageNavigation, ProgressBar loadingProgressBar)
         {
             InitializeComponent();
             _home = home;
@@ -64,6 +65,7 @@ namespace MyShop.UI.MainPage.Pages
             _productBUS = new ProductBUS();
             _categoryBUS = new CategoryBUS();
             _promotionBUS = new PromotionBUS();
+            _loadingProgressBar = loadingProgressBar;
 
             CategoryDTO category = _categoryBUS.getCategoryById(_product.CatID);
             PromotionDTO promotion = null;
@@ -100,7 +102,7 @@ namespace MyShop.UI.MainPage.Pages
             // Lưu lại trạng thái trước đó 
             var (key, page, currency, startPrice, endPrice) = _home.getCurrentState();
 
-            _pageNavigation.NavigationService.Navigate(new Home(_pageNavigation, page, currency, key, startPrice, endPrice));
+            _pageNavigation.NavigationService.Navigate(new Home(_pageNavigation, _loadingProgressBar, page, currency, key, startPrice, endPrice));
         }
 
         private void DelProduct_Click(object sender, RoutedEventArgs e)
@@ -112,7 +114,7 @@ namespace MyShop.UI.MainPage.Pages
                 // lưu lại trạng thái trước đó
                 var (key, page, currency, startPrice, endPrice) = _home.getCurrentState();
                 _productBUS.delProduct(_product.ProId);
-                _pageNavigation.NavigationService.Navigate(new Home(_pageNavigation, page, currency, key, startPrice, endPrice));
+                _pageNavigation.NavigationService.Navigate(new Home(_pageNavigation, _loadingProgressBar, page, currency, key, startPrice, endPrice));
             } else
             {
 

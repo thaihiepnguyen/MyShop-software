@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace MyShop.DAO
 {
@@ -187,32 +188,37 @@ namespace MyShop.DAO
             command.ExecuteNonQuery();
         }
 
-        public ObservableCollection<ShopOrderDTO> getAll()
+        public async Task<ObservableCollection<ShopOrderDTO>> getAll()
         {
             ObservableCollection<ShopOrderDTO> list = new ObservableCollection<ShopOrderDTO>();
 
-            string sql = "select OrderID, CusID, CreateAt, FinalTotal, ProfitTotal from shop_order where FinalTotal > 0";
-
-            var command = new SqlCommand(sql, db.connection);
-
-            var reader = command.ExecuteReader();
-
-            while (reader.Read())
+            await Task.Run(() =>
             {
-                ShopOrderDTO shopOrder = new ShopOrderDTO
+                string sql = "select OrderID, CusID, CreateAt, FinalTotal, ProfitTotal from shop_order where FinalTotal > 0";
+
+                var command = new SqlCommand(sql, db.connection);
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
                 {
-                    OrderID = (int)reader["OrderID"],
-                    CusID = (int)reader["CusID"],
-                    CreateAt = (DateTime)reader["CreateAt"],
-                    // này để tránh lỗi :)
-                    FinalTotal = reader["FinalTotal"] == DBNull.Value ? null : (decimal?)reader["FinalTotal"],
-                    ProfitTotal = reader["ProfitTotal"] == DBNull.Value ? null : (decimal?)reader["ProfitTotal"]
-            };
+                    ShopOrderDTO shopOrder = new ShopOrderDTO
+                    {
+                        OrderID = (int)reader["OrderID"],
+                        CusID = (int)reader["CusID"],
+                        CreateAt = (DateTime)reader["CreateAt"],
+                        // này để tránh lỗi :)
+                        FinalTotal = reader["FinalTotal"] == DBNull.Value ? null : (decimal?)reader["FinalTotal"],
+                        ProfitTotal = reader["ProfitTotal"] == DBNull.Value ? null : (decimal?)reader["ProfitTotal"]
+                    };
 
-                list.Add(shopOrder);
-            }
+                    list.Add(shopOrder);
+                }
 
-            reader.Close();
+                System.Threading.Thread.Sleep(1000);
+
+                reader.Close();
+            });
 
             return list;
         }

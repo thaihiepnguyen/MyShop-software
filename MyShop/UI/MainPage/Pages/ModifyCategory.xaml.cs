@@ -28,15 +28,17 @@ namespace MyShop.UI.MainPage.Pages
         private CategoryBUS _categoryBUS;
         private Frame _pageNavigation;
         private ObservableCollection<CategoryDTO> _categories;
+        private ProgressBar _loadingProgressBar;
         List<IconCategoryDTO> _icons = new List<IconCategoryDTO>() {
                 new IconCategoryDTO("Android"),
                 new IconCategoryDTO("Apple"),
                 new IconCategoryDTO("Windows"),
                 new IconCategoryDTO("MobilePhone"),
             };
-        public ModifyCategory(Frame pageNavigation)
+        public ModifyCategory(Frame pageNavigation, ProgressBar loadingProgressBar)
         {
             _pageNavigation = pageNavigation;
+            _loadingProgressBar = loadingProgressBar;
             InitializeComponent();
         }
 
@@ -97,10 +99,16 @@ namespace MyShop.UI.MainPage.Pages
                 {
 
                     var CatID = _categories[i].CatID;
+                    bool isSuccess; string message;
 
-                    _categoryBUS.delCategoryById(CatID);
-
-                    _categories.RemoveAt(i);
+                    (isSuccess, message) = _categoryBUS.delCategoryById(CatID);
+                    if (!isSuccess)
+                    {
+                        MessageBox.Show(message, "Thông Báo");
+                    } else
+                    {
+                        _categories.RemoveAt(i);
+                    }
                 }
                 else
                 {

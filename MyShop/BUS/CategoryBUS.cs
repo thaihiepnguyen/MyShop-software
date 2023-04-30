@@ -33,9 +33,9 @@ namespace MyShop.BUS
             return _categoryDAO.insertCategory(category);
         }
 
-        public void delCategoryById(int catID)
+        public Tuple<Boolean, string> delCategoryById(int catID)
         {
-            _categoryDAO.delCategoryById(catID);
+            return _categoryDAO.delCategoryById(catID);
         }
 
         public void updateCategory(CategoryDTO category)

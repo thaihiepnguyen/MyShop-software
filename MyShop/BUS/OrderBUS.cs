@@ -92,9 +92,9 @@ namespace MyShop.BUS
             _orderDAO.updateShopOrder(shopOrderDTO);
         }
 
-        public Tuple<ObservableCollection<ShopOrderDTO>, int> findOrderBySearch(int currentPage, int rowsPerPage, DateTime? startDate, DateTime? endDate)
+        public async Task<Tuple<ObservableCollection<ShopOrderDTO>, int>> findOrderBySearch(int currentPage, int rowsPerPage, DateTime? startDate, DateTime? endDate)
         {
-            var origin = _orderDAO.getAll();
+            var origin = await _orderDAO.getAll();
 
             var list = origin
                 .Where((item) =>
@@ -129,9 +129,9 @@ namespace MyShop.BUS
             return result;
         }
 
-        public int countTotalOrderbyLastWeek()
+        public async Task<int> countTotalOrderbyLastWeek()
         {
-            var orders = _orderDAO.getAll();
+            var orders = await _orderDAO.getAll();
 
             DateTime today = DateTime.Today;
             DateTime startOfWeek = today.AddDays(-(int)today.DayOfWeek);

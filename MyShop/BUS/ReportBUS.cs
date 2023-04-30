@@ -16,21 +16,27 @@ namespace MyShop.BUS
         // Nói chung là sẽ get all còn phân tích thế nào thì chưa biết :)
         private List<ShopOrderDTO> _orders;
         private OrderBUS _orderBUS;
+        private OrderDAO _orderDAO;
         public ReportBUS()
         {
             var orderDAO = new OrderDAO();
             var orderBUS = new OrderBUS();
             _orderBUS = orderBUS;
-            
-            var ob = orderDAO.getAll();
-
-            _orders = ob.ToList();
+            _orderDAO = orderDAO;
         }
 
         // Đã có dữ liệu rồi phân tích dữ liệu nào  :) 
 
-        public List<Decimal> groupPriceTotalByMonth(int year)
+        private async Task<List<ShopOrderDTO>> getData()
         {
+            var ob = await _orderDAO.getAll();
+
+            return ob.ToList();
+        }
+
+        public async Task<List<Decimal>> groupPriceTotalByMonth(int year)
+        {
+            _orders = await getData();
             List<Decimal> result = new List<Decimal>();
 
             for (int month = 1; month <= 12; month++)
@@ -52,8 +58,9 @@ namespace MyShop.BUS
             return result;
         }
 
-        public List<int> groupQuantityOfProductByMonth(ProductDTO product, int year)
+        public async Task<List<int>> groupQuantityOfProductByMonth(ProductDTO product, int year)
         {
+            _orders = await getData();
             List<int> result = new List<int>();
 
             for (int month = 1; month <= 12; month++)
@@ -81,8 +88,9 @@ namespace MyShop.BUS
             return result;
         }
 
-        public List<Decimal> groupProfitTotalByMonth(int year)
+        public async Task<List<Decimal>> groupProfitTotalByMonth(int year)
         {
+            _orders = await getData();
             List<Decimal> result = new List<Decimal>();
 
             for (int month = 1; month <= 12; month++)
@@ -103,8 +111,9 @@ namespace MyShop.BUS
             return result;
         }
 
-        public List<decimal> groupProfitTotalByWeek(int month, int year)
+        public async Task<List<decimal>> groupProfitTotalByWeek(int month, int year)
         {
+            _orders = await getData();
             List<decimal> result = new List<decimal>();
             DateTime firstDayOfMonth = new DateTime(year, month, 1);
             int daysInMonth = DateTime.DaysInMonth(year, month);
@@ -139,8 +148,9 @@ namespace MyShop.BUS
             return result;
         }
 
-        public List<int> groupQuantityOfProductByWeek(ProductDTO product, int year, int month)
+        public async Task<List<int>> groupQuantityOfProductByWeek(ProductDTO product, int year, int month)
         {
+            _orders = await getData();
             List<int> result = new List<int>();
             DateTime firstDayOfMonth = new DateTime(year, month, 1);
             int daysInMonth = DateTime.DaysInMonth(year, month);
@@ -182,8 +192,9 @@ namespace MyShop.BUS
             return result;
         }
 
-        public List<decimal> groupPriceTotalByWeek(int month, int year)
+        public async Task<List<decimal>> groupPriceTotalByWeek(int month, int year)
         {
+            _orders = await getData();
             List<decimal> result = new List<decimal>();
             DateTime firstDayOfMonth = new DateTime(year, month, 1);
             int daysInMonth = DateTime.DaysInMonth(year, month);
@@ -218,8 +229,9 @@ namespace MyShop.BUS
             return result;
         }
 
-        public List<Decimal> groupPriceTotalByYear()
+        public async Task<List<Decimal>> groupPriceTotalByYear()
         {
+            _orders = await getData();
             List<Decimal> result = new List<Decimal>();
 
             for (int year = 2021; year <= 2023; year++)
@@ -241,8 +253,9 @@ namespace MyShop.BUS
             return result;
         }
 
-        public List<Decimal> groupProfitTotalByYear()
+        public async Task<List<Decimal>> groupProfitTotalByYear()
         {
+            _orders = await getData();
             List<Decimal> result = new List<Decimal>();
 
             for (int year = 2021; year <= 2023; year++)
@@ -265,8 +278,9 @@ namespace MyShop.BUS
         }
 
 
-        public List<int> groupQuantityOfProductByYear(ProductDTO product)
+        public async Task<List<int>> groupQuantityOfProductByYear(ProductDTO product)
         {
+            _orders = await getData();
             List<int> result = new List<int>();
 
             for (int year = 2021; year <= 2023; year++)
@@ -299,8 +313,9 @@ namespace MyShop.BUS
                 yield return day;
         }
 
-        public List<Decimal> groupPriceTotalByDate(DateTime startDate, DateTime endDate)
+        public async Task<List<Decimal>> groupPriceTotalByDate(DateTime startDate, DateTime endDate)
         {
+            _orders = await getData();
             List<Decimal> result = new List<Decimal>();
 
             foreach (DateTime day in EachDay(startDate, endDate))
@@ -322,8 +337,9 @@ namespace MyShop.BUS
             return result;
         }
 
-        public List<Decimal> groupProfitTotalByDate(DateTime startDate, DateTime endDate)
+        public async Task<List<Decimal>> groupProfitTotalByDate(DateTime startDate, DateTime endDate)
         {
+            _orders = await getData();
             List<Decimal> result = new List<Decimal>();
 
             foreach (DateTime day in EachDay(startDate, endDate))
@@ -345,8 +361,9 @@ namespace MyShop.BUS
             return result;
         }
 
-        public List<int> groupQuantityOfProductByDate(ProductDTO product, DateTime startDate, DateTime endDate)
+        public async Task<List<int>> groupQuantityOfProductByDate(ProductDTO product, DateTime startDate, DateTime endDate)
         {
+            _orders = await getData();
             List<int> result = new List<int>();
 
             foreach (DateTime day in EachDay(startDate, endDate))

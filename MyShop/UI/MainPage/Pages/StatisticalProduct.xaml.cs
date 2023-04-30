@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using LiveCharts;
 using DocumentFormat.OpenXml.Bibliography;
-
+using System.Windows.Interop;
 
 namespace MyShop.UI.MainPage.Pages
 {
@@ -32,17 +32,21 @@ namespace MyShop.UI.MainPage.Pages
         private ProductBUS _productBUS;
         private ProductDTO _currentProduct;
         private Frame _pageNavigation;
-        public StatisticalProduct(Frame pageNavigation)
+        private ProgressBar _loadingProgressBar;
+        public StatisticalProduct(Frame pageNavigation, ProgressBar loadingProgressBar )
         {
             _reportBUS = new ReportBUS();
             _productBUS = new ProductBUS();
             _pageNavigation = pageNavigation;
+            _loadingProgressBar = loadingProgressBar;
             InitializeComponent();
         }
 
-        private void displayYearMode(ProductDTO product)
+        private async void displayYearMode(ProductDTO product)
         {
-            var quantities = _reportBUS.groupQuantityOfProductByYear(product);
+            _loadingProgressBar.IsIndeterminate = true;
+            var quantities = await _reportBUS.groupQuantityOfProductByYear(product);
+            _loadingProgressBar.IsIndeterminate = false;
             var valuesColChart = new ChartValues<int>();
 
             foreach (var item in quantities)
@@ -74,10 +78,11 @@ namespace MyShop.UI.MainPage.Pages
             Title.Text = "Đang hiển thị chế độ xem theo năm";
         }
 
-        private void displayMonthMode(ProductDTO product, int year)
+        private async void displayMonthMode(ProductDTO product, int year)
         {
-            var quantities = _reportBUS.groupQuantityOfProductByMonth(product, year);
-
+            _loadingProgressBar.IsIndeterminate = true;
+            var quantities =   await _reportBUS.groupQuantityOfProductByMonth(product, year);
+            _loadingProgressBar.IsIndeterminate = false;
             var valuesColChart = new ChartValues<double>();
 
             foreach (var item in quantities)
@@ -120,9 +125,11 @@ namespace MyShop.UI.MainPage.Pages
             MonthCombobox.SelectedIndex = 0;
         }
 
-        private void displayWeekMode(ProductDTO product, int month, int year)
+        private async void displayWeekMode(ProductDTO product, int month, int year)
         {
-            var quantities = _reportBUS.groupQuantityOfProductByWeek(product, year, month);
+            _loadingProgressBar.IsIndeterminate = true;
+            var quantities = await _reportBUS.groupQuantityOfProductByWeek(product, year, month);
+            _loadingProgressBar.IsIndeterminate = false;
             var valuesColChart = new ChartValues<double>();
 
             foreach (var item in quantities)
@@ -156,10 +163,11 @@ namespace MyShop.UI.MainPage.Pages
             Title.Text = "Đang hiển thị chế độ xem theo tuần";
         }
 
-        private void displayDateMode(ProductDTO product, DateTime startDate, DateTime endDate)
+        private async void displayDateMode(ProductDTO product, DateTime startDate, DateTime endDate)
         {
-            var pricesByDate = _reportBUS.groupQuantityOfProductByDate(product, startDate, endDate);
-
+            _loadingProgressBar.IsIndeterminate = true;
+            var pricesByDate = await _reportBUS.groupQuantityOfProductByDate(product, startDate, endDate);
+            _loadingProgressBar.IsIndeterminate = false;
             var valuesColChart = new ChartValues<double>();
 
             foreach (var item in pricesByDate)
@@ -238,10 +246,11 @@ namespace MyShop.UI.MainPage.Pages
             displayYearMode(_currentProduct);
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<ProductDTO> products = _productBUS.getAll();
-
+            _loadingProgressBar.IsIndeterminate = true;
+            ObservableCollection<ProductDTO> products = await _productBUS.getAll();
+            _loadingProgressBar.IsIndeterminate = false;
             ProductsCombobox.ItemsSource = products;
             ProductsCombobox.SelectedIndex = 0;
 

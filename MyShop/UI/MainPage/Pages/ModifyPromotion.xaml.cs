@@ -27,9 +27,11 @@ namespace MyShop.UI.MainPage.Pages
         private PromotionBUS _promotionBUS;
         private Frame _pageNavigation;
         private ObservableCollection< PromotionDTO> _promotion;
-        public ModifyPromotion(Frame pageNavigation)
+        private ProgressBar _loadingProgressBar;
+        public ModifyPromotion(Frame pageNavigation, ProgressBar loadingProgressBar)
         {
             _pageNavigation = pageNavigation;
+            _loadingProgressBar = loadingProgressBar;
             InitializeComponent();
         }
         private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -64,12 +66,18 @@ namespace MyShop.UI.MainPage.Pages
 
                 if (choice == MessageBoxResult.OK)
                 {
-
+                    bool isSuccess; string message;
                     var IdPromo = _promotion[i].IdPromo;
 
-                    _promotionBUS.delPromotionById((int)IdPromo);
-
-                    _promotion.RemoveAt(i);
+                    (isSuccess, message) = _promotionBUS.delPromotionById((int)IdPromo);
+                    if (!isSuccess)
+                    {
+                        MessageBox.Show(message, "Thông báo");
+                    }else
+                    {
+                        _promotion.RemoveAt(i);
+                    }
+                    
                 }
             }
         }

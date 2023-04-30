@@ -88,9 +88,9 @@ namespace MyShop.UI.MainPage.Pages
             _pageNavigation.NavigationService.GoBack();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            var products = _productBUS.getAll();
+            var products = await _productBUS.getAll();
             _products = products;
             var customers = _customerBUS.getAll();
             _customers = customers;

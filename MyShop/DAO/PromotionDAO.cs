@@ -94,8 +94,12 @@ namespace MyShop.DAO
             return id;
         }
 
-        public void delPromoById(int idPromo)
+        public Tuple<Boolean, string> delPromoById(int idPromo)
         {
+
+            string message = "";
+            bool isSuccess = true;
+            Tuple<Boolean, string> result = new Tuple<bool, string>(isSuccess, message);
             string sql = $"""
                 delete promotion 
                 where IdPromo = {idPromo}
@@ -103,7 +107,18 @@ namespace MyShop.DAO
 
             var command = new SqlCommand(sql, db.connection);
 
-            command.ExecuteNonQuery();
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                message = ex.Message;
+                isSuccess = false;
+                return new Tuple<bool, string>(isSuccess, message);
+            }
+
+            return result;
         }
 
         public void updatePromo(PromotionDTO category)
