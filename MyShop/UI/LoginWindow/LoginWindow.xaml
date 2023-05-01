@@ -26,7 +26,7 @@
                         <ImageBrush ImageSource="{Binding MainBgPath, Converter={StaticResource converter}}"/>
                     </TextBlock.Foreground>-->
             </TextBlock>
-            <TextBlock Text="Log in to your axisting account" FontWeight="Normal" FontSize="15"   HorizontalAlignment="Center" Foreground="White"/>
+            <TextBlock Text="Log in to your existing account" FontWeight="Normal" FontSize="15"   HorizontalAlignment="Center" Foreground="White"/>
 
             <TextBlock x:Name="txtFailLogin" FontWeight="Medium" FontSize="15"  Margin="0 10 10 10"  HorizontalAlignment="Center" Foreground="Red"/>
 
