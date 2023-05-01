@@ -17,7 +17,6 @@ namespace MyShop.Properties {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
-
         public static Settings Default {
             get {
                 return defaultInstance;
@@ -47,6 +46,7 @@ namespace MyShop.Properties {
                 this["IdUser"] = value;
             }
         }
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]

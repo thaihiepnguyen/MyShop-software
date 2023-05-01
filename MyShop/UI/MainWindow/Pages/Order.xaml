@@ -1,0 +1,65 @@
+<Page x:Class="MyShop.UI.MainPage.Pages.Order"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MyShop.UI.MainPage.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800" Loaded="Page_Loaded"
+      Title="Order">
+    <Page.Resources>
+        <local:RelativeToAbsoluteConverter x:Key="converter"/>
+    </Page.Resources>
+    <Grid >
+        <Canvas>
+            <TextBlock Text="_" Canvas.Left="400" Canvas.Top="65" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Button x:Name="searchButton" Width="80" Height="36" Content="Tìm kiếm" Click="searchButton_Click" Canvas.Left="602" Canvas.Top="60" Background="Orange" Foreground="White"/>
+            <ListView x:Name="dataListView" ScrollViewer.VerticalScrollBarVisibility="Disabled" Width="688" Height="223"    Background="Transparent"
+                      Canvas.Left="66" Canvas.Top="113" SelectionChanged="dataListView_SelectionChanged"  BorderThickness="0">
+                <ListView.ItemsPanel >
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate >
+                    <DataTemplate>
+                        <Button Click="Button_Click_Edit"  Background="Transparent">
+                            <StackPanel Width="100" Height="150">
+                                <Image Source="{Binding ProImage, Converter={StaticResource converter}}"></Image>
+                                <TextBlock Text="{Binding ProName}" Foreground="Black" />
+                                <TextBlock Text="{Binding Price, StringFormat='{}{0:#,0} VND'}" Foreground="Red" FontWeight="Bold"/> 
+                        </StackPanel>
+                        </Button>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+            <ComboBox SelectionChanged="currentPageComboBox_SelectionChanged" Name="currentPageComboBox" Canvas.Left="338" Canvas.Top="371" Width="102">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                        <Run Text="{Binding Item1, Mode=OneWay}"/> / <Run Text="{Binding Item2, Mode=OneWay}"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <TextBlock x:Name="infoTextBlock" Text="Đang hiển thị 7 / 32 điện thoải. " Canvas.Left="326" Canvas.Top="411" RenderTransformOrigin="0.427,2.569">
+            </TextBlock>
+            <Button x:Name="previousButton" Width="80" Height="35" Content="Previous" Click="previousButton_Click" Canvas.Left="66" Canvas.Top="360" Background="Orange" Foreground="White"/>
+            <Button x:Name="nextButton"  Width="80" Height="35" Content="Next" Click="nextButton_Click" Canvas.Left="674" Canvas.Top="360" Background="Orange" Foreground="White"/>
+            <DatePicker SelectedDateFormat="Short"   DisplayDateStart="1/04/23"
+                        x:Name="dateStartPicker"
+                  FirstDayOfWeek="Monday" Canvas.Left="275" Canvas.Top="66" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Text="Từ ngày" Canvas.Left="305" Canvas.Top="47"/>
+            <TextBlock Text="Đến ngày" Canvas.Left="462" Canvas.Top="47"/>
+            <DatePicker SelectedDateFormat="Short" x:Name="dateEndPicker"
+                DisplayDateStart="1/04/23"
+                FirstDayOfWeek="Monday" Canvas.Left="436" Canvas.Top="66" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+
+
+        </Canvas>
+    </Grid>
+</Page>

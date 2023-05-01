@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Z0PSptJ0ZgQ9d0tMfOg625a3A9FUaorDsRqbM+qw3XygxfhS0laC/97qJw6Meljjg3lLPlsmS7HovzqKEx+oqg==",
+  "dgSpecHash": "9ZkUf40yfE28LN5H1wtpe26ZRV5ed11N8Gmtww9RaJ3tlx/dj0j+seq/C5T5aLZ4n56SK+q6jIrP9F0ql5/9xA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Nguyen Thai Hiep\\Desktop\\MyShop\\MyShop-software\\MyShop\\MyShop.csproj",
   "expectedPackageFiles": [
@@ -10,8 +10,6 @@
     "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\fody\\6.6.4\\fody.6.6.4.nupkg.sha512",
     "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\fontawesome.wpf\\4.7.0.9\\fontawesome.wpf.4.7.0.9.nupkg.sha512",
     "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\livecharts.wpf.netcore3\\0.9.7\\livecharts.wpf.netcore3.0.9.7.nupkg.sha512",
-    "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\materialdesigncolors\\2.1.2\\materialdesigncolors.2.1.2.nupkg.sha512",
-    "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\materialdesignthemes\\4.8.0\\materialdesignthemes.4.8.0.nupkg.sha512",
     "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\microsoft.data.sqlclient\\5.1.1\\microsoft.data.sqlclient.5.1.1.nupkg.sha512",
@@ -28,7 +26,6 @@
     "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
-    "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512",
     "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\propertychanged.fody\\4.1.0\\propertychanged.fody.4.1.0.nupkg.sha512",
     "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.1\\system.configuration.configurationmanager.6.0.1.nupkg.sha512",
     "C:\\Users\\Nguyen Thai Hiep\\.nuget\\packages\\system.data.datasetextensions\\4.5.0\\system.data.datasetextensions.4.5.0.nupkg.sha512",

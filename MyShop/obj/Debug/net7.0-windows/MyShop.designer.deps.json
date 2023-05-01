@@ -75,26 +75,6 @@
           }
         }
       },
-      "MaterialDesignColors/2.1.2": {
-        "runtime": {
-          "lib/net7.0/MaterialDesignColors.dll": {
-            "assemblyVersion": "2.1.2.0",
-            "fileVersion": "2.1.2.0"
-          }
-        }
-      },
-      "MaterialDesignThemes/4.8.0": {
-        "dependencies": {
-          "MaterialDesignColors": "2.1.2",
-          "Microsoft.Xaml.Behaviors.Wpf": "1.1.39"
-        },
-        "runtime": {
-          "lib/net7.0/MaterialDesignThemes.Wpf.dll": {
-            "assemblyVersion": "4.8.0.0",
-            "fileVersion": "4.8.0.0"
-          }
-        }
-      },
       "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
         "runtime": {
           "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
@@ -280,14 +260,6 @@
             "assetType": "runtime",
             "assemblyVersion": "6.0.0.0",
             "fileVersion": "6.0.21.52210"
-          }
-        }
-      },
-      "Microsoft.Xaml.Behaviors.Wpf/1.1.39": {
-        "runtime": {
-          "lib/net5.0-windows7.0/Microsoft.Xaml.Behaviors.dll": {
-            "assemblyVersion": "1.1.0.0",
-            "fileVersion": "1.1.39.4716"
           }
         }
       },
@@ -636,20 +608,6 @@
       "path": "livecharts.wpf.netcore3/0.9.7",
       "hashPath": "livecharts.wpf.netcore3.0.9.7.nupkg.sha512"
     },
-    "MaterialDesignColors/2.1.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-7hf7MLRB6JXHj+IOLh3z2L9yBr58QhgpWQXyvffAoWdSamVO+DMEp3DqdWds0R5Rf6dp9yQ9hYUZ+wSsVZG1nQ==",
-      "path": "materialdesigncolors/2.1.2",
-      "hashPath": "materialdesigncolors.2.1.2.nupkg.sha512"
-    },
-    "MaterialDesignThemes/4.8.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-rJDuWrSIqK+sA/RvZlJTlPF9Yp2YBdEZdiDtSHG/CEumkqJPMSewGga2pWF9gnRHkS5D7UWPaRRmT11Wb7F2Cw==",
-      "path": "materialdesignthemes/4.8.0",
-      "hashPath": "materialdesignthemes.4.8.0.nupkg.sha512"
-    },
     "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
       "type": "package",
       "serviceable": true,
@@ -761,13 +719,6 @@
       "sha512": "sha512-hqTM5628jSsQiv+HGpiq3WKBl2c8v1KZfby2J6Pr7pEPlK9waPdgEO6b8A/+/xn/yZ9ulv8HuqK71ONy2tg67A==",
       "path": "microsoft.win32.systemevents/6.0.0",
       "hashPath": "microsoft.win32.systemevents.6.0.0.nupkg.sha512"
-    },
-    "Microsoft.Xaml.Behaviors.Wpf/1.1.39": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-8PZKqw9QOcu42xk8puY4P1+EXHL9YGOR9b7qhaYx5cILHul456H073tj99vyPcCt0W0781T9RwHqkx507ZyUpQ==",
-      "path": "microsoft.xaml.behaviors.wpf/1.1.39",
-      "hashPath": "microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512"
     },
     "PropertyChanged.Fody/4.1.0": {
       "type": "package",

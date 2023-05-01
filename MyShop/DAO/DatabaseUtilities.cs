@@ -16,6 +16,7 @@ namespace MyShop.DAO
         private string _databaseName;
         private string _user;
         private string _password;
+        public static bool isSelectedDatabase = false;
 
         private static DatabaseUtilitites _instance = null;
         SqlConnection _connection;
@@ -44,7 +45,7 @@ namespace MyShop.DAO
             _password = password;
 
             string connectionString = $"""
-                Server = .\{server};
+                Server = {server};
                 User ID = {user}; Password={password};
                 Database = {databaseName};
                 TrustServerCertificate=True
@@ -55,6 +56,7 @@ namespace MyShop.DAO
             try
             {
                 _connection.Open();
+                isSelectedDatabase = true;
 
             }
             catch (Exception ex)

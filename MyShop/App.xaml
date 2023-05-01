@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:MyShop"
              LoadCompleted="Application_LoadCompleted"
-            StartupUri="UI\LoginPage\LoginWindow.xaml">
+            StartupUri="UI\ConfigWindow.xaml">
              <!--Muốn Start Window gì thì cập nhật ở đây--> 
     <Application.Resources>
         <FontFamily x:Key="FontAwesome">/Fonts/fontawesome-webfont.ttf#FontAwesome</FontFamily>

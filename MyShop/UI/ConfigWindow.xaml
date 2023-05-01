@@ -1,0 +1,219 @@
+﻿<Window x:Class="MyShop.UI.ConfigWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyShop.UI"
+        xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
+        mc:Ignorable="d"
+        Title="ConfigWindow" Height="350" Width="310" WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
+    <Grid Name="MainContainer">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+
+        <!--Hiển thị title-->
+        <TextBlock
+            Grid.Column="1"
+            Text="Database configuration"
+            Margin="10"
+            Foreground="#8B4000"
+            VerticalAlignment="Center"
+            FontSize="20"
+            FontWeight="Bold"
+            FontFamily="Segoe UI"
+            >
+        </TextBlock>
+
+        <Border 
+            Grid.Row="1"
+            BorderThickness="0.5" BorderBrush="Orange" CornerRadius="5" 
+            Background="White"
+            Height="30"
+            Width="275"
+            Margin="10"
+            HorizontalAlignment="Left">
+            <Grid
+                Width="265"
+                Margin="0"
+                HorizontalAlignment="Center">
+                <TextBox 
+                    BorderThickness="0"
+                    VerticalContentAlignment="Center"
+                    FontSize="13"
+                    Width="265"
+                    x:Name="ServerTermTextBox">
+                </TextBox>
+                <TextBlock IsHitTestVisible="False" Text="Nhập server" 
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               HorizontalAlignment="Left" Margin="5,0,0,0"
+                               Foreground="DarkGray">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=ServerTermTextBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+        </Border>
+
+        <Border 
+            Grid.Row="2"
+            BorderThickness="0.5" BorderBrush="Orange" CornerRadius="5" 
+            Background="White"
+            Height="30"
+            Width="275"
+            Margin="10"
+            HorizontalAlignment="Left">
+            <Grid
+                Width="265"
+                Margin="0"
+                HorizontalAlignment="Center">
+                <TextBox 
+                    BorderThickness="0"
+                    VerticalContentAlignment="Center"
+                    FontSize="13"
+                    Width="265"
+                    x:Name="UsernameTermTextBox">
+                </TextBox>
+                <TextBlock IsHitTestVisible="False" Text="Nhập username" 
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               HorizontalAlignment="Left" Margin="5,0,0,0"
+                               Foreground="DarkGray">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=UsernameTermTextBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+        </Border>
+
+        <Border 
+            Grid.Row="3"
+            BorderThickness="0.5" BorderBrush="Orange" CornerRadius="5" 
+            Background="White"
+            Height="30"
+            Width="275"
+            Margin="10"
+            HorizontalAlignment="Left">
+            <Grid
+                Width="265"
+                Margin="0"
+                HorizontalAlignment="Center">
+                <TextBox 
+                    BorderThickness="0"
+                    VerticalContentAlignment="Center"
+                    FontSize="13"
+                    Width="265"
+                    x:Name="PasswordTermTextBox">
+                </TextBox>
+                <TextBlock IsHitTestVisible="False" Text="Nhập password" 
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               HorizontalAlignment="Left" Margin="5,0,0,0"
+                               Foreground="DarkGray">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=PasswordTermTextBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+        </Border>
+
+        <Border 
+            Grid.Row="4"
+            BorderThickness="0.5" BorderBrush="Orange" CornerRadius="5" 
+            Background="White"
+            Height="30"
+            Width="275"
+            Margin="10"
+            HorizontalAlignment="Left">
+            <Grid
+                Width="265"
+                Margin="0"
+                HorizontalAlignment="Center">
+                <TextBox 
+                    BorderThickness="0"
+                    VerticalContentAlignment="Center"
+                    FontSize="13"
+                    Width="265"
+                    x:Name="DatabaseTermTextBox">
+                </TextBox>
+                <TextBlock IsHitTestVisible="False" Text="Nhập tên database" 
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               HorizontalAlignment="Left" Margin="5,0,0,0"
+                               Foreground="DarkGray">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=DatabaseTermTextBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+        </Border>
+
+        <!--Hiển thị nút bấm đăng xuất-->
+        <Button
+                Grid.Row="5" 
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Center"
+                Name="Button"
+                Width="110"
+                Height="35"
+                Style="{StaticResource MyButtonStyle}"
+                BorderThickness="0.5"
+                BorderBrush="Orange"
+                Click="Button_Click"
+            >
+            <StackPanel
+                Orientation="Horizontal">
+                <fa:ImageAwesome 
+                        Name="Logout"
+                        Width="16"
+                        Height="16"
+                        RenderOptions.BitmapScalingMode="HighQuality"
+                        Icon="SignIn"
+                        Margin="5"
+                        Foreground="#8B4000"
+                        />
+                <TextBlock
+                        FontWeight="Bold"
+                        Foreground="#8B4000"
+                        VerticalAlignment="Center"
+                    >Đăng nhập</TextBlock>
+            </StackPanel>
+        </Button>
+    </Grid>
+</Window>

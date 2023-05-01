@@ -52,10 +52,6 @@
               "target": "Package",
               "version": "[0.9.7, )"
             },
-            "MaterialDesignThemes": {
-              "target": "Package",
-              "version": "[4.8.0, )"
-            },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
               "version": "[5.1.1, )"
