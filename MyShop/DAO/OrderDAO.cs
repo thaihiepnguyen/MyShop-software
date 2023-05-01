@@ -216,7 +216,7 @@ namespace MyShop.DAO
                 }
 
                 reader.Close();
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(500);
             });
 
             return list;
