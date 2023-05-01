@@ -36,6 +36,16 @@ namespace MyShop.UI.MainPage.Pages
             _pageNavigation = pageNavigation;
             _loadingProgressBar = loadingProgressBar;
             InitializeComponent();
+
+            _chart = chart;
+
+            _chart.AxisY.Add(new Axis
+            {
+                Foreground = Brushes.Black,
+                Title = "Doanh thu/ lợi nhuận",
+                MinValue = 0
+            });
+            Title.Text = "Đang hiển thị chế độ xem theo năm";
         }
 
         private async void displayYearMode()
@@ -249,15 +259,6 @@ namespace MyShop.UI.MainPage.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            _chart = chart;
-          
-            _chart.AxisY.Add(new Axis
-            {
-                Foreground = Brushes.Black,
-                Title = "Doanh thu/ lợi nhuận",
-                MinValue = 0
-            });
-            Title.Text = "Đang hiển thị chế độ xem theo năm";
             displayYearMode();
         }
 

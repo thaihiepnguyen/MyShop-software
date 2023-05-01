@@ -248,12 +248,6 @@ namespace MyShop.UI.MainPage.Pages
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            _loadingProgressBar.IsIndeterminate = true;
-            ObservableCollection<ProductDTO> products = await _productBUS.getAll();
-            _loadingProgressBar.IsIndeterminate = false;
-            ProductsCombobox.ItemsSource = products;
-            ProductsCombobox.SelectedIndex = 0;
-
             chart.AxisY.Add(new Axis
             {
                 Foreground = Brushes.Black,
@@ -261,6 +255,13 @@ namespace MyShop.UI.MainPage.Pages
                 MinValue = 0
             });
             Title.Text = "Đang hiển thị chế độ xem theo năm";
+
+            _loadingProgressBar.IsIndeterminate = true;
+            ObservableCollection<ProductDTO> products = await _productBUS.getAll();
+            _loadingProgressBar.IsIndeterminate = false;
+            ProductsCombobox.ItemsSource = products;
+            ProductsCombobox.SelectedIndex = 0;
+
             _currentProduct = (ProductDTO)ProductsCombobox.SelectedValue;
             displayYearMode(_currentProduct);
         }
