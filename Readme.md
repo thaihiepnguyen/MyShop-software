@@ -20,7 +20,7 @@
 # Development
 
 ```
-- Run `MyShopDB_10.sql` file in Assets/scriptDBs/ folder
+- Run `MyShopDB_10.sql` file in Assets/scriptDBs/. folder
 - Install the project throught `setup1.exe` file
 ```
 
@@ -31,32 +31,31 @@
 ```
 
 ### Note: 
-- This project runs on .NET 7
+- This project runs on Microsoft .NET 7 framework
 - Please remember that entering your SQL Server login information correctly
 
 # Overview
 
+- DashBoardPage
+    ![dashboard](./Overview/1.PNG)
 - HomePage
-  ![home](./Overview/HomePage.png)
-- LoginPage
-  ![product](./Overview/LoginPage.png)
-- BookPage
-  ![checkout](./Overview/BookPage.png)
-- DetailOfBookPage
-  ![user](./Overview/BookDetailPage.png)
-- CustomerPage
-    ![user](./Overview/CustomerPage.png)
-- PromotionPage
-    ![user](./Overview/PromotionPage.png)
-- ProfilePage
-    ![user](./Overview/ProfilePage.png)
-- EditProfilePage
-    ![user](./Overview/EditProfilePage.png)
-- OrderPage
-    ![user](./Overview/OrderPage.png)
+    ![home](./Overview/2.PNG)
+- CategoriesPage
+    ![productdetail](./Overview/8.PNG)
+- OrdersPage
+    ![orders](./Overview/5.PNG)
+- AddPordersPage
+    ![addorders](./Overview/10.PNG)
+- ReportPage
+    ![report](./Overview/7.PNG)
+- CategoriesPage
+    ![cateogries](./Overview/3.PNG)
+- AddProductPage
+    ![user](./Overview/9.PNG)
+- ReportProcuctPage
+    ![reportproduct](./Overview/6.PNG)
 
-Authors: Nguyễn Thái Hiệp, Đinh Nguyễn Duy Khang, Trần Nguyên Phong
+Authors: Nguyễn Thái Hiệp, Nguyễn Thị Ngọc Hải, Đỗ Đức Duy, Nguyễn Hồng Tấn
 
 
-
-
+Thanks for watching.
