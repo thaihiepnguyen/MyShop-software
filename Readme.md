@@ -34,6 +34,10 @@
 - This project runs on Microsoft .NET 7 framework
 - Please remember that entering your SQL Server login information correctly
 
+# Database
+
+!database(./Overview/0.PNG)
+
 # Overview
 
 - DashBoardPage
