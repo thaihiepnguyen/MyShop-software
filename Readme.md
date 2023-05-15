@@ -40,11 +40,13 @@
 
 # Overview
 
+- Video Demo: https://www.youtube.com/watch?v=UzZvBsYFgZI&t=45s
+
 - DashBoardPage
     ![dashboard](./Overview/1.PNG)
 - HomePage
     ![home](./Overview/2.PNG)
-- CategoriesPage
+- DetailPage
     ![productdetail](./Overview/8.PNG)
 - OrdersPage
     ![orders](./Overview/5.PNG)
