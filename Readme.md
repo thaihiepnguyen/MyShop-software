@@ -4,7 +4,7 @@
 - Made with WPF Framework for User Interface
 - Made with SQL Database
 - The Project of **Windows Programming** Subject (Trần Duy Quang, M.Sc Instructor)
-- Scores: ?/10
+- Scores: 10/10
 - Members of the Group:
 
     1. Nguyễn Thái Hiệp
